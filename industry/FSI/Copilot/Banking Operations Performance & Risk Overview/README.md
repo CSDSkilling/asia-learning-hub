@@ -150,32 +150,73 @@ Using Python, forecast next quarter net flows and identify clusters of recurring
 
 ## Copilot in Word
 
+
+### 🏦 Demo Prompt: Create a Leadership-Ready Portfolio Report
+
+Creating executive summary in Word
+
+```text
+Create a leadership-ready portfolio performance summary based on the analysis from the Excel workbook [Attach the excel here].
+
+Include:
+
+- Executive Summary
+- Key Portfolio Movements
+- Product Lines Driving Income
+- Regional Observations
+- Risk Watchlist
+- Recommended Management Actions
+
+Guidelines:
+- Keep the report concise and insight-driven.
+- Use clear headings and bullet points.
+- Highlight significant trends, risks, and business implications.
+- Base all observations only on the data available in the workbook.
+- Present all financial figures in INR crore (₹ Cr).
+- Use a professional tone suitable for senior banking leaders.
+```
+``
+
+Save the document.
+
 ```text
 Write a 150-word executive risk summary based on this workbook for Bank leadership.
 ```
 
-## Key Takeaway
+## Copilot in Outlook
 
-Copilot in Excel helps banking teams move from raw branch, deposit and lending data to executive-ready insights, dashboards, risk summaries, and advanced forecasts in one connected workflow.
+After generating the Word report, the report is ready but business value is still not created. Somebody needs to read it. Now we move from documentation to communication.
 
-## Appendix: Intentional Data Issues
+The Head of Retail Banking does not want:
+	• 10 worksheets
+	• 30 charts
+	• 5 pages of data
+They want:
+	• What happened?
+	• What should I worry about?
+	• What action do I need to take?
 
-The **Branch Flows** worksheet contains several intentional data-quality issues for the cleanup demonstrations:
+Give the below prompt in the Copilot in Outlook:
 
-| Issue | Cell or range | What to look for | Expected correction |
-|---|---|---|---|
-| Product Line | B7 | Retail Deposit | Retail Deposits |
-| Product Line | B8 | Retail Lending with a trailing space | Retail Lending |
-| Product Line | B9 | Cards and Payments | Cards & Payments |
-| Product Line | B15 | Wealth and Third Party Distribution | Wealth & Third-Party Distribution |
-| Customer Segment | E16 | Priority Banking | Priority |
-| Customer Segment | E17 | Self Employed MSME | Self-Employed / MSME |
-| Duplicate record | A25:O25 | Exact duplicate of A4:O4 (Jan Home Loan), with hardcoded values instead of formulas | Remove or flag the duplicate |
-| Duplicate record | A26:O26 | Exact duplicate of A10:O10 (Feb Mutual Fund SIP), with hardcoded values instead of formulas | Remove or flag the duplicate |
-| Net Flows outlier | I27 | Rs 48,500 Cr on a Rs 2,600 Cr book | Rs 485 Cr |
-| Spread outlier | K27 | 170 bps | 17 bps |
+### 📧 Demo Prompt: Draft an Executive Email
 
-### Why this matters in the demo
+```text
+Draft an email to the Head of Retail Banking summarizing the portfolio review.
 
-Because of the misspelled product lines, the SUMIF block on the **Summary** sheet does not tie back to the grand totals, and the outlier row pushes the average flow rate and the "top income product line" to the wrong answer. Run the dashboard prompt **before** cleanup and again **after** — the before/after difference is the strongest moment in the session.
+Reference the attached executive summary. [Attach the saved word document from the previous step]
 
+Include:
+- Key portfolio highlights
+- Income opportunities
+- Risk areas requiring attention
+- Three recommended actions
+
+Requirements:
+- Keep the email under 200 words.
+- Use a professional and executive-friendly tone.
+- Focus on business impact and decision-making insights.
+- Highlight material changes in portfolio performance.
+- Clearly distinguish growth opportunities from risk concerns.
+- Present recommendations as actionable management priorities.
+- Do not include technical analysis details unless they directly impact business outcomes.
+```
