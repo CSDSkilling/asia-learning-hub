@@ -5,9 +5,12 @@ You're a banking operations analyst at Bank reviewing deposit and loan book move
 
 ## Demo Setup
 
-Use:
+**Workbook:** [Bank Portfolio Insights Demo](https://github.com/CSDSkilling/asia-learning-hub/blob/897c068de60f6282b2eae9fd842b4806071efb9a/industry/FSI/Copilot/Banking%20Operations%20Performance%20%26%20Risk%20Overview/Bank_Portfolio_Insights_Demo.xlsx)
 
-> NOTE: This workbook uses synthetic sample data for training. All figures are in INR crore (Rs Cr).
+> **Note:** This workbook contains **synthetic sample data** created solely for training and demonstration purposes. It does not represent any real customers, accounts, transactions, or financial institutions.
+>
+
+> **Demo Objective:** Use this workbook to demonstrate how Microsoft Copilot can analyze banking operations, portfolio performance, risk indicators, customer trends, and business outcomes through natural language prompts, helping business
 
 ## Copilot in Excel
 
