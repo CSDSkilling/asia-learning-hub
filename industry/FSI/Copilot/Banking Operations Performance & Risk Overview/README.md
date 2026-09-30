@@ -1,5 +1,7 @@
 # Bank Banking Operations Demo
 
+This demo uses Copilot in excel, word and outlook.
+
 **Scenario:**
 You're a banking operations analyst at Bank reviewing deposit and loan book movements, balances, fee and spread income, customer segments, and portfolio risk signals across zones.
 
