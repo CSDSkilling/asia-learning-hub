@@ -1,4 +1,4 @@
-## From Customer Complaints to a Retention Decision: A Telco Care Manager’s Copilot Journey
+# From Customer Complaints to a Retention Decision: A Telco Care Manager’s Copilot Journey
 
 AsterWave Mobile is seeing repeated customer complaints, particularly around slow data, dropped calls, and intermittent coverage.
 
@@ -14,7 +14,7 @@ The challenge is that making a responsible decision requires bringing together s
 
 The manager uses Microsoft Copilot as a connected workflow across Chat, Excel, Word, PowerPoint, and Outlook.
 
-### Paint points and demonstrated benefits
+## Paint points and demonstrated benefits
 | **Pain point** | **How Copilot helps** | **Business benefits** |
 |----------------|-----------------------|-----------------------|
 | Evidence is scattered across emails, reports, files, and spreadsheets | Copilot Chat creates a grounded situation summary | Less manual searching and consolidation |
@@ -24,10 +24,10 @@ The manager uses Microsoft Copilot as a connected workflow across Chat, Excel, W
 | Technical and business stakeholders need different levels of detail | Copilot in PowerPoint converts the brief into an executive narrative | Clearer stakeholder alignment and decision-making |
 | Approvals are spread across multiple teams | Copilot in Outlook drafts targeted approval requests | Faster coordination without repeatedly rewriting context |
 
-### Demo files
+## Demo files
 [Telco_Customer_Retention_Demo_Files.zip](https://github.com/CSDSkilling/asia-learning-hub/raw/refs/heads/main/industry/Telco/Copilot/Customer%20Retention%20Decision/data-files/Telco_Customer_Retention_Demo_Files.zip)
 
-### Demo journey
+## Demo journey
 | **Stage** | **Copilot Experience** | **Story** |
 |-----------|------------------------|-----------|
 | 1. Understand | Copilot Chat | Bring together complaint, network, policy, and communication documents to understand what is happening and what needs to be decided. |
@@ -36,7 +36,7 @@ The manager uses Microsoft Copilot as a connected workflow across Chat, Excel, W
 | 4. Communicate | Copilot in PowerPoint | Transform the detailed brief and analysis into an executive decision story showing the problem, evidence, proposed intervention, controls, and measures of success. |
 | 5. Coordinate | Copilot in Outlook | Draft a concise approval request to Care, Network Operations, Data Governance, Legal, and Finance, making the decision required from each stakeholder explicit. |
 
-### Stage 1 - Understand the situation in Copilot Chat
+## Stage 1 - Understand the situation in Copilot Chat
 - **Situation summary:** Attach all Word files and run the following prompt:
 >Using the Meranti Coast complaint summary, service-quality report, retention policy, and related emails, prepare a situation summary for a Customer Care Operations Manager.
 >
@@ -63,20 +63,20 @@ The manager uses Microsoft Copilot as a connected workflow across Chat, Excel, W
 >Review the proposed action plan against the retention policy.
 >Identify any steps requiring human approval, consent verification, vulnerable-customer handling, or confirmation from Network Operations.
 
-### Stage 2 - Clean and analyze the retention cohort in Excel
-#### Detect and clean data issues
+## Stage 2 - Clean and analyze the retention cohort in Excel
+### Detect and clean data issues
 >Inspect the Retention Cohort table for data quality issues.
 >Look for inconsistency, missing value, duplicate customer ID, invalid data type and formatting issues.
 >Create a review table showing the row, column, issue, and recommended handling.
 >Do not change the source data yet.
 
-#### Explore data
+### Explore data
 Create a Word file with name: `Excel Analysis.docx`, capture the following prompts and results in this file. It will be used to draft the retention decision package.
 >Compare download speed, latency, and dropped-call rate by plan.
 
 >Which complaint reasons are most common overall, and by segment?
 
-#### Analyze data
+### Analyze data
 Capture the following prompts and results in `Excel Analysis.docx`.
 >What characteristics distinguish high-risk customers from low-risk customers?
 
@@ -84,7 +84,7 @@ Capture the following prompts and results in `Excel Analysis.docx`.
 
 >Compare churn risk, service quality, complaint volume, and offer coverage by plan and tenure band.
 
-#### Create churn intervention cohort
+### Create churn intervention cohort
 Capture the following prompt and result in `Excel Analysis.docx`.
 >Propose a churn intervention cohort, include only customers who:
 >- Have two or more contacts in the last 30 days
@@ -96,7 +96,7 @@ Capture the following prompt and result in `Excel Analysis.docx`.
 >
 >List all data in tables with summary of selection criteria.
 
-#### Other analysis and data visualization
+### Other analysis and data visualization
 >Create a professional PivotTable on a new worksheet. Put complaint reason in rows, risk band in columns, and add customer count plus total monthly fee to values. Add eligible offer, segment and plan as filters.
 
 >Add an Offer Coverage column showing Covered when an active eligible offer exists, otherwise Gap.
@@ -109,7 +109,7 @@ Capture the following prompt and result in `Excel Analysis.docx`.
 
 >Create a heatmap for Complaint Reason × Risk Band in a new sheet.
 
-### Stage 3 - Create the retention intervention brief in Word
+## Stage 3 - Create the retention intervention brief in Word
 - **Create draft:** Attach the complaint summary, service quality report, retention eligibility rule, and `Excel Analysis.docx`:
 >Using the attached Meranti Coast complaint summary, service-quality report, retention policy, and the Excel analysis, draft a two-page retention intervention brief for the Customer Care Director.
 >
@@ -145,7 +145,7 @@ Capture the following prompt and result in `Excel Analysis.docx`.
 >- Which controls prevent inappropriate outreach
 >- What approval is required
 
-### Stage 4 - Convert the brief into an executive presentation
+## Stage 4 - Convert the brief into an executive presentation
 - **Create draft:** Open an existing presentation with the right template. Run the prompt with attached retention brief created in the previous stage.
 >Create a new seven-slide executive presentation from the attached Meranti Coast retention intervention brief.
 >
@@ -169,7 +169,7 @@ Capture the following prompt and result in `Excel Analysis.docx`.
 >- Missing decisions
 >- Governance controls that should be more visible
 
-### Stage 5 - Coordinate approvals in Outlook
+## Stage 5 - Coordinate approvals in Outlook
 - **Create draft:** Run the prompt with attached retention brief created in the previous stage.
 >Draft an email to Customer Care, Network Operations, Data Governance, Legal, and Finance.
 >
@@ -187,7 +187,7 @@ Capture the following prompt and result in `Excel Analysis.docx`.
 >Keep the decision requested from each team explicit and easy to scan.
 >Use a professional, neutral tone.
 
-### Final demo outcome
+## Final demo outcome
 By the end of the story, the care manager has produced:
 - A grounded situation summary
 - A cleaned and analyzed retention cohort
