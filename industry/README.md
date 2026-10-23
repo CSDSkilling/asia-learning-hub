@@ -8,3 +8,4 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Financial Services** | Copilot | [Banking Operations Performance & Risk Review](FSI/Copilot/Banking%20Operations%20Performance%20%26%20Risk%20Overview) |
 | **Financial Services** | Agent Builder | [Relationship Manager Assistant](FSI/Agent%20builder/Relationship%20Manager%20Assistant) |
 | **Telco** | Copilot | [From Customer Complaints to a Retention Decision](Telco/Copilot/Customer%20Retention%20Decision) |
+| **Telco** | Copilot | [Regional 5G Service Degradation: From Alarm to Executive Action](Telco/Copilot/5G%20Service%20Degradation) |
