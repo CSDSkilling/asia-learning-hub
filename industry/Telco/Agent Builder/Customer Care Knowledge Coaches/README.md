@@ -32,7 +32,7 @@ This demo shows three agents built with **Agent Builder** in Microsoft 365 Copil
 | New customer care representatives take a long time to learn the rules | The Onboarding Coach teaches, quizzes and role-plays, with rubric-based feedback | Faster, safer ramp-up on fictional cases |
 
 ## Demo files
-[Telco_Customer_Care_Coaches_Demo_Files.zip](https://github.com/CSDSkilling/asia-learning-hub/raw/refs/heads/main/industry/Telco/Agent%20builder/Customer%20Care%20Knowledge%20Coaches/data-files/Telco_Customer_Care_Coaches_Demo_Files.zip)
+[Telco_Customer_Care_Coaches_Demo_Files.zip](https://github.com/CSDSkilling/asia-learning-hub/blob/main/industry/Telco/Agent%20Builder/Customer%20Care%20Knowledge%20Coaches/data-files/Telco_Customer_Care_Coaches_Demo_Files.zip)
 
 | **File** | **Contents** | **Used by** |
 |----------|--------------|-------------|
