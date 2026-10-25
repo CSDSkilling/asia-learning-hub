@@ -34,6 +34,8 @@ Attach all demo files and run the following prompts:
 >Create a preparation checklist for the review. Include technical validation, customer and SLA impact, approval requirements, and the decision owner for each topic.
 
 ## Stage 2 - Investigate in Excel
+Open Excel file **AsterWave_Harbor_District_Service_Assurance.xlsx**.
+
 ### Detect and clean data issues
 >Review the data in this table, identify data quality issues such as inconsistency, wrong format, out-of-range values, missing values etc. Create a data quality reporting with details of the type of issue, location, and suggestion.
 
