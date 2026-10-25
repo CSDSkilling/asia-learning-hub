@@ -61,18 +61,20 @@ Open Excel file **AsterWave_Harbor_District_Service_Assurance.xlsx**.
 - **Create draft:** Attach all demo files:
 >Based on the AsterWave source material and Excel analysis, draft an incident decision brief using the format in the incident brief template.
 
+Save the file as "**Harbor District 5G Service Incident Brief.docx**".
+
 - **Refine**
 >Rewrite the executive summary for a senior operations audience in no more than six bullets. Preserve uncertainty where root cause is not confirmed.
 
 ## Stage 4 - Communicate in PowerPoint
-- **Create draft:** Open an existing presentation with the right template. Run the prompt with attached incident decision brief created in the previous stage.
+- **Create draft:** Open an existing presentation with the right template. Run the prompt with attached "**Harbor District 5G Service Incident Brief.docx**".
 >Create a five-slide executive presentation from the attached incident brief: 1) situation and scope, 2) customer and service impact, 3) evidence and incident timeline, 4) recommended actions and safeguards, and 5) decisions required today. Use concise titles that state the takeaway. Do not present CHG-58217 as the confirmed root cause. Use the format and styles in this presentation.
 
 - **Review and refine**
 >Review this deck as if you were the decision maker. Identify what is unclear, too detailed, or missing. Recommend changes that strengthen the business impact, evidence, risks, trade-offs, recommendation, and decision required. Provide slide-by-slide suggestions and propose a stronger executive storyline.
 
 ## Stage 5 - Coordinate in Outlook
-- **Create draft:** Run the prompt with attached incident decision brief created in the previous stage.
+- **Create draft:** Run the prompt with attached "**Harbor District 5G Service Incident Brief.docx**".
 >Draft an action-request email to Network Operations, Change Management, Customer Care, Enterprise Services, Finance, and Legal. Summarize the Harbor District degradation and ask each team to confirm its assigned action, dependency, and completion time. State clearly that root cause remains under validation.
 
 - **Review and refine**
