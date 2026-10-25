@@ -64,6 +64,8 @@ The manager uses Microsoft Copilot as a connected workflow across Chat, Excel, W
 >Identify any steps requiring human approval, consent verification, vulnerable-customer handling, or confirmation from Network Operations.
 
 ## Stage 2 - Clean and analyze the retention cohort in Excel
+Open Excel file **AsterWave_Retention_Cohort_Demo.xlsx**.
+
 ### Detect and clean data issues
 >Inspect the Retention Cohort table for data quality issues.
 >Look for inconsistency, missing value, duplicate customer ID, invalid data type and formatting issues.
@@ -71,13 +73,11 @@ The manager uses Microsoft Copilot as a connected workflow across Chat, Excel, W
 >Do not change the source data yet.
 
 ### Explore data
-Create a Word file with name: `Excel Analysis.docx`, capture the following prompts and results in this file. It will be used to draft the retention decision package.
 >Compare download speed, latency, and dropped-call rate by plan.
 
 >Which complaint reasons are most common overall, and by segment?
 
 ### Analyze data
-Capture the following prompts and results in `Excel Analysis.docx`.
 >What characteristics distinguish high-risk customers from low-risk customers?
 
 >Does churn risk rise with more contacts, complaints, degraded networks, or dropped calls?
@@ -85,8 +85,8 @@ Capture the following prompts and results in `Excel Analysis.docx`.
 >Compare churn risk, service quality, complaint volume, and offer coverage by plan and tenure band.
 
 ### Create churn intervention cohort
-Capture the following prompt and result in `Excel Analysis.docx`.
->Propose a churn intervention cohort, include only customers who:
+Run the following prompt in **Edit** mode:
+>Propose a churn intervention cohort in a new worksheet, include only customers who:
 >- Have two or more contacts in the last 30 days
 >- Show degraded network experience
 >- Match an active approved offer
@@ -110,8 +110,8 @@ Capture the following prompt and result in `Excel Analysis.docx`.
 >Create a heatmap for Complaint Reason × Risk Band in a new sheet.
 
 ## Stage 3 - Create the retention intervention brief in Word
-- **Create draft:** Attach the complaint summary, service quality report, retention eligibility rule, and `Excel Analysis.docx`:
->Using the attached Meranti Coast complaint summary, service-quality report, retention policy, and the Excel analysis, draft a two-page retention intervention brief for the Customer Care Director.
+- **Create draft:** Attach **Meranti_Coast_Complaint_Summary.docx**, **Meranti_Coast_Service_Quality_Report.docx**, **Retention_Eligibility_Policy.docx**, and **AsterWave_Retention_Cohort_Demo.xlsx**:
+>Using the attached Meranti Coast complaint summary, service-quality report, retention policy, and the "Churn Intervention" worksheet in the attached Excel, draft a two-page retention intervention brief for the Customer Care Director.
 >
 >Use these sections:
 >1. Decision requested
