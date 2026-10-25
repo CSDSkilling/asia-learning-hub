@@ -126,6 +126,8 @@ Run the following prompt in **Edit** mode:
 >
 >Clearly distinguish confirmed facts, analytical indicators, and recommendations.
 
+Save the file as "**Meranti Coast Retention Intervention Brief.docx**".
+
 - **Review and refine**
 >Review this brief for senior-management readability.
 >
@@ -146,7 +148,7 @@ Run the following prompt in **Edit** mode:
 >- What approval is required
 
 ## Stage 4 - Convert the brief into an executive presentation
-- **Create draft:** Open an existing presentation with the right template. Run the prompt with attached retention brief created in the previous stage.
+- **Create draft:** Open an existing presentation with the right template. Run the prompt with attached "**Meranti Coast Retention Intervention Brief.docx**".
 >Create a new seven-slide executive presentation from the attached Meranti Coast retention intervention brief.
 >
 >Use this structure with customer journey visual and KPI cards.
@@ -170,7 +172,7 @@ Run the following prompt in **Edit** mode:
 >- Governance controls that should be more visible
 
 ## Stage 5 - Coordinate approvals in Outlook
-- **Create draft:** Run the prompt with attached retention brief created in the previous stage.
+- **Create draft:** Run the prompt with attached "**Meranti Coast Retention Intervention Brief.docx**".
 >Draft an email to Customer Care, Network Operations, Data Governance, Legal, and Finance.
 >
 >Summarize the attached Meranti Coast retention intervention brief, and request approval.
