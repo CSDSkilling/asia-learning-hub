@@ -98,6 +98,8 @@ After completing this use case, learners will be able to:
 5. Use **Copilot in Teams** to recap a meeting and extract actions, and **Copilot in Outlook** to draft a follow-up.
 6. Apply **responsible AI** practices: verifying figures, keeping analysis at team level, and reviewing tone before sending to a client.
 
+<img width="1920" height="1080" alt="Demo_Flow" src="https://github.com/user-attachments/assets/6978b038-2f12-45ca-bcf6-8266cc401e8a" />
+
 ---
 
 ## Prerequisites
