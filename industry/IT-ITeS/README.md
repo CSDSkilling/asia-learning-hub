@@ -408,4 +408,4 @@ The scenario is deliberately **geography-neutral** so trainers in any market can
 
 ---
 
-**Author:** Neeraj Kumar, Microsoft Technical Trainer (IT/ITeS Industry Lead) · **Tester:** Shivender Pratap Singh · **Version:** 1.0 · **Date:** October 2026
+**Author:** Neeraj Kumar, Microsoft Technical Trainer (IT/ITeS Industry Lead) · **Version:** 1.0 · **Date:** October 2026
