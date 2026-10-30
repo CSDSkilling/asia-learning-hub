@@ -466,3 +466,9 @@ Synthetic demo assets used by this scenario are generated separately using the a
 > Present it as a demonstration of how a Frontline Service Officer can use Microsoft 365 Copilot to work with changing approved information during a high-volume public service incident, while retaining human judgment and accountability.
 >
 > **Small improvement. Large public impact.**
+>
+**The README explains the scenario.**
+
+**The Trainer Guide delivers the scenario.**
+
+**The Cowork instructions build the scenario environment.**
