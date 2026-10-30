@@ -1,4 +1,4 @@
-# Contoso Bank — Copilot Studio banking agent lab
+# Contoso Bank — Copilot Studio banking agent lab (Standard Harness)
 
 Build **Contoso Friendly Banker**, a Microsoft Copilot Studio agent that helps customers check balances, transfer money, pay bills, and buy vouchers. The agent calls a real REST API that you deploy yourself to Azure App Service.
 
