@@ -5,10 +5,13 @@
 | | |
 | --- | --- |
 | **Time** | 25 minutes |
-| **You will** | Create a new resource group and a Premium v3 App Service plan in Australia East, then deploy the Contoso Bank app: its website, its banking API, and its MCP endpoint for AI agents |
+| **You will** | Create a new resource group and a Premium v3 App Service plan in Australia East, then deploy the Contoso Bank app: its website and its banking API |
 | **You need** | An Azure subscription where you can create resource groups, and a PowerShell terminal on Windows |
 
 All commands in this module are **PowerShell commands, and each one fits on a single line**. Copy a line, paste it, and press **Enter**. Nothing needs line breaks or `\` characters.
+
+> [!TIP]
+> **Using the instructor's existing backend? Skip deployment.** Open [its health check](https://contoso-bank-mtt-fsi-67227.azurewebsites.net/health); expect `{"status":"ok"}`. Use `https://contoso-bank-mtt-fsi-67227.azurewebsites.net/api` as the API base URL and continue to [Module 2](./02-create-agent.md). Do not restart or delete this shared app. Its balances and bills are shared with other learners.
 
 ## Before you start
 
@@ -17,11 +20,11 @@ Use these settings for every resource in this module:
 | Setting | Value | Why |
 | --- | --- | --- |
 | Region | `australiaeast` (fallback: `australiasoutheast`) | Keep **all** resources in the same region. |
-| Pricing plan | **P0v3** (Premium v3, Linux) | The cheapest Premium SKU, about half the price of P1v3 |
+| Pricing plan | **P0v3** (Premium v3, Linux) | Entry-level Premium v3 SKU for this lab; availability depends on your subscription. |
 | Runtime | Node.js 22 LTS | Node.js 20 reached end of support on 30 April 2026 |
 
 > [!NOTE]
-> At Azure retail prices, P0v3 Linux in Australia East costs about **USD 0.09 per hour (roughly USD 67 per month)** while it exists. Delete the resource group when the class ends ([Module 7](./07-test-and-clean-up.md#clean-up)). Check current prices on the [App Service pricing page](https://azure.microsoft.com/pricing/details/app-service/linux/).
+> The App Service plan is billed while it exists, even when the app is idle. Check current regional prices on the [App Service pricing page](https://azure.microsoft.com/pricing/details/app-service/linux/). Delete only your own lab resource group when finished ([Module 7](./07-test-and-clean-up.md#clean-up)).
 
 ## Step 1 — Open PowerShell and sign in
 
@@ -72,7 +75,7 @@ $APP = "contoso-bank-$INITIALS-$(Get-Random -Minimum 10000 -Maximum 99999)"
 Paste these six lines together. PowerShell runs them one after another.
 
 > [!IMPORTANT]
-> Write down your app name. PowerShell forgets these variables when you close the window. If that happens, run the first four lines again, and then set the app name to the one you wrote down, for example `$APP = "contoso-bank-nw-12345"`.
+> Write down `$LOCATION`, `$RG`, `$PLAN` and `$APP`, and update your notes if you use the fallback region below. PowerShell forgets variables when you close the window. Restore the saved values rather than generating another app name; for example `$APP = "contoso-bank-nw-12345"`.
 
 ## Step 3 — Create the resource group
 
@@ -82,7 +85,7 @@ az group create --name $RG --location $LOCATION
 
 ## Step 4 — Create the P0v3 App Service plan
 
-Creating the plan is the real availability check. If P0v3 can't run in the region, this command fails with a clear error, and nothing is billed.
+Creating the plan checks whether your subscription can provision this SKU in the region. If it fails, inspect the error and check the resource group for any created resources; don't assume that no billable resource exists.
 
 ```powershell
 az appservice plan create --name $PLAN --resource-group $RG --location $LOCATION --is-linux --sku P0V3
@@ -96,11 +99,11 @@ az appservice plan show --name $PLAN --resource-group $RG --query "{sku:sku.name
 
 The output should show `P0v3`, `Australia East`, and `linux`.
 
-**If the plan command fails** with an error saying the SKU isn't available, the region has no capacity, or the pricing tier isn't allowed, switch to Australia Southeast and start again from Step 3:
+**If the plan command fails** because the SKU or regional capacity is unavailable, try Australia Southeast in a new lab resource group, then repeat Steps 3–4. A subscription-policy or quota restriction may instead require your administrator.
 
 ```powershell
-az group delete --name $RG --yes
 $LOCATION = "australiasoutheast"
+$RG = "rg-contoso-bank-$INITIALS-ase"
 ```
 
 > [!NOTE]
@@ -112,13 +115,13 @@ $LOCATION = "australiasoutheast"
 
    ```powershell
    git clone https://github.com/msftnutta/asia-learning-hub.git
-   Set-Location "asia-learning-hub/industry/FSI/Copilot-Studio/Contoso Banking Backend/app"
+   Set-Location "asia-learning-hub\industry\FSI\Copilot-Studio\Contoso Banking Backend\app"
    Get-ChildItem
    ```
 
    The list should include `api`, `web`, `package.json`, and `server.js`. If you don't see them, you're in the wrong folder.
 
-   If you're working from your own fork, replace `msftnutta` with your GitHub username. Forward slashes (`/`) in paths work in PowerShell.
+   If you're working from your own fork, replace `msftnutta` with your GitHub username. In Linux-based Cloud Shell, use `/` instead of `\` in the `Set-Location` path.
 
 2. Create the web app in your plan, with the Node.js 22 runtime:
 
@@ -157,34 +160,40 @@ $LOCATION = "australiasoutheast"
 > [!NOTE]
 > Older guides use `az webapp up` for this step. That command is deprecated, and the Azure CLI shows a warning if you run it. Use the commands above instead.
 
-## Step 6 — Get your URLs and check the API and the MCP endpoint
+## Step 6 — Get your URL and check the API
 
 ```powershell
 $AppHost = az webapp show --name $APP --resource-group $RG --query defaultHostName -o tsv
 "Website:      https://$AppHost/"
-"MCP URL:      https://$AppHost/mcp"
+"API base URL: https://$AppHost/api"
 Invoke-RestMethod "https://$AppHost/health"
 Invoke-RestMethod "https://$AppHost/api/login?userId=USER001"
-(Invoke-RestMethod -Method Post -Uri "https://$AppHost/mcp" -ContentType "application/json" -Headers @{Accept="application/json, text/event-stream"} -Body '{"jsonrpc":"2.0","id":1,"method":"tools/list"}').result.tools.name
+Invoke-RestMethod "https://$AppHost/api/check-funds?accountId=ACC002&amount=2000"
+Invoke-RestMethod "https://$AppHost/api/login?userId=USER999" -Headers @{"x-status-in-body"="true"}
 ```
 
-The last command asks the **MCP endpoint** which tools it offers. You should see ten tool names, from `demo_login` to `purchase_voucher`. Your agent will use these tools in [Module 3](./03-connect-bank-tools.md).
+What you should see:
 
-**Copy the MCP URL** (the line that starts with `MCP URL:`). You'll paste it into Copilot Studio in [Module 3](./03-connect-bank-tools.md). To open the website in your browser, run:
+- `/health` shows `status` `ok`.
+- `login` for USER001 returns `accountId` ACC001.
+- `check-funds` for ACC002 and 2000 returns `hasEnoughFunds` False and `shortfall` 760.
+- The last call, for a user that doesn't exist, returns normally with `success` False and `httpStatus` 404. For normal API-handler JSON responses, `x-status-in-body` changes the HTTP status to 200 and includes the real status in the JSON. Network failures and malformed request JSON can still fail. The workflow in [Module 3](./03-build-bank-workflow.md) sends this header on every request.
+
+**Copy the API base URL.** You'll use it in [Module 3](./03-build-bank-workflow.md). To open the website in your browser, run:
 
 ```powershell
 Start-Process "https://$AppHost/"
 ```
 
 > [!TIP]
-> Always copy the host name from this command rather than typing it. For apps created with these commands it's usually `<your-app-name>.azurewebsites.net`, but Azure can add a random suffix and the region to the name, so don't assume. The variable is named `$AppHost` because `$Host` is a reserved name in PowerShell.
+> The host name is normally `<your-app-name>.azurewebsites.net`. Copy it from this command's output instead of retyping it. The variable is named `$AppHost` because `$Host` is a reserved name in PowerShell.
 
 ### ✅ Checkpoint
 
 - `/health` shows `status` with the value `ok`.
 - `/api/login?userId=USER001` shows `accountId` with the value `ACC001`.
-- The last command lists ten tool names.
-- The website opens in your browser, and `https://<your-host>/api-docs` shows the API reference, including a section about the MCP endpoint.
+- `check-funds` shows a shortfall of 760, and the unknown user returns `httpStatus` 404 without an error.
+- The website opens in your browser, and `https://<your-host>/api-docs` shows the API reference.
 
 ## Optional — Continuous deployment from GitHub
 
@@ -216,7 +225,7 @@ Only use this if you want every push to your fork to redeploy the app automatica
 | `az webapp deploy` fails with `Kudu Status : 400`, and the deployment log shows `rsync: … failed to stat "…/api\bankingApi.js"` | The zip has backslashes in its file paths. You made it with `Compress-Archive` in Windows PowerShell 5.1. Run the `tar` lines from Step 5.4 instead, check that `tar -tf $ZIP` shows `/` and not `\`, and deploy again. To see the log, run `az webapp log deployment show --name $APP --resource-group $RG`. |
 | The logs say `Cannot find module '/home/site/wwwroot/server.js'` | The zip was created in the wrong folder. Run the `Set-Location` command from Step 5.1, check that `Get-ChildItem` shows `server.js`, and then repeat Step 5.4. |
 | `tar` "is not recognized" | Your Windows version is older than Windows 10 (version 1803). Use a newer PC, or Azure Cloud Shell in PowerShell mode. |
-| SKU not available, a capacity error, or the pricing tier isn't allowed | Run `az group delete --name $RG --yes`, then `$LOCATION = "australiasoutheast"`, and repeat Steps 3–5. |
+| SKU unavailable or regional capacity error | Use the fallback names in Step 4 and repeat Steps 3–5. Inspect and clean up any resources left in the original group. For subscription-policy or quota errors, ask your administrator. |
 | `Website with given name already exists` | App names are global. Run `$APP = "contoso-bank-$INITIALS-$(Get-Random -Minimum 10000 -Maximum 99999)"`, and repeat Steps 5.2–5.4. |
 | The browser shows **Application Error** and the cause isn't clear | Run `az webapp log tail --name $APP --resource-group $RG` and read the error. Press **Ctrl+C** to stop. |
 | Balances look wrong after testing | The data is in memory. Run `az webapp restart --name $APP --resource-group $RG` to reset it. |

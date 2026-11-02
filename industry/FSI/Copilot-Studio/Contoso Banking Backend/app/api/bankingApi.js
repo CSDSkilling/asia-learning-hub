@@ -111,6 +111,32 @@ function getBalance(req, resHandler) {
   return resHandler.status(response.status).json(JSON.parse(response.body));
 }
 
+// Reusable balance check: is there enough money for an amount? Never changes a balance.
+function checkFunds(req, resHandler) {
+  const accountId = normalizeId(req.query.accountId);
+  const rawAmount = req.query.amount;
+  const needed = typeof rawAmount === 'string' && rawAmount.trim() !== '' ? Number(rawAmount) : Number.NaN;
+
+  if (!accountId || Number.isNaN(needed) || needed < 0) {
+    return send(resHandler, res.badRequest('accountId and a non-negative amount query parameter are required.'));
+  }
+
+  const account = db.getAccount(accountId);
+  if (!account) {
+    return send(resHandler, res.notFound(`Account ${accountId} not found.`));
+  }
+
+  const hasEnoughFunds = account.balance >= needed;
+  return send(resHandler, res.ok({
+    accountId: account.accountId,
+    requiredAmount: needed,
+    availableBalance: account.balance,
+    currency: account.currency,
+    hasEnoughFunds,
+    shortfall: hasEnoughFunds ? 0 : +(needed - account.balance).toFixed(2),
+  }));
+}
+
 function getTransactions(req, resHandler) {
   const accountId = normalizeId(req.query.accountId);
   const limit = parseInt(req.query.limit || '20', 10);
@@ -348,4 +374,4 @@ function listVouchers(req, resHandler) {
   return send(resHandler, res.ok({ count: vouchers.length, vouchers }));
 }
 
-module.exports = { demoLogin, getSavedAccounts, getBalance, getTransactions, transfer, listVouchers, purchaseVoucher, getOutstandingBills, payBill };
+module.exports = { demoLogin, getSavedAccounts, getBalance, checkFunds, getTransactions, transfer, listVouchers, purchaseVoucher, getOutstandingBills, payBill };

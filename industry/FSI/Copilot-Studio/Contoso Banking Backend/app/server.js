@@ -18,6 +18,20 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
+// Opt-in for tools that treat any non-2xx response as a failure (such as a workflow HTTP step).
+// With the header "x-status-in-body: true", every /api response is sent as HTTP 200,
+// and the real status code is added to the JSON body as "httpStatus".
+app.use('/api', (req, res, next) => {
+  if (String(req.get('x-status-in-body')).toLowerCase() !== 'true') return next();
+  const sendJson = res.json.bind(res);
+  res.json = (payload) => {
+    const httpStatus = res.statusCode;
+    res.status(200);
+    return sendJson({ ...payload, httpStatus });
+  };
+  return next();
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(WEB_DIR, 'index.html'));
 });
@@ -31,6 +45,7 @@ app.get(['/faq', '/FAQ.html', '/faq.html'], (req, res) => {
 });
 
 app.get('/api/balance', (req, res) => bankingApi.getBalance(req, res));
+app.get('/api/check-funds', (req, res) => bankingApi.checkFunds(req, res));
 app.get('/api/login', (req, res) => bankingApi.demoLogin(req, res));
 app.get('/api/saved-accounts', (req, res) => bankingApi.getSavedAccounts(req, res));
 app.get('/api/transactions', (req, res) => bankingApi.getTransactions(req, res));

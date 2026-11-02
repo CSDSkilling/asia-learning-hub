@@ -69,28 +69,7 @@ const TOOLS = [
       required: ['accountId', 'amount'],
     },
     annotations: { readOnlyHint: true },
-    run: async (args) => {
-      const needed = Number(args.amount);
-      if (!args.accountId || args.amount === undefined || args.amount === null || args.amount === '' || Number.isNaN(needed) || needed < 0) {
-        return fail(400, 'BAD_REQUEST', 'accountId and a non-negative amount are required.');
-      }
-      const result = await callApi(bankingApi.getBalance, { query: { accountId: args.accountId } });
-      if (result.status !== 200) return result;
-      const available = result.body.balance;
-      const hasEnoughFunds = available >= needed;
-      return {
-        status: 200,
-        body: {
-          success: true,
-          accountId: result.body.accountId,
-          requiredAmount: needed,
-          availableBalance: available,
-          currency: result.body.currency,
-          hasEnoughFunds,
-          shortfall: hasEnoughFunds ? 0 : +(needed - available).toFixed(2),
-        },
-      };
-    },
+    run: (args) => callApi(bankingApi.checkFunds, { query: { accountId: args.accountId, amount: args.amount === undefined || args.amount === null ? '' : String(args.amount) } }),
   },
   {
     name: 'list_saved_accounts',

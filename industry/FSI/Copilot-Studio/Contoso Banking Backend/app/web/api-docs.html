@@ -40,6 +40,10 @@
   <main class="container py-5">
     <div class="alert alert-info"><strong>Base URL:</strong> <code>https://&lt;your-app-name&gt;.azurewebsites.net/api</code> &nbsp;|&nbsp; Local: <code>http://localhost:8080/api</code></div>
 
+    <div class="alert alert-secondary" id="status-in-body">
+      <strong>For tools that treat errors as failures:</strong> add the request header <code>x-status-in-body: true</code> and every <code>/api</code> response is sent as HTTP <code>200</code>. The real status code is added to the JSON body as <code>httpStatus</code>, for example <code>{ "success": false, "error": "NOT_FOUND", "message": "…", "httpStatus": 404 }</code>. Without the header, errors use their normal HTTP status codes.
+    </div>
+
     <section class="card border-0 shadow-sm mb-4 endpoint" id="login">
       <div class="card-body p-4">
         <span class="badge text-bg-success">GET</span> <code>/login?userId=USER001</code>
@@ -74,6 +78,23 @@
   "owner": "Chihiro Kimura",
   "balance": 5280.5,
   "currency": "USD"
+}</pre>
+      </div>
+    </section>
+
+    <section class="card border-0 shadow-sm mb-4 endpoint" id="check-funds">
+      <div class="card-body p-4">
+        <span class="badge text-bg-success">GET</span> <code>/check-funds?accountId=ACC001&amp;amount=100</code>
+        <h2 class="h4 mt-3">Check whether there is enough money</h2>
+        <p class="text-secondary">The reusable balance check. Call it before a transfer, a bill payment, or a voucher purchase. It never changes a balance.</p>
+        <pre>{
+  "success": true,
+  "accountId": "ACC001",
+  "requiredAmount": 100,
+  "availableBalance": 5280.5,
+  "currency": "USD",
+  "hasEnoughFunds": true,
+  "shortfall": 0
 }</pre>
       </div>
     </section>
@@ -174,15 +195,15 @@
     <section class="card border-0 shadow-sm endpoint" id="mcp">
       <div class="card-body p-4">
         <span class="badge text-bg-primary">POST</span> <code>/mcp</code>
-        <h2 class="h4 mt-3">MCP endpoint for AI agents</h2>
-        <p class="text-secondary">The same banking API, exposed as tools for an AI agent through the Model Context Protocol (Streamable HTTP, stateless). Add this URL as a custom MCP server in Copilot Studio. Authentication is <strong>None</strong> unless the <code>MCP_API_KEY</code> app setting is set, in which case every request needs an <code>x-api-key</code> header.</p>
+        <h2 class="h4 mt-3">MCP endpoint for AI agents (optional)</h2>
+        <p class="text-secondary">The same banking API, exposed as tools for an AI agent through the Model Context Protocol (Streamable HTTP, stateless). Use it in environments where Copilot Studio allows custom MCP servers: add this URL as a custom MCP server. The classroom lab uses a workflow with an HTTP step instead. Authentication is <strong>None</strong> unless the <code>MCP_API_KEY</code> app setting is set, in which case every request needs an <code>x-api-key</code> header.</p>
         <div class="table-responsive">
           <table class="table table-sm align-middle">
             <thead><tr><th>Tool</th><th>Changes balances?</th><th>REST endpoint it uses</th></tr></thead>
             <tbody>
               <tr><td><code>demo_login</code></td><td>No</td><td><code>GET /api/login</code></td></tr>
               <tr><td><code>get_balance</code></td><td>No</td><td><code>GET /api/balance</code></td></tr>
-              <tr><td><code>check_funds</code></td><td>No</td><td><code>GET /api/balance</code> (adds <code>hasEnoughFunds</code> and <code>shortfall</code>)</td></tr>
+              <tr><td><code>check_funds</code></td><td>No</td><td><code>GET /api/check-funds</code></td></tr>
               <tr><td><code>list_saved_accounts</code></td><td>No</td><td><code>GET /api/saved-accounts</code></td></tr>
               <tr><td><code>list_transactions</code></td><td>No</td><td><code>GET /api/transactions</code></td></tr>
               <tr><td><code>list_bills</code></td><td>No</td><td><code>GET /api/bills</code></td></tr>
