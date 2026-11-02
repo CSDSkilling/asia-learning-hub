@@ -566,12 +566,6 @@ Five skills you can use on Monday, and three habits to keep.
 
 **Think about it:** Which long email at work could you turn into an action table this week, and which owner or date would you check first?
 
-## Microsoft Learn references
-
-- <https://learn.microsoft.com/microsoft-365/admin/activity-reports/microsoft-365-copilot-usage#interpret-the-microsoft-copilot-usage-report>
-- <https://learn.microsoft.com/microsoft-365/copilot/previous-year-release-notes#august-19,-2025>
-- <https://learn.microsoft.com/microsoft-365/copilot/release-notes#august-11,-2026>
-
 > [!NOTE]
 > Copilot menus and button names change often. When a step says to check in your own environment, follow your tenant’s current behaviour.
 

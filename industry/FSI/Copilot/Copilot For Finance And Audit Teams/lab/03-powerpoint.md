@@ -510,11 +510,6 @@ Five skills you can use on Monday, and three habits to keep.
 
 **Think about it:** Which update could you send this week that a sceptical board member would test, and which gap would they find first?
 
-## Microsoft Learn references
-
-- <https://learn.microsoft.com/microsoft-365/copilot/release-notes>
-- <https://learn.microsoft.com/training/modules/present-copilot-microsoft-powerpoint/>
-
 > [!NOTE]
 > Copilot menus and button names change often. When a step says to check in your own environment, follow your tenant’s current behaviour.
 

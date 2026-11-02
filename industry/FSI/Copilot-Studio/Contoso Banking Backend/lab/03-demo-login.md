@@ -43,10 +43,10 @@ flowchart TD
 
 1. Select **+** → **Variable management** → **Set a variable value**.
 2. Under **Set variable**, select **Create new**. Select the new variable to open **Variable properties**, rename it `BaseUrl`, and then select **Global (any topic can access)**. It becomes `Global.BaseUrl`.
-3. In **To value**, paste your API base URL from Module 1, for example:
+3. In **To value**, paste your API base URL from Module 1. It looks like this, but with your own host name:
 
    ```text
-   https://contoso-bank-nw-12345.azurewebsites.net/api
+   https://contoso-bank-nw-12345-abc123def456.australiaeast-01.azurewebsites.net/api
    ```
 
    Don't add a slash at the end.

@@ -451,10 +451,6 @@ Five skills you can use on Monday, and three habits to keep.
 
 **Think about it:** Which busy chat or channel at work could you catch up on with Copilot this week, and check against the original messages?
 
-## Microsoft Learn references
-
-- <https://learn.microsoft.com/microsoft-365/copilot/copilot-overview>
-
 > [!NOTE]
 > Copilot menus and button names change often. When a step says to check in your own environment, follow your tenant’s current behaviour.
 

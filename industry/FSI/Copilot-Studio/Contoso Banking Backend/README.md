@@ -10,7 +10,7 @@ Build **Contoso Friendly Banker**, a Microsoft Copilot Studio agent that helps c
 ```mermaid
 flowchart LR
   C([Customer in chat]) --> A[Contoso Friendly Banker<br/>Copilot Studio standard agent]
-  A -- "HTTP Request nodes" --> W[Contoso Bank API<br/>Azure App Service · P0v3 · Southeast Asia]
+  A -- "HTTP Request nodes" --> W[Contoso Bank API<br/>Azure App Service · P0v3 · Australia East]
   A -- "Add a tool" --> F[[Agent flow:<br/>Check available funds]]
   F -- "HTTP action" --> W
   W --> D[(In-memory demo data)]
@@ -24,7 +24,7 @@ Work through the modules in order. Each one ends with a **✅ Checkpoint** and a
 
 | # | Module | Time | What you'll do |
 | --- | --- | --- | --- |
-| 1 | [Deploy the banking API](./lab/01-deploy-backend.md) | 20 min | Create a resource group and a P0v3 plan, then deploy from Cloud Shell |
+| 1 | [Deploy the banking API](./lab/01-deploy-backend.md) | 25 min | Create a resource group and a P0v3 plan in Australia East, then deploy with PowerShell |
 | 2 | [Create the agent](./lab/02-create-agent.md) | 15 min | Create a standard agent from a prompt, review the generated instructions, and learn the variables |
 | 3 | [Demo login and account number](./lab/03-demo-login.md) | 25 min | Build your first HTTP Request node, handle errors, and use global variables |
 | 4 | [Balance check workflow](./lab/04-balance-check.md) | 35 min | Build a reusable agent flow that checks funds, then a Balance inquiry topic that calls it |
@@ -32,14 +32,56 @@ Work through the modules in order. Each one ends with a **✅ Checkpoint** and a
 | 6 | [Pay bills and buy vouchers](./lab/06-bills-and-vouchers.md) | 30 min | Reuse the same pattern for two more journeys |
 | 7 | [Test, share, and clean up](./lab/07-test-and-clean-up.md) | 20 min | Link the instructions to your topics, run an end-to-end test, reset the data, and delete your resources |
 
-**Total:** about 2 hours 55 minutes.
+**Total:** about 3 hours.
 
 ## Prerequisites
 
-- An Azure subscription where you can create resource groups. The lab uses **Azure Cloud Shell**, so you don't need to install anything locally.
+- An Azure subscription where you can create resource groups.
+- A Windows PC with a PowerShell terminal (Windows PowerShell 5.1 or PowerShell 7). [Module 1](./lab/01-deploy-backend.md) shows how to install the Azure CLI and Git. You can also use Azure Cloud Shell in PowerShell mode.
 - Access to [Copilot Studio](https://copilotstudio.microsoft.com) in an environment where you can create agents and **agent flows**.
 - The environment's data-loss-prevention (DLP) policy must allow the premium **HTTP** connector, which the agent flow in Module 4 uses. Instructors should confirm this with the Power Platform admin before class.
 - Basic familiarity with JSON. No coding experience is needed.
+
+## Project structure
+
+The folder has three parts: this home page, the lab instructions, and the application code.
+
+```text
+Contoso Banking Backend/
+├── README.md                  ← You are here: lab overview
+├── lab/                       ← Student instructions (Modules 1–7)
+│   ├── 01-deploy-backend.md
+│   ├── 02-create-agent.md
+│   ├── 03-demo-login.md
+│   ├── 04-balance-check.md
+│   ├── 05-transfer.md
+│   ├── 06-bills-and-vouchers.md
+│   └── 07-test-and-clean-up.md
+└── app/                       ← The application. This is the folder you deploy.
+    ├── server.js              ← Starts the server and connects the routes
+    ├── package.json           ← Dependencies and the start command
+    ├── package-lock.json
+    ├── api/                   ← Backend: the banking API
+    │   ├── bankingApi.js      ← Endpoint logic (login, balance, transfer, bills, vouchers)
+    │   ├── mockDb.js          ← In-memory demo accounts and transactions
+    │   └── response.js        ← Standard JSON success and error responses
+    └── web/                   ← Website: pages students see in the browser
+        ├── index.html         ← Home page
+        ├── FAQ.html           ← Customer FAQ
+        ├── api-docs.html      ← API reference
+        ├── error.html         ← 404 page
+        ├── styles.css, app.js ← Styles and script for the FAQ page
+        └── new-campaign/      ← Mortgage campaign pages
+```
+
+| Folder | What it's for | Who uses it |
+| --- | --- | --- |
+| `lab/` | Step-by-step instructions | Students |
+| `app/api/` | Banking API code, called by Copilot Studio | Instructors who want to change the API |
+| `app/web/` | The website, served at the root of the app URL | Instructors who want to change the pages |
+| `app/` | Everything that runs on Azure App Service | Deployment ([Module 1](./lab/01-deploy-backend.md)) |
+
+Only `app/web/` is served as static files, so the server code and package files can't be downloaded from the website.
 
 ## Demo users
 
@@ -71,15 +113,18 @@ Transfers, bill payments, and voucher purchases reject a request when the balanc
 
 ## Run locally (for instructors)
 
-Requires Node.js 22 or later.
+Requires Node.js 22 or later. Run the commands from the `app` folder:
 
 ```powershell
+cd app
 npm install
 npm start
 Invoke-RestMethod 'http://localhost:8080/api/login?userId=USER001'
 ```
 
 Then open `http://localhost:8080/` for the website and `http://localhost:8080/api-docs` for the API reference.
+
+To change the API, edit the files in `app/api/`. To change the website, edit the files in `app/web/`. Restart `npm start` after you change the API code.
 
 ## Microsoft Learn references
 

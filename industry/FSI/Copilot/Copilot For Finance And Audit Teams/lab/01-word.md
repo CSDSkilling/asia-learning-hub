@@ -463,11 +463,6 @@ Five skills you can use on Monday, and three habits to keep.
 
 **Think about it:** Which document at work could you check against its source this week, using the six questions?
 
-## Microsoft Learn references
-
-- <https://learn.microsoft.com/microsoft-365/copilot/>
-- <https://learn.microsoft.com/microsoft-365/copilot/previous-year-release-notes#february-4,-2025>
-
 > [!NOTE]
 > Copilot menus and button names change often. When a step says to check in your own environment, follow your tenant’s current behaviour.
 

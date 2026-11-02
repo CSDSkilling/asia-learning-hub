@@ -2,7 +2,9 @@
 
 const express = require('express');
 const path = require('path');
-const bankingApi = require('./src/bankingApi');
+const bankingApi = require('./api/bankingApi');
+
+const WEB_DIR = path.join(__dirname, 'web');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -16,19 +18,15 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(WEB_DIR, 'index.html'));
 });
 
-app.get('/api-docs', (req, res) => {
-  res.sendFile(path.join(__dirname, 'api-docs.html'));
-});
-
-app.get('/api-docs.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'api-docs.html'));
+app.get(['/api-docs', '/api-docs.html'], (req, res) => {
+  res.sendFile(path.join(WEB_DIR, 'api-docs.html'));
 });
 
 app.get(['/faq', '/FAQ.html', '/faq.html'], (req, res) => {
-  res.sendFile(path.join(__dirname, 'FAQ.html'));
+  res.sendFile(path.join(WEB_DIR, 'FAQ.html'));
 });
 
 app.get('/api/balance', (req, res) => bankingApi.getBalance(req, res));
@@ -42,26 +40,16 @@ app.get('/api/vouchers', (req, res) => bankingApi.listVouchers(req, res));
 app.get('/api/bills', (req, res) => bankingApi.getOutstandingBills(req, res));
 app.post('/api/bills/pay', (req, res) => bankingApi.payBill(req, res));
 
-app.use((req, res, next) => {
-  const protectedPath = /^(?:\/(?:api|src|node_modules)(?:\/|$)|\/(?:server|package(?:-lock)?|local\.settings)\.(?:js|json)|\/\.env(?:\.|$))/i;
-  if (protectedPath.test(req.path)) {
-    // API clients (such as Copilot Studio HTTP nodes) need a JSON error, not the HTML error page.
-    if (/^\/api(?:\/|$)/i.test(req.path)) {
-      return res.status(404).json({ success: false, error: 'NOT_FOUND', message: 'Endpoint not found.' });
-    }
-    return res.status(404).sendFile(path.join(__dirname, 'error.html'));
-  }
-  next();
-});
-
-app.use(express.static(__dirname, { index: false }));
-app.use('/new-campaign', express.static(path.join(__dirname, 'new-campaign')));
+// Only the web/ folder is served as static files, so source code and package files are never exposed.
+app.use(express.static(WEB_DIR, { index: false }));
+app.use('/new-campaign', express.static(path.join(WEB_DIR, 'new-campaign')));
 
 app.use((req, res) => {
-  if (req.path.startsWith('/api/')) {
+  // API clients (such as Copilot Studio HTTP nodes) need a JSON error, not the HTML error page.
+  if (/^\/api(?:\/|$)/i.test(req.path)) {
     return res.status(404).json({ success: false, error: 'NOT_FOUND', message: 'Endpoint not found.' });
   }
-  res.status(404).sendFile(path.join(__dirname, 'error.html'));
+  res.status(404).sendFile(path.join(WEB_DIR, 'error.html'));
 });
 
 app.use((err, req, res, next) => {

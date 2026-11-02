@@ -556,11 +556,6 @@ Five skills you can use on Monday, and three habits to keep.
 
 **Think about it:** Which spreadsheet at work could you test with a flag column, and check row by row, this week?
 
-## Microsoft Learn references
-
-- <https://learn.microsoft.com/microsoft-365/copilot/>
-- <https://learn.microsoft.com/microsoft-365/copilot/release-notes-archive#march,-2024>
-
 > [!NOTE]
 > Copilot menus and button names change often. When a step says to check in your own environment, follow your tenant’s current behaviour.
 

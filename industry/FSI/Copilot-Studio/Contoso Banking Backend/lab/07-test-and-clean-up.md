@@ -9,11 +9,11 @@
 
 ## Step 1 — Reset the demo data
 
-Earlier tests changed balances and paid some bills. Restart the app so everything starts fresh. Cloud Shell forgets your variables when it times out, so set them again first:
+Earlier tests changed balances and paid some bills. Restart the app so everything starts fresh. PowerShell forgets your variables when you close the window, so set them again first:
 
-```bash
-RG=rg-contoso-bank-<your-initials>
-APP=<the app name you wrote down in Module 1>
+```powershell
+$RG = "rg-contoso-bank-<your-initials>"
+$APP = "<the app name you wrote down in Module 1>"
 az webapp restart --name $APP --resource-group $RG
 ```
 
@@ -62,15 +62,15 @@ Your organization's policies might restrict publishing. If so, keep testing in t
 
 ## Clean up
 
-Delete everything you created in Azure so that billing stops:
+Delete everything you created in Azure so that billing stops. If you opened a new PowerShell window, set `$RG` again first, as in Step 1:
 
-```bash
+```powershell
 az group delete --name $RG --yes --no-wait
 ```
 
 Confirm the deletion finished after a few minutes:
 
-```bash
+```powershell
 az group exists --name $RG
 ```
 
@@ -89,7 +89,7 @@ Try these if you finish early:
 
 ## What you built
 
-- A Node.js banking API on Azure App Service (P0v3, Southeast Asia).
+- A Node.js banking API on Azure App Service (P0v3, Australia East).
 - A standard Copilot Studio agent with six topics and one agent flow:
   - Two customer utilities: **Demo login** and **Account number**.
   - Four customer journeys: **Balance inquiry**, **Transfer money**, **Pay a bill**, and **Buy a voucher**.
