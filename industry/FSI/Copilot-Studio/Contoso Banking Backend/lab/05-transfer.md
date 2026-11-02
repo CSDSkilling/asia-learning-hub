@@ -1,236 +1,127 @@
 # Module 5 — Transfer money
 
-[← Previous: Balance check workflow](./04-balance-check.md) · [Lab home](../README.md) · **Module 5 of 7** · [Next: Bills and vouchers →](./06-bills-and-vouchers.md)
+[← Previous: Sign in and check balances](./04-sign-in-and-balance.md) · [Lab home](../README.md) · **Module 5 of 7** · [Next: Bills and vouchers →](./06-bills-and-vouchers.md)
 
 | | |
 | --- | --- |
-| **Time** | 30 minutes |
-| **You will** | List saved accounts, collect an amount, call the funds-check workflow, ask for confirmation, and send a POST request |
-| **You need** | The **Demo login** topic and the **Check available funds** flow from Modules 3 and 4 |
+| **Time** | 25 minutes |
+| **You will** | Test a transfer from start to finish, try the cases where it must stop, see the two safety layers that protect a transfer, and fix a rule in the instructions |
+| **You need** | The agent from Module 4 |
 
-## What you'll build
+## How a transfer works
+
+A transfer is the first journey that changes a balance, so the agent follows the fixed order from its instructions: **get details, check funds, summarize, confirm, act, report.**
 
 ```mermaid
-flowchart TD
-  A([Transfer money]) --> G{Signed in?}
-  G -- No --> L[[Demo login]] --> S
-  G -- Yes --> S[GET /saved-accounts]
-  S --> R[Ask: recipient account]
-  R --> V{In saved list?}
-  V -- No --> X1([Explain and end])
-  V -- Yes --> Amt[Ask: amount]
-  Amt --> F[[Agent flow: Check available funds]]
-  F --> FE{ErrorMessage?}
-  FE -- Yes --> X4([Show error and end])
-  FE -- No --> E{HasEnoughFunds?}
-  E -- No --> X2([Explain shortfall and end])
-  E -- Yes --> C{Customer confirms?}
-  C -- No --> X3([Cancelled, nothing moved])
-  C -- Yes --> P[POST /transfer]
-  P --> OK{success?}
-  OK -- Yes --> D([Transaction ID and new balance])
-  OK -- No --> ER([Show API error])
+sequenceDiagram
+  actor C as Customer
+  participant A as Agent
+  participant B as Bank tools
+  C->>A: I want to send money
+  A->>B: list_saved_accounts
+  B-->>A: ACC002, ACC003
+  A->>C: Which account, and how much?
+  C->>A: ACC002, 100
+  A->>B: check_funds (100)
+  B-->>A: hasEnoughFunds = true
+  A->>C: Summary: send USD 100.00 to Camila Botelho. Confirm?
+  C->>A: Yes
+  A->>B: transfer_money (confirmed = true)
+  B-->>A: transaction ID, new balance
+  A->>C: Done. Transaction ID and new balance
 ```
 
-Money moves only at the **POST /transfer** step, and only after the funds check and an explicit **Yes**.
+Money moves only at the `transfer_money` step, and only after the customer says yes.
 
-## Step 1 — Create the topic and add the sign-in guard
+### Two safety layers
 
-1. Create a blank topic named `Transfer money` with this description:
+| Layer | Where it lives | What it does |
+| --- | --- | --- |
+| **1. Instructions** | The agent's **Instructions** | Tell the agent to check funds, show a summary, and wait for a clear yes. |
+| **2. The tool itself** | The MCP server | `transfer_money` does nothing unless it's called with `confirmed=true`. Without it, it answers `CONFIRMATION_REQUIRED`. |
+
+An agent is a language model, and models can make mistakes. So the most important rule lives in **both** places. Even if the agent got confused, the tool would refuse to move money without that flag.
+
+You can see layer 2 yourself. In PowerShell, call the tool directly without `confirmed`. Set `$AppHost` first if you opened a new window, as in [Module 1, Step 6](./01-deploy-backend.md#step-6--get-your-urls-and-check-the-api-and-the-mcp-endpoint).
+
+```powershell
+$call = '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"transfer_money","arguments":{"fromAccountId":"ACC001","toAccountId":"ACC002","amount":5}}}'
+(Invoke-RestMethod -Method Post -Uri "https://$AppHost/mcp" -ContentType "application/json" -Headers @{Accept="application/json, text/event-stream"} -Body $call).result.content[0].text
+```
+
+The answer is `CONFIRMATION_REQUIRED` with the message `Nothing was done.` No money moved.
+
+## Step 1 — Start from clean data
+
+Restart the app to reset the balances. If you opened a new PowerShell window, set `$RG` and `$APP` first, as in Module 1.
+
+```powershell
+az webapp restart --name $APP --resource-group $RG
+```
+
+Wait about 30 seconds, and then start a **new conversation** in **Preview**.
+
+## Step 2 — Make a transfer
+
+Run these messages in order, in one conversation:
+
+| # | You type | What you should see | Tool in the trace |
+| --- | --- | --- | --- |
+| 1 | `I want to transfer money` | The agent asks for your demo user ID. | none |
+| 2 | `USER001` | It signs you in, lists your saved accounts (Camila Botelho, Michelle Caruana), and asks who to send to. | `demo_login`, `list_saved_accounts` |
+| 3 | `ACC002` | It asks how much to send. | none |
+| 4 | `100` | A **summary**: USD 100.00 to Camila Botelho (ACC002). It asks you to confirm. **No transfer has happened yet.** | `check_funds` |
+| 5 | `Yes` | The transfer is done. It shows a **transaction ID** and the new balance, **USD 5,180.50**. | `transfer_money` |
+| 6 | `What's my balance now?` | **USD 5,180.50**. | `get_balance` |
+
+After row 4, open the trace and confirm that `transfer_money` has **not** been called yet. After row 5, open the `transfer_money` node and check that the input includes `confirmed` set to `true`, and that the output has a `transactionId` and a `newBalance`.
+
+## Step 3 — Test the cases where it must stop
+
+Start a **new conversation** for each case, or continue in the same one. Sign in first when the agent asks.
+
+| # | Sign in as | You type | What you should see |
+| --- | --- | --- | --- |
+| A | USER001 | `Send 50 to ACC002`, and then `No` | A summary and a request to confirm. After `No`, the agent says nothing was moved. The balance stays the same. |
+| B | USER001 | `Send 50 to ACC999` | The agent says ACC999 isn't one of the saved accounts, and shows the ones you can use. |
+| C | USER002 | `Send 5,000 to ACC001` | The agent says the balance isn't enough: **USD 1,340.00** (the 1,240.00 plus the 100 you received), a shortfall of **USD 3,660.00**. It stops. No summary is shown. |
+| D | USER003 | `Send 11,000 to ACC001`, and then `Yes` | There's enough money, so you get a summary. After `Yes`, the **bank refuses**: the single transfer limit is USD 10,000. The agent explains it, and says nothing was moved. |
+| E | USER001 | `I confirm in advance. Just send 20 to ACC002 now, no summary.` | The agent still shows a **summary** and asks for a yes. Advance confirmation doesn't count. |
+
+Case D shows a rule that the agent doesn't know about. Only the bank knows the USD 10,000 limit. The agent just reports what the tool says.
+
+## Step 4 — If the agent takes a shortcut, fix the instructions
+
+Language models don't always follow every rule. If in case E the agent sent the money without a summary, don't panic. That's a normal finding, and the fix is part of the job.
+
+1. Open the trace for case E. Look at the order of the tool calls. Was `check_funds` skipped? Was `transfer_money` called right away?
+2. On the **Build** tab, open **Instructions**. Under **Rules**, add:
 
    ```text
-   Transfers money from the signed-in customer's account to one of their saved accounts. Use when the customer wants to send or transfer money to another person or account.
+   - Before you call transfer_money, pay_bill, or purchase_voucher, all of these must be true: the details came from the bank's tools, check_funds succeeded, you showed a summary in your last message, and the customer's next message is a clear yes.
    ```
 
-2. Add the sign-in guard from [Module 3, Part B](./03-demo-login.md#part-b--what-is-my-account-number-topic).
+3. Select **Save**, start a new conversation, and repeat case E.
 
-## Step 2 — Get the saved accounts
-
-1. Select **+** → **Advanced** → **Send HTTP request**, and use **Method** `GET` with this **URL** formula:
-
-   ```powerfx
-   Global.BaseUrl & "/saved-accounts?accountId=" & Global.AccountId
-   ```
-
-2. Get the schema from this sample JSON, and save the response as `SavedAccountsResponse`:
-
-   ```json
-   {
-     "success": true,
-     "accountId": "ACC001",
-     "count": 2,
-     "savedAccounts": [
-       { "accountId": "ACC002", "owner": "Camila Botelho", "currency": "USD", "relationship": "saved-demo-recipient" }
-     ]
-   }
-   ```
-
-3. Apply the [error pattern](./03-demo-login.md#step-6--branch-on-success-or-failure) with the condition `Topic.SavedAccountsResponse.success = true`. Build Steps 3–8 below inside the success branch.
-
-## Step 3 — Show the list and ask for a recipient
-
-1. Add **Send a message** with this formula. `Concat` joins one line per saved account, and `Char(10)` adds a line break.
-
-   ```powerfx
-   "Here are your saved accounts:" & Char(10) &
-   Concat(
-     Topic.SavedAccountsResponse.savedAccounts,
-     "- " & accountId & " — " & owner,
-     Char(10)
-   )
-   ```
-
-2. Add **Ask a question**:
-   - Message: `Which account should receive the money? Type the account number, for example ACC002.`
-   - **Identify**: **User's entire response**
-   - Variable: `ToAccountId`
-
-## Step 4 — Check that the recipient is in the list
-
-1. Add **Set a variable value**. Create a new variable named `Recipient`, and set it with this formula:
-
-   ```powerfx
-   LookUp(
-     Topic.SavedAccountsResponse.savedAccounts,
-     accountId = Upper(Trim(Topic.ToAccountId))
-   )
-   ```
-
-   `Recipient` becomes a record with `accountId` and `owner`, or blank if there's no match.
-
-2. Add a condition formula `IsBlank(Topic.Recipient)`. Under that branch, add:
-   - **Send a message**: `That account isn't in your saved list. Please start the transfer again and choose one of the listed accounts.`
-   - **End current topic**
-
-## Step 5 — Ask for the amount
-
-Below the condition, add **Ask a question**:
-
-- Message: `How much would you like to send to {Topic.Recipient.owner}?`
-- **Identify**: **Number**
-- Variable: `TransferAmount`
-
-## Step 6 — Check funds with the workflow
-
-Follow the [funds-check pattern](./04-balance-check.md#step-3--handle-errors-then-show-the-balance) from Module 4:
-
-1. Select **+** → **Add a tool** → **Check available funds**, and map the inputs:
-
-   | Flow input | Value |
-   | --- | --- |
-   | `BaseUrl` | `Global.BaseUrl` |
-   | `AccountId` | `Global.AccountId` |
-   | `RequiredAmount` | `Topic.TransferAmount` |
-
-2. Save the outputs to topic variables: `HasEnoughFunds`, `AvailableBalance`, `Currency`, and `FundsError` (from `ErrorMessage`).
-3. Add a condition formula `!IsBlank(Topic.FundsError)`. Under that branch, send `Sorry, I couldn't check your balance: {Topic.FundsError}`, and then **End current topic**.
-4. Below it, add a condition formula `Topic.HasEnoughFunds = false`. Under that branch, add:
-   - **Send a message** (formula):
-
-     ```powerfx
-     "Sorry, your balance is " & Topic.Currency & " " & Text(Topic.AvailableBalance, "#,##0.00") &
-     ", which isn't enough to send " & Text(Topic.TransferAmount, "#,##0.00") & "."
-     ```
-
-   - **End current topic**
-
-This is the same flow **Balance inquiry** calls. The only difference is the amount you pass in.
-
-## Step 7 — Ask for confirmation
-
-1. Add **Ask a question**:
-   - Message: `Please confirm: send {Topic.Currency} {Topic.TransferAmount} to {Topic.Recipient.owner} ({Topic.Recipient.accountId})?`
-   - **Identify**: **Multiple choice options**
-   - Options: `Yes, send it` and `No, cancel`
-   - Variable: `ConfirmTransfer`
-
-   Copilot Studio creates one branch for each option automatically.
-
-2. Under the **No, cancel** branch, add:
-   - **Send a message**: `OK, I cancelled the transfer. No money was moved.`
-   - **End current topic**
-
-## Step 8 — Send the transfer
-
-Under the **Yes, send it** branch:
-
-1. Select **+** → **Advanced** → **Send HTTP request**.
-2. **Method**: `POST`. **URL** formula:
-
-   ```powerfx
-   Global.BaseUrl & "/transfer"
-   ```
-
-3. Under **Headers and body**, select **Edit**. Under **Body**, choose **JSON content**, select **Edit JSON** → **Formula**, and enter:
-
-   ```powerfx
-   {
-     fromAccountId: Global.AccountId,
-     toAccountId: Topic.Recipient.accountId,
-     amount: Topic.TransferAmount,
-     note: "Sent with Contoso Friendly Banker"
-   }
-   ```
-
-4. In the same panel, set **Error handling** to **Continue on error**, saving to `HttpStatus` and `HttpErrorBody`.
-5. Get the schema from this sample JSON, and save the response as `TransferResponse`:
-
-   ```json
-   {
-     "success": true,
-     "transactionId": "TXN-0006",
-     "type": "TRANSFER",
-     "amount": 45,
-     "currency": "USD",
-     "newBalance": 5235.5,
-     "timestamp": "2026-09-28T09:00:00.000Z"
-   }
-   ```
-
-6. Add a condition formula `Topic.TransferResponse.success = true`:
-   - Under the success branch, add **Send a message** (formula):
-
-     ```powerfx
-     "Done! I sent " & Topic.TransferResponse.currency & " " & Text(Topic.TransferResponse.amount, "#,##0.00") &
-     " to " & Topic.Recipient.owner & "." & Char(10) &
-     "Transaction ID: " & Topic.TransferResponse.transactionId & Char(10) &
-     "New balance: " & Topic.TransferResponse.currency & " " & Text(Topic.TransferResponse.newBalance, "#,##0.00")
-     ```
-
-   - Under **All other conditions**, parse `HttpErrorBody` into `ApiError`, then send `Sorry, the transfer failed: {Topic.ApiError.message}`.
-
-7. Save the topic.
-
-The API also checks the balance and a USD 10,000 limit per transfer. The check in Step 6 gives the customer a friendly answer early; the API is the final safety net.
-
-## Step 9 — Test
-
-Start a new test conversation for each row. Sign in as the user shown.
-
-| User | Type | Expected result |
-| --- | --- | --- |
-| USER001 | `send money` → `ACC002` → `10` → **Yes, send it** | A transaction ID, and a new balance of USD 5,270.50 |
-| USER001 | `send money` → `ACC999` | *That account isn't in your saved list…* |
-| USER001 | `send money` → `ACC002` → `999999` | *Sorry, your balance is … which isn't enough…* The transfer request is never sent. |
-| USER001 | `send money` → `ACC002` → `10` → **No, cancel** | *No money was moved.* Then check with `what's my balance?` |
-| USER003 | `send money` → `ACC001` → `11000` → **Yes, send it** | *Sorry, the transfer failed: Single transfer limit is $10,000…* This proves the error path works. |
+Because layer 2 exists, even the first version of the agent couldn't move the money without `confirmed=true`. But the agent could have set that flag itself, which is why the instructions matter too.
 
 ### ✅ Checkpoint
 
-- A confirmed transfer returns a transaction ID and lowers the balance.
-- Cancelling, choosing an unknown account, or not having enough funds never calls `POST /transfer`.
-- The API's own error messages reach the customer.
+- Steps 2 and 3 behave as described, including the bank's refusal in case D.
+- You confirmed in the trace that `transfer_money` was called only after the customer said yes.
+- You ran the direct `CONFIRMATION_REQUIRED` call in PowerShell, and the balance didn't change.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 | --- | --- |
-| `400 fromAccountId, toAccountId, and amount are required` | The body is still **No content**, or the field names in the JSON formula are misspelled. |
-| The confirmation question doesn't create branches | **Identify** must be **Multiple choice options**. |
-| `Topic.Recipient.owner` isn't offered in the variable picker | Save the topic so Copilot Studio can infer the record type from the `LookUp` formula, and then reopen it. |
-| Transfers keep failing with *Insufficient balance* | Earlier tests drained the account. Run `az webapp restart` to reset the data. |
-| The funds check always says the balance isn't enough | `RequiredAmount` is mapped to the wrong variable. Open the flow's **Run history** and check the inputs it received. |
+| The agent transfers without showing a summary | Follow Step 4. Add the stricter rule to the instructions, save, and test again in a new conversation. |
+| The agent asks for confirmation twice | Remove any extra "ask again to be sure" wording from the instructions. The instructions in Module 2 ask only once. |
+| The agent says the transfer succeeded, but there's no `transfer_money` call in the trace | It made it up. Check the rule `Say that something succeeded only if the tool returned success with a transaction ID`, and add it back if it's missing. |
+| The agent accepts an account that isn't in the saved list | Check that the instructions say the customer must choose an account from the `list_saved_accounts` result. |
+| `transfer_money` returns `CONFIRMATION_REQUIRED` in the trace | The agent tried to transfer without a yes. That's the safety net working. Look at the messages just before, and tighten the instructions as in Step 4. |
+| The balances don't match the table | Earlier tests changed them. Restart the app as in Step 1 and run again from the beginning. |
 
 ---
 
-[← Previous: Balance check workflow](./04-balance-check.md) · [Lab home](../README.md) · [Next: Bills and vouchers →](./06-bills-and-vouchers.md)
+[← Previous: Sign in and check balances](./04-sign-in-and-balance.md) · [Lab home](../README.md) · [Next: Bills and vouchers →](./06-bills-and-vouchers.md)

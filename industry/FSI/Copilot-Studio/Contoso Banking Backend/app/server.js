@@ -3,6 +3,7 @@
 const express = require('express');
 const path = require('path');
 const bankingApi = require('./api/bankingApi');
+const mcpServer = require('./mcp/mcpServer');
 
 const WEB_DIR = path.join(__dirname, 'web');
 
@@ -39,6 +40,10 @@ app.post('/api/voucher/purchase', (req, res) => bankingApi.purchaseVoucher(req, 
 app.get('/api/vouchers', (req, res) => bankingApi.listVouchers(req, res));
 app.get('/api/bills', (req, res) => bankingApi.getOutstandingBills(req, res));
 app.post('/api/bills/pay', (req, res) => bankingApi.payBill(req, res));
+
+// MCP endpoint: lets a Copilot Studio agent (GitHub Copilot harness) use the banking API as tools.
+app.post('/mcp', (req, res) => mcpServer.handleMcpRequest(req, res));
+app.all('/mcp', (req, res) => mcpServer.rejectOtherMethods(req, res));
 
 // Only the web/ folder is served as static files, so source code and package files are never exposed.
 app.use(express.static(WEB_DIR, { index: false }));

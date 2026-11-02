@@ -160,7 +160,7 @@
       </div>
     </section>
 
-    <section class="card border-0 shadow-sm endpoint" id="accounts">
+    <section class="card border-0 shadow-sm mb-4 endpoint" id="accounts">
       <div class="card-body p-4">
         <h2 class="h4">Demo accounts</h2>
         <ul class="mb-0">
@@ -168,6 +168,38 @@
           <li><code>ACC002</code> — Camila Botelho</li>
           <li><code>ACC003</code> — Michelle Caruana</li>
         </ul>
+      </div>
+    </section>
+
+    <section class="card border-0 shadow-sm endpoint" id="mcp">
+      <div class="card-body p-4">
+        <span class="badge text-bg-primary">POST</span> <code>/mcp</code>
+        <h2 class="h4 mt-3">MCP endpoint for AI agents</h2>
+        <p class="text-secondary">The same banking API, exposed as tools for an AI agent through the Model Context Protocol (Streamable HTTP, stateless). Add this URL as a custom MCP server in Copilot Studio. Authentication is <strong>None</strong> unless the <code>MCP_API_KEY</code> app setting is set, in which case every request needs an <code>x-api-key</code> header.</p>
+        <div class="table-responsive">
+          <table class="table table-sm align-middle">
+            <thead><tr><th>Tool</th><th>Changes balances?</th><th>REST endpoint it uses</th></tr></thead>
+            <tbody>
+              <tr><td><code>demo_login</code></td><td>No</td><td><code>GET /api/login</code></td></tr>
+              <tr><td><code>get_balance</code></td><td>No</td><td><code>GET /api/balance</code></td></tr>
+              <tr><td><code>check_funds</code></td><td>No</td><td><code>GET /api/balance</code> (adds <code>hasEnoughFunds</code> and <code>shortfall</code>)</td></tr>
+              <tr><td><code>list_saved_accounts</code></td><td>No</td><td><code>GET /api/saved-accounts</code></td></tr>
+              <tr><td><code>list_transactions</code></td><td>No</td><td><code>GET /api/transactions</code></td></tr>
+              <tr><td><code>list_bills</code></td><td>No</td><td><code>GET /api/bills</code></td></tr>
+              <tr><td><code>list_vouchers</code></td><td>No</td><td><code>GET /api/vouchers</code></td></tr>
+              <tr><td><code>transfer_money</code></td><td>Yes. Needs <code>confirmed=true</code></td><td><code>POST /api/transfer</code></td></tr>
+              <tr><td><code>pay_bill</code></td><td>Yes. Needs <code>confirmed=true</code></td><td><code>POST /api/bills/pay</code></td></tr>
+              <tr><td><code>purchase_voucher</code></td><td>Yes. Needs <code>confirmed=true</code></td><td><code>POST /api/voucher/purchase</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-secondary">A money-moving tool called without <code>confirmed=true</code> does nothing and returns <code>CONFIRMATION_REQUIRED</code>. This forces the agent to show a summary and get a yes first.</p>
+        <p class="mb-2 text-secondary">Example request (list the tools):</p>
+        <pre>POST /mcp
+Content-Type: application/json
+Accept: application/json, text/event-stream
+
+{ "jsonrpc": "2.0", "id": 1, "method": "tools/list" }</pre>
       </div>
     </section>
   </main>

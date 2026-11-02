@@ -5,7 +5,7 @@
 | | |
 | --- | --- |
 | **Time** | 25 minutes |
-| **You will** | Create a new resource group and a Premium v3 App Service plan in Australia East, then deploy the Contoso Bank API |
+| **You will** | Create a new resource group and a Premium v3 App Service plan in Australia East, then deploy the Contoso Bank app: its website, its banking API, and its MCP endpoint for AI agents |
 | **You need** | An Azure subscription where you can create resource groups, and a PowerShell terminal on Windows |
 
 All commands in this module are **PowerShell commands, and each one fits on a single line**. Copy a line, paste it, and press **Enter**. Nothing needs line breaks or `\` characters.
@@ -54,7 +54,7 @@ Use these settings for every resource in this module:
    ```
 
 > [!TIP]
-> Don't want to install anything? Open [Azure Cloud Shell](https://shell.azure.com), choose **PowerShell** (not Bash), and use the same commands from Step 2 onward.
+> Don't want to install anything? Open [Azure Cloud Shell](https://shell.azure.com), choose **PowerShell** (not Bash), and use the same commands from Step 2 onward. The one difference is Step 5.4: Cloud Shell runs on Linux, where `tar` can't make zip files. There, replace the two `tar` lines with `Compress-Archive -Path * -DestinationPath $ZIP -Force`. This works correctly in Cloud Shell, which runs PowerShell 7.
 
 ## Step 2 — Choose your names
 
@@ -132,46 +132,59 @@ $LOCATION = "australiasoutheast"
    az webapp config appsettings set --name $APP --resource-group $RG --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
    ```
 
-4. Zip the contents of the `app` folder, and then deploy the zip:
+4. Zip the contents of the `app` folder, and check what's inside:
 
    ```powershell
    $ZIP = Join-Path ([System.IO.Path]::GetTempPath()) "contoso-bank.zip"
-   Compress-Archive -Path * -DestinationPath $ZIP -Force
+   Remove-Item $ZIP -ErrorAction SilentlyContinue
+   tar -a -c -f $ZIP --exclude node_modules *
+   tar -tf $ZIP
+   ```
+
+   The last command lists the files in the zip. Check that you see `server.js`, `package.json`, `api/`, and `web/`, and that the paths use forward slashes (`/`), for example `web/index.html`. **If you see backslashes (`\`), don't deploy.** Run the lines above again, and make sure you typed `tar`, not `Compress-Archive`.
+
+   Then deploy the zip:
+
+   ```powershell
    az webapp deploy --name $APP --resource-group $RG --src-path $ZIP --type zip
    ```
 
-   Run these lines **inside the `app` folder**, so that `package.json` and `server.js` sit at the top of the zip. The deployment installs the dependencies and starts the app with `npm start`. It takes about 2–4 minutes.
+   Run these lines **inside the `app` folder**, so that `package.json` and `server.js` sit at the top of the zip. `--exclude node_modules` keeps a local `node_modules` folder out of the zip, if you ran `npm install` earlier. The deployment installs the dependencies and starts the app with `npm start`. It takes about 2–4 minutes.
 
-> [!WARNING]
-> Don't run `npm install` in the `app` folder before you zip it. That creates a `node_modules` folder, which would be zipped too and makes the upload very large. Check with `Test-Path node_modules`. If it says `True`, delete the folder with `Remove-Item -Recurse -Force node_modules`, and then run Step 5.4 again.
+> [!IMPORTANT]
+> **Use `tar`, not `Compress-Archive`, to make the zip.** In Windows PowerShell 5.1, which is the default on Windows, `Compress-Archive` stores file paths with backslashes, such as `api\bankingApi.js`. Linux App Service can't copy those files into place, so the build succeeds but the deployment then fails with a `400` error. `tar` is built into Windows 10 and 11 and stores the paths correctly.
 
 > [!NOTE]
 > Older guides use `az webapp up` for this step. That command is deprecated, and the Azure CLI shows a warning if you run it. Use the commands above instead.
 
-## Step 6 — Get your API base URL
+## Step 6 — Get your URLs and check the API and the MCP endpoint
 
 ```powershell
 $AppHost = az webapp show --name $APP --resource-group $RG --query defaultHostName -o tsv
 "Website:      https://$AppHost/"
-"API base URL: https://$AppHost/api"
+"MCP URL:      https://$AppHost/mcp"
 Invoke-RestMethod "https://$AppHost/health"
 Invoke-RestMethod "https://$AppHost/api/login?userId=USER001"
+(Invoke-RestMethod -Method Post -Uri "https://$AppHost/mcp" -ContentType "application/json" -Headers @{Accept="application/json, text/event-stream"} -Body '{"jsonrpc":"2.0","id":1,"method":"tools/list"}').result.tools.name
 ```
 
-Copy the **API base URL**. You'll paste it into Copilot Studio in [Module 3](./03-demo-login.md). To open the website in your browser, run:
+The last command asks the **MCP endpoint** which tools it offers. You should see ten tool names, from `demo_login` to `purchase_voucher`. Your agent will use these tools in [Module 3](./03-connect-bank-tools.md).
+
+**Copy the MCP URL** (the line that starts with `MCP URL:`). You'll paste it into Copilot Studio in [Module 3](./03-connect-bank-tools.md). To open the website in your browser, run:
 
 ```powershell
 Start-Process "https://$AppHost/"
 ```
 
 > [!TIP]
-> Always copy the host name from this command rather than typing it. New App Service apps get a unique host name that includes a random suffix and the region, for example `contoso-bank-nw-12345-abc123def456.australiaeast-01.azurewebsites.net`. The variable is named `$AppHost` because `$Host` is a reserved name in PowerShell.
+> Always copy the host name from this command rather than typing it. For apps created with these commands it's usually `<your-app-name>.azurewebsites.net`, but Azure can add a random suffix and the region to the name, so don't assume. The variable is named `$AppHost` because `$Host` is a reserved name in PowerShell.
 
 ### ✅ Checkpoint
 
 - `/health` shows `status` with the value `ok`.
 - `/api/login?userId=USER001` shows `accountId` with the value `ACC001`.
-- The website opens in your browser, and `https://<your-host>/api-docs` shows the API reference.
+- The last command lists ten tool names.
+- The website opens in your browser, and `https://<your-host>/api-docs` shows the API reference, including a section about the MCP endpoint.
 
 ## Optional — Continuous deployment from GitHub
 
@@ -200,8 +213,9 @@ Only use this if you want every push to your fork to redeploy the app automatica
 | `was unexpected at this time` after an `az` command you edited | On Windows, `az` runs through `cmd.exe`, which can't handle parentheses or `|` characters in `--query` text. Use the commands exactly as written. |
 | A command says a variable such as `$APP` is empty, or the name is missing | You opened a new PowerShell window. Run Step 2 again, and set `$APP` to the name you wrote down. |
 | The browser shows **Application Error**, or the logs say `Cannot find module 'express'` | Build automation didn't run. Repeat Step 5.3, and then repeat Step 5.4. |
+| `az webapp deploy` fails with `Kudu Status : 400`, and the deployment log shows `rsync: … failed to stat "…/api\bankingApi.js"` | The zip has backslashes in its file paths. You made it with `Compress-Archive` in Windows PowerShell 5.1. Run the `tar` lines from Step 5.4 instead, check that `tar -tf $ZIP` shows `/` and not `\`, and deploy again. To see the log, run `az webapp log deployment show --name $APP --resource-group $RG`. |
 | The logs say `Cannot find module '/home/site/wwwroot/server.js'` | The zip was created in the wrong folder. Run the `Set-Location` command from Step 5.1, check that `Get-ChildItem` shows `server.js`, and then repeat Step 5.4. |
-| The upload is very large, or the logs show errors from `node_modules` | A local `node_modules` folder was zipped. Follow the warning in Step 5. |
+| `tar` "is not recognized" | Your Windows version is older than Windows 10 (version 1803). Use a newer PC, or Azure Cloud Shell in PowerShell mode. |
 | SKU not available, a capacity error, or the pricing tier isn't allowed | Run `az group delete --name $RG --yes`, then `$LOCATION = "australiasoutheast"`, and repeat Steps 3–5. |
 | `Website with given name already exists` | App names are global. Run `$APP = "contoso-bank-$INITIALS-$(Get-Random -Minimum 10000 -Maximum 99999)"`, and repeat Steps 5.2–5.4. |
 | The browser shows **Application Error** and the cause isn't clear | Run `az webapp log tail --name $APP --resource-group $RG` and read the error. Press **Ctrl+C** to stop. |

@@ -5,11 +5,12 @@
 | | |
 | --- | --- |
 | **Time** | 20 minutes |
-| **You will** | Link the agent's instructions to your topics, run an end-to-end test, reset the demo data, optionally share the agent, and delete your Azure resources |
+| **You will** | Run an end-to-end test, check your Copilot Credit usage, optionally publish and share the agent, and delete your Azure resources |
+| **You need** | The agent from Module 6 |
 
 ## Step 1 — Reset the demo data
 
-Earlier tests changed balances and paid some bills. Restart the app so everything starts fresh. PowerShell forgets your variables when you close the window, so set them again first:
+Restart the app so the test starts from the original balances. PowerShell forgets your variables when you close the window, so set them again first if needed:
 
 ```powershell
 $RG = "rg-contoso-bank-<your-initials>"
@@ -17,48 +18,53 @@ $APP = "<the app name you wrote down in Module 1>"
 az webapp restart --name $APP --resource-group $RG
 ```
 
-## Step 2 — Link the instructions to your topics
+Wait about 30 seconds. Then, in **Preview**, start a **new conversation** with **End user preview** off.
 
-In Module 2, the instructions named the topics in plain text, because they didn't exist yet. Now that you've built them, turn each name into a real link, so the agent calls exactly that topic.
+## Step 2 — Run the end-to-end test
 
-1. On the agent's **Overview** page, in the **Instructions** section, select **Edit**.
-2. In the **What you can help with** section, find the first topic name, for example `Demo login topic`. Delete it, type a slash (`/`), and then select **Demo login** from the menu.
-3. Repeat for **Account number**, **Balance inquiry**, **Transfer money**, **Pay a bill**, and **Buy a voucher**.
-4. Select **Save**.
+Run the whole script in **one** conversation. It covers every journey, and the numbers add up: 5,280.50 − 100.00 − 85.00 − 25.00 = 5,070.50.
 
-Each link appears as a highlighted chip. If a topic isn't in the `/` menu, check that its name matches exactly and that you saved it.
-
-## Step 3 — Run the end-to-end test
-
-In the **Test** pane, select **Refresh**, and then run this whole script in **one** conversation. To make the canvas follow the conversation from topic to topic, select the **Activity map** icon in the Test pane, and then select **Tracking between topics**.
-
-| # | Type | Expected result | What runs |
+| # | You type | What you should see | Tool in the trace |
 | --- | --- | --- | --- |
-| 1 | `Hi, what's my account number?` | Asks for a demo user ID | Account number → Demo login |
-| 2 | `USER001` | Welcome, Chihiro Kimura. Account ACC001. | Demo login → Account number |
-| 3 | `How much money do I have?` | USD 5,280.50 | Balance inquiry → flow |
-| 4 | `Send money to a friend` | Lists ACC002 and ACC003 | Transfer money |
-| 5 | `acc002`, then `100` | Asks you to confirm | Transfer money → flow |
-| 6 | **Yes, send it** | A transaction ID, and a new balance of USD 5,180.50 | Transfer money |
-| 7 | `Pay my electricity bill` → `BILL-1001` → **Yes, pay it** | Paid PowerCo Electric. New balance USD 5,095.50. | Pay a bill → flow |
-| 8 | `Buy a gift card` → `GIFT_CARD` → `25` → **Yes, buy it** | A voucher code. New balance USD 5,070.50. | Buy a voucher → flow |
-| 9 | `Send money` → `ACC003` → `999999` | Not enough funds. Nothing moves. | Transfer money → flow |
-| 10 | `What's my balance?` | USD 5,070.50 | Balance inquiry → flow |
+| 1 | `Hi, what's my account number?` | The agent asks for your demo user ID. | none |
+| 2 | `USER001` | Signed in as Chihiro Kimura. Your account number is **ACC001**. | `demo_login` |
+| 3 | `How much money do I have?` | **USD 5,280.50**. | `get_balance` |
+| 4 | `Send money to a friend` | It lists your saved accounts, and asks who and how much. | `list_saved_accounts` |
+| 5 | `ACC002, 100` | A summary: USD 100.00 to Camila Botelho. It asks you to confirm. | `check_funds` |
+| 6 | `Yes` | Done. A transaction ID, and the new balance **USD 5,180.50**. | `transfer_money` |
+| 7 | `Pay my electricity bill` | A summary: PowerCo Electric, USD 85.00. It asks you to confirm. | `list_bills`, `check_funds` |
+| 8 | `Yes` | Paid. The new balance is **USD 5,095.50**. | `pay_bill` |
+| 9 | `Buy a gift card for 25` | A summary: Contoso Gift Card, USD 25.00. It asks you to confirm. | `list_vouchers`, `check_funds` |
+| 10 | `Yes` | A voucher code and expiry date. The new balance is **USD 5,070.50**. | `purchase_voucher` |
+| 11 | `Send 999,999 to ACC003` | The agent says your balance isn't enough, and shows the shortfall. **Nothing is sent.** | `check_funds` |
+| 12 | `What's my balance?` | **USD 5,070.50**. | `get_balance` |
 
-"flow" means the **Check available funds** agent flow. If a row fails, go back to the module that built that topic and use its **Troubleshooting** table.
+If a row doesn't behave as described, go back to the module for that journey and use its **Troubleshooting** table. The exact wording of the replies varies, but the numbers and the order of the tool calls shouldn't.
 
 ### ✅ Checkpoint
 
-- All 10 rows behave as expected.
-- The final balance equals the starting balance minus the confirmed transactions only.
-- **Flows** → **Check available funds** → **Run history** shows six new runs, one for each row marked "→ flow".
+- All 12 rows behave as expected, and the final balance is **USD 5,070.50**.
+- Every money move (rows 6, 8, and 10) came after a summary and a clear yes.
+- The three money tools were each called exactly once.
 
-## Step 4 — Share the agent (optional)
+## Step 3 — Check your credit usage
 
-1. Select **Publish** in Copilot Studio.
-2. Open **Channels**, and select **Demo website** to get a link you can share with classmates.
+This harness is billed in Copilot Credits, including while you test ([Learn](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/billing-credit-overview)). Look at what your lab used:
 
-Your organization's policies might restrict publishing. If so, keep testing in the **Test** pane.
+1. In **Preview**, look at the credit estimate in the chat. It shows the estimated credits for the current test session. Select it to read what it means.
+2. Open the **Monitor** tab. It shows the total credits your agent has used, and when a breakdown is available, which activities used them.
+
+Think about which parts of your test cost the most. Long instructions, more tool calls, and longer conversations all add up. A tool call like `check_funds` costs credits too, so the funds check is a deliberate trade-off between safety and cost.
+
+## Step 4 — Optional: publish and share
+
+Your agent works in **Preview**. To let other people try it, you can publish and share it. This depends on your organization's settings and licenses, so ask your instructor first.
+
+1. **Publish to a demo website.** Select the chevron next to **Publish**, select **Demo website**, and then select **Save and publish**. Copy the URL that appears. Trial licenses can create and test agents, but can't publish them ([Learn](https://learn.microsoft.com/microsoft-copilot-studio/create-automation-natural-language#publish-your-solution)).
+2. **Share with people in your organization.** Select the **Share** icon next to **Publish**, enter the names, email addresses, or groups, and then select **Share**. People you share with can see and test the agent, but not edit it. Sharing has prerequisites, such as how users sign in and which licenses they have ([Learn](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-share-agent)).
+
+> [!CAUTION]
+> The bank's data is mock data and the sign-in is not real authentication. Don't share the agent or the website URL outside your class.
 
 ## Clean up
 
@@ -74,27 +80,26 @@ Confirm the deletion finished after a few minutes:
 az group exists --name $RG
 ```
 
-The command returns `false` when the resource group is gone. You can also delete the agent in Copilot Studio (**Agents** → **…** → **Delete**) if you no longer need it.
+The command returns `false` when the resource group is gone. In Copilot Studio, delete the agent too if you don't need it: open the **Agents** page and use the agent's menu to delete it. Deleting the agent stops any further Copilot Credit use by it.
 
 ## Stretch challenges
 
 Try these if you finish early:
 
-1. **Recent transactions**: build a topic that calls `GET /api/transactions?accountId=…&limit=5` and lists the results with `Concat`.
-2. **Amount validation**: in **Transfer money**, reject amounts of 0 or less before calling the **Check available funds** flow.
-3. **Sign out**: add a topic that clears `Global.AccountId` with a **Set a variable value** node and says goodbye.
-4. **Adaptive Card**: replace the typed recipient ID with an **Ask with Adaptive Card** node that shows the saved accounts as buttons.
-5. **Let the agent call the flow by itself**: go to your agent's **Tools** page → **Add a tool** → **Flow** → **Check available funds** → **Add and configure**. Use the description `Checks whether the signed-in customer can afford a specific amount.` Set the **BaseUrl** and **AccountId** inputs to **Set as a value** with `Global.BaseUrl` and `Global.AccountId`, and leave **RequiredAmount** to be filled dynamically. Then sign in as USER002 and ask `Can I afford a 2000 dollar transfer?`
-6. **Add a business rule in one place**: change the flow so that `HasEnoughFunds` is false for amounts over USD 5,000, publish it, and confirm that transfers, bills, and vouchers all follow the new rule without editing any topic.
+1. **Change a rule.** Add this line under **Rules**: `If the amount is more than USD 1,000, ask the customer to confirm twice.` Test a transfer of 1,500 as USER003. Then check the trace to see how the conversation changed.
+2. **Offer a next step.** After a successful transaction, make the agent offer to show recent transactions, and use `list_transactions` when the customer says yes.
+3. **Compare models.** On the **Build** tab, change the **Model**, save, and run the end-to-end test again. Compare the wording, the tool calls, and the credit estimate.
+4. **Protect the endpoint.** Add an API key to the MCP endpoint, as in the optional section of [Module 3](./03-connect-bank-tools.md#optional--protect-the-mcp-endpoint-with-an-api-key), and confirm that the agent still works.
+5. **Evaluate the agent.** Turn your end-to-end script into a repeatable test with the **Evaluate** tab ([Learn](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/analytics-agent-evaluation-intro)).
+6. **Add a tool (for instructors and developers).** In `app/mcp/mcpServer.js`, add an eleventh tool, for example one that returns a short summary of an account. Redeploy with [Module 1, Step 5.4](./01-deploy-backend.md#step-5--create-the-web-app-and-deploy-the-code), and then edit the server in the **Tools** dialog to refresh the tool list. Write a clear description, and mention the tool in the instructions.
 
 ## What you built
 
-- A Node.js banking API on Azure App Service (P0v3, Australia East).
-- A standard Copilot Studio agent with six topics and one agent flow:
-  - Two customer utilities: **Demo login** and **Account number**.
-  - Four customer journeys: **Balance inquiry**, **Transfer money**, **Pay a bill**, and **Buy a voucher**.
-  - One reusable workflow: the **Check available funds** agent flow, called by all four journeys.
-- A safe pattern for money-moving conversations: *check → summarize → confirm → execute → report*.
+- A Node.js banking app on Azure App Service (P0v3, Australia East), with a website, a REST API, and an MCP endpoint.
+- An agent powered by the GitHub Copilot harness in Copilot Studio, made of:
+  - **Instructions** that define its role, its signing-in rule, a safe order for money moves, and its limits.
+  - **One MCP server** with ten tools, one of which (`check_funds`) is a reusable balance check.
+- A safe pattern for any agent that can change data: *get details → check → summarize → confirm → act → report*, with the confirmation enforced in **both** the instructions and the tool.
 
 ---
 

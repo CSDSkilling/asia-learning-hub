@@ -1,182 +1,167 @@
 # Module 2 — Create the agent
 
-[← Previous: Deploy the API](./01-deploy-backend.md) · [Lab home](../README.md) · **Module 2 of 7** · [Next: Demo login →](./03-demo-login.md)
+[← Previous: Deploy the API](./01-deploy-backend.md) · [Lab home](../README.md) · **Module 2 of 7** · [Next: Connect the bank tools →](./03-connect-bank-tools.md)
 
 | | |
 | --- | --- |
-| **Time** | 15 minutes |
-| **You will** | Create a standard agent from a prompt, review what the AI generated, and learn the variables and canvas nodes used in this lab |
-| **You need** | Access to Copilot Studio with permission to create agents |
+| **Time** | 20 minutes |
+| **You will** | Create an agent with the GitHub Copilot harness in Copilot Studio, give it its instructions, and turn off memory |
+| **You need** | Access to Copilot Studio with permission to create agents, and an environment that has Copilot Credits |
 
-## Why a standard agent, not a declarative agent?
+## How this agent works
 
-This lab builds conversations with **topics** and the **HTTP Request** node. Both run on the Copilot Studio [standard harness](https://learn.microsoft.com/microsoft-copilot-studio/harnesses-overview). Declarative agents for Microsoft 365 Copilot don't have topics, so the **Topics** page won't appear if you create one of those.
+In this lab you don't build topics or conversation flows. An agent powered by the [GitHub Copilot harness](https://learn.microsoft.com/microsoft-copilot-studio/harnesses-overview) works from two things that you give it:
 
-## Step 1 — Create the agent from a prompt
+- **Instructions**, written in plain language, that say who the agent is, what it can do, and the rules it must follow.
+- **Tools**, which let it take actions. In this lab the tools are the banking functions from Module 1.
 
-1. Open [Copilot Studio](https://copilotstudio.microsoft.com), and then select the environment your instructor gave you (top-right corner).
-2. Check which home page you see:
+When a customer sends a message, the agent reads your instructions, decides whether a tool is needed, calls it, and writes the reply from the result. It picks tools by their **name and description**. You can watch each decision in the **activity trace** in Module 3.
 
-   | You see | What to do |
-   | --- | --- |
-   | **What would you like to build?**, a description box, and a **Start building from scratch** section below it | You're on the standard home page. Go to the next step. |
-   | **Hey *name*, what do you want to build?**, **Agent** and **Workflow** cards labeled *GitHub Copilot*, and a **New experience** toggle at the top right | Turn **off** the **New experience** toggle. If a **Feedback** panel opens, select **Submit** to close it. The standard home page appears. |
+```mermaid
+flowchart LR
+  C([Customer message]) --> A[Agent<br/>reads the instructions]
+  A -->|needs data or an action| T[Tools<br/>Contoso Bank MCP server]
+  T --> API[(Banking API<br/>in App Service)]
+  API --> T
+  T -->|result| A
+  A --> R([Reply to the customer])
+```
 
-3. Optional: to build the agent in a language other than English, select the gear icon in the description box and choose the **primary language** now. You can't change it after the agent is created.
-4. Make sure **Agent** is selected above the description box. Paste this prompt into the box, and then select the arrow (or press **Enter**):
+> [!IMPORTANT]
+> **This harness bills from the moment you start building.** Creating, previewing, and testing an agent can consume Copilot Credits ([usage-based billing](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/billing-credit-overview)). The **Preview** chat shows a running estimate of the credits you've used. Instructors should check that the environment has Copilot Credits available before class.
 
-   ```text
-   Create a friendly banking assistant named Contoso Friendly Banker for a Contoso Bank classroom demo. It helps customers sign in with a demo user ID (USER001, USER002 or USER003), tell them their account number, check their balance, list their saved accounts, transfer money to a saved account, pay outstanding bills, and buy gift card or grocery vouchers. This is a mock bank with no real authentication and no real money, so never ask for passwords, PINs or card numbers. Always get account data from the bank's topics and tools, and never invent balances, account numbers, bills, transaction IDs or voucher codes. Before any transfer, bill payment or voucher purchase, check that the customer has enough money, show a summary, and ask for explicit confirmation. Don't give financial, investment or tax advice. Keep replies short, warm and clear, and always show amounts with their currency.
-   ```
+## Step 1 — Create the agent
 
-5. Wait while Copilot Studio creates the agent. The agent's **Overview** page opens, with a generated name, description, and instructions, and a list of **suggestions**.
+1. Open [Copilot Studio](https://copilotstudio.microsoft.com), and then select the environment your instructor gave you.
+2. If the home page has a **New experience** toggle at the top right, make sure it's **on**. That's the home page for agents powered by the GitHub Copilot harness.
+3. Select **Agent**. Depending on your home page, it's a tile labeled *GitHub Copilot*, or it's under **Start building from scratch**. You can also select **Agents** in the left pane, and then **New agent**.
 
-## Step 2 — Review and replace the generated instructions
+   The agent designer opens on the **Build** tab, with the name field ready for typing.
 
-1. **Details**: select **Edit**, and make sure the name and description are:
-   - **Name**: `Contoso Friendly Banker`
-   - **Description**: `Helps Contoso Bank demo customers check balances, transfer money, pay bills, and buy vouchers.`
+   > [!NOTE]
+   > The home page also has a large box where you can describe what you want. In this lab, don't use it. That box starts a guided chat that decides for itself what to build and might add agents or workflows you don't need. Starting from **Agent** gives everyone the same result. Also skip **Other ways to build**. That leads to standard, topic-based agents, which this lab doesn't use.
 
-   Select **Save**.
+4. In the name field, enter `Contoso Friendly Banker`.
 
-2. **Instructions**: select **Edit** and read the instructions Copilot generated from your prompt. They usually look good at first glance, with sections such as *Purpose*, *Skills*, and *Step-by-Step Instructions*. But for this lab they have problems like these:
+   If you want to change the primary language, solution, or schema name, open **Agent settings** now, before you save for the first time. The last name you enter before the first save also sets the agent's schema name, and that can't be changed later.
 
-   | Generated instruction | Why it's a problem in this lab |
-   | --- | --- |
-   | *Validate that the ID is one of the allowed demo IDs* | The agent would "validate" the ID itself. Only the bank API knows which users exist, and the **Demo login** topic asks it. |
-   | Step-by-step lists for transfers, bills, and vouchers | The agent might try to run these steps on its own instead of using your topics, and invent data along the way. |
-   | *Ask for explicit confirmation before proceeding* | Your topics already ask for confirmation. The agent might ask a second time. |
-   | *Ask which bill to pay and confirm amount* | The bill amount comes from the bank and can't be changed in the chat. |
-   | *Ask for amount* (vouchers) | Vouchers come only in the amounts the bank lists, for example 25, 50, or 100. |
-   | Example: *Your current balance is $200.00… Savings Account 1234* | Made-up examples teach the agent to make up data. There's no savings account 1234 in the demo bank. |
-   | *e.g., $100.00* | The bank returns currency codes. Topics show `USD 1,240.00`. |
-   | No rule about success messages | The agent could say "Done!" even when a transfer failed. |
-   | No out-of-scope rule | The agent might try to help with loans, cards, or new accounts, which the bank doesn't offer. |
+## Step 2 — Add the instructions
 
-3. Select all the generated text, delete it, and paste these instructions instead:
+1. In the **Instructions** section, select the empty space and paste the following text:
 
    ```text
    # Purpose
    You are Contoso Friendly Banker, a friendly assistant for the Contoso Bank classroom demo. This is a mock bank: there is no real authentication and no real money.
 
-   # What you can help with
-   Each task has its own topic. Always use the matching topic, and let it do the work.
-   - Sign in with a demo user ID (USER001, USER002 or USER003): Demo login topic
-   - "What is my account number?": Account number topic
-   - Check the balance: Balance inquiry topic
-   - Send money to a saved account: Transfer money topic
-   - Pay an outstanding bill: Pay a bill topic
-   - Buy a gift card or grocery voucher: Buy a voucher topic
+   # Tools
+   Use the Contoso Bank tools for everything about accounts. Never answer from memory, and never guess.
+   - demo_login: signs a customer in with a demo user ID (USER001, USER002 or USER003) and returns their name and account number.
+   - get_balance: the current balance.
+   - check_funds: whether the account has enough money for an amount.
+   - list_saved_accounts: the accounts the customer can send money to.
+   - list_transactions: recent transactions.
+   - transfer_money: sends money to a saved account.
+   - list_bills and pay_bill: outstanding bills, and paying one.
+   - list_vouchers and purchase_voucher: vouchers that can be bought, and buying one.
+
+   # Signing in
+   - The customer must be signed in before you use any account tool. If you don't know their account number yet, ask for their demo user ID (USER001, USER002 or USER003), and call demo_login.
+   - Remember the account number for the rest of the conversation, and use it for every tool call.
+   - Only use the account of the signed-in customer. If the customer asks about another account, say you can only help with the account they're signed in to, and offer to sign in as the other user instead.
+   - If the customer wants to switch user, call demo_login again with the new ID.
+   - If demo_login says the user wasn't found, say so and ask again. Don't guess an ID.
+
+   # Everyday requests
+   - Account number: tell the customer the accountId from demo_login.
+   - Balance: call get_balance.
+   - Saved accounts: call list_saved_accounts.
+   - Recent activity: call list_transactions.
+   - "Can I afford...?": call check_funds with the amount.
+
+   # Moving money: transfers, bill payments and voucher purchases
+   Follow these steps in order. Don't skip a step, even if the customer asks you to.
+   1. Get the details from the bank, not from memory:
+      - Transfer: call list_saved_accounts. The customer must choose an account from that list, and you must ask how much to send.
+      - Bill: call list_bills. The customer chooses a bill. The amount is the bill's amount, which can't be changed.
+      - Voucher: call list_vouchers. The customer chooses a type and one of the listed amounts.
+   2. Call check_funds with the amount. If hasEnoughFunds is false, tell the customer the balance and the shortfall, and stop.
+   3. Show a short summary: what will happen, to whom, and the amount with its currency.
+   4. Ask the customer to confirm with a clear yes or no. A request such as "send 50 to ACC002" is not a confirmation. Words like "just do it" said before you showed the summary are not a confirmation either.
+   5. Only after a clear yes to that summary, call the money tool (transfer_money, pay_bill or purchase_voucher) with confirmed set to true. If the answer is no or unclear, don't call it, and say that nothing was moved.
+   6. Report the result from the tool: the transaction ID and the new balance. For a voucher, also give the voucher code and the expiry date.
 
    # Rules
-   - Get all account data from the topics. Never guess or invent account numbers, names, balances, bills, amounts, transaction IDs, or voucher codes.
-   - Don't check IDs, balances, or funds yourself. The topics ask the bank.
-   - The topics already check funds, show a summary, and ask for confirmation before money moves. Don't add your own confirmation or repeat those steps.
-   - Say a transaction succeeded only after a topic shows a transaction ID. If a topic reports an error, explain it in simple words and suggest a next step, such as a smaller amount, another account, or trying again later. Never retry a transaction on your own.
-   - Transfers go only to the customer's saved accounts. Bill amounts come from the bank and can't be changed. Vouchers come only in the amounts the bank lists.
-   - Never ask for passwords, PINs, card numbers, or any other personal information.
+   - Never set confirmed to true unless the customer said yes to the summary you just showed.
+   - Make at most one money tool call for each confirmation. Never repeat a transaction.
+   - Say that something succeeded only if the tool returned success with a transaction ID.
+   - If a tool returns an error, explain it in simple words, say that nothing was moved, and suggest a next step such as a smaller amount or a different account. Don't retry on your own.
+   - Use names, account numbers, balances, bill amounts, and codes exactly as the tools return them. Never invent them.
+   - Transfers go only to saved accounts. Bill amounts can't be changed. Vouchers come only in the listed types and amounts.
+   - Never ask for passwords, PINs, card numbers, or personal details.
    - Don't give financial, investment, or tax advice.
-   - For anything else, such as loans, credit cards, new accounts, changing personal details, or disputes, say that the demo can't help with it, and list what you can do.
+   - For anything else, such as loans, credit cards, new accounts, or disputes, say that the demo can't help with it, and list what you can do.
 
    # Style
    - Short, warm, and clear. Ask one question at a time.
-   - Show amounts with the currency code the bank returns, for example USD 1,240.00.
-   - After a task is finished, ask whether there's anything else you can help with.
+   - Show amounts with the currency code from the tool, for example USD 1,240.00.
+   - After you finish a task, ask whether there's anything else you can help with.
    ```
 
-   Select **Save**.
+2. Select the **Save** icon.
 
-   The topics named in these instructions don't exist yet. You'll build them in Modules 3 to 6, using exactly these names, and link the instructions to them in [Module 7](./07-test-and-clean-up.md#step-2--link-the-instructions-to-your-topics).
+### Why the instructions are written this way
 
-4. **Suggestions**: the AI might suggest knowledge sources (such as websites), tools, triggers, or channels. Select **Dismiss** for each one. This lab builds its own topics and tool in later modules, and a banking website as knowledge could give answers that don't match the demo data. Suggestions you don't accept disappear when you leave the page.
+Read through the instructions once. Each section does a specific job:
+
+| Section | What it does |
+| --- | --- |
+| **Tools** | Names every tool and what it's for, so the agent picks the right one. These names match the tools you'll connect in Module 3. |
+| **Signing in** | Makes the agent ask for a demo user ID first, keep the account number for the whole conversation, and use only the signed-in customer's account. |
+| **Moving money** | A fixed order of steps: get details, check funds, summarize, confirm, act, report. This is the safe pattern for anything that changes a balance. |
+| **Rules** | Hard limits: no invented data, no repeated transactions, no claiming success without a transaction ID, no advice. |
+| **Style** | Tone, one question at a time, and how amounts are shown. |
 
 > [!TIP]
-> **Class discussion.** Compare your generated instructions with a classmate's. The same prompt often produces different text. What else in the generated version could cause problems? Generated instructions are a good first draft, but instructions for an agent that uses topics should *point to the topics* instead of describing the steps again.
+> Instructions are the main way you control an agent in this harness. If the agent misbehaves later in the lab, the first fix is usually a clearer or stricter sentence in the instructions. You'll practice that in Modules 5 and 6.
 
-## Step 3 — Check the agent settings
+## Step 3 — Turn off memory
 
-1. On the **Overview** page, find the **Knowledge** section and turn **off** **Web Search**. This stops the agent from answering bank questions with information from the internet.
-2. Select **Settings** (top right), and then select **Generative AI**.
-3. Under **Orchestration**, confirm that **Generative** is selected. With generative orchestration, the agent chooses topics by their **description**, so write descriptions carefully in the next modules.
-4. Select **Save**.
+The agent can remember details between conversations when **Memory** is on ([Learn](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/memory-overview)). For a banking demo you don't want that, because the agent could keep account details between sessions.
 
-> [!NOTE]
-> Leave **Allow ungrounded responses** (on the same **Generative AI** page) as it is. The agent's instructions already tell it never to invent account data. If you turn that setting off, simple messages such as "hi" might get the fallback reply instead of a greeting.
+1. On the **Build** tab, find the **Memory** toggle in the components panel on the right.
+2. Make sure it's **off**.
 
-## How the lab fits together
+## Step 4 — Check the rest of the Build tab
 
-```mermaid
-flowchart LR
-  U([Customer]) --> A[Contoso Friendly Banker]
-  A --> L[Demo login]
-  A --> N[Account number]
-  A --> B[Balance inquiry]
-  A --> T[Transfer money]
-  A --> P[Pay a bill]
-  A --> V[Buy a voucher]
-  B --> F[[Agent flow:<br/>Check available funds]]
-  T --> F
-  P --> F
-  V --> F
-  L --> API[(Contoso Bank API)]
-  F --> API
-  T --> API
-  P --> API
-  V --> API
-```
+Look at the components panel, and make sure these match:
 
-You'll build one topic per customer journey, plus one **agent flow** (a workflow) called **Check available funds**. Four topics call the flow before they show a balance or move money, so the funds rule lives in one place.
-
-## The variables you'll use
-
-| Variable | Scope | Set in | Holds |
-| --- | --- | --- | --- |
-| `Global.BaseUrl` | Global | Demo login | The start of every API URL, for example `https://<host>/api` |
-| `Global.AccountId` | Global | Demo login | The signed-in demo account, for example `ACC001` |
-| `Global.CustomerName` | Global | Demo login | The account holder's name |
-| `Global.Currency` | Global | Demo login | The account currency, for example `USD` |
-| `Topic.<Name>` | Topic | Any topic | Values that only one topic needs |
-
-> [!IMPORTANT]
-> A **topic** variable exists only inside the topic that created it. If another topic needs a value, make it **Global** (select the variable → **Variable properties** → **Global (any topic can access)**).
->
-> Agent flows can't read `Global.` variables at all. When a topic calls a flow, it passes values such as `Global.AccountId` in as inputs (you'll do that in Module 4).
-
-## Canvas cheat sheet
-
-Every step in this lab starts with the **+** (**Add node**) icon under an existing node.
-
-| To… | Select **+** → |
+| Component | Setting for this lab |
 | --- | --- |
-| Show a message | **Send a message** |
-| Ask the customer something | **Ask a question** |
-| Branch on a value | **Add a condition** |
-| Save or calculate a value | **Variable management** → **Set a variable value** |
-| Turn JSON into a record | **Variable management** → **Parse value** |
-| Call the API | **Advanced** → **Send HTTP request** |
-| Call an agent flow | **Add a tool** → select the flow |
-| Run another topic | **Topic management** → **Go to another topic** |
-| Stop early | **Topic management** → **End current topic** or **End all topics** |
+| **Model** | Leave the default. |
+| **Knowledge** | Empty. The agent must get account data only from the bank's tools. |
+| **Tools** | Empty for now. You'll add the bank's tools in Module 3. |
+| **Skills** and **Connected agents** | Empty. |
+| **Memory** | Off. |
 
-**Entering a Power Fx formula:** in a message, URL, or value box, select the **{x}** icon, open the **Formula** tab, type the formula, and then select **Insert**. For a condition, open the condition's **…** menu and select **Change to formula**.
+Select **Save** if the button is active.
 
 ### ✅ Checkpoint
 
-- The left navigation shows **Topics** and **Flows**.
-- The agent's name is **Contoso Friendly Banker**, and its instructions are the ones from Step 2.3.
-- The **Knowledge** and **Tools** sections on the **Overview** page are empty.
-- **Settings** → **Generative AI** shows **Generative** selected under **Orchestration**.
-- **Web Search** is off in the **Knowledge** section of the **Overview** page.
+- The agent is named **Contoso Friendly Banker** and is saved.
+- The **Instructions** section contains the text from Step 2.
+- **Memory** is off, and **Knowledge** and **Tools** are empty.
+- Optional: select the **Preview** tab and type `Hi`. The agent should greet you and offer to help, but it can't do anything with accounts yet.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 | --- | --- |
-| There's no **Topics** page | You created a new-experience agent or a Microsoft 365 Copilot (declarative) agent. Turn off **New experience** and create the agent again. |
-| The description box is missing, or creating an agent from a description isn't available | Your tenant turned this feature off (for example, in sovereign clouds). Select **Agent** under **Start building from scratch** instead, and then enter the name, description, and instructions from Step 2 yourself. |
-| The generated agent added knowledge sources or tools | You accepted a suggestion. Remove it from the **Knowledge** or **Tools** section of the **Overview** page. |
-| You can't create agents | Ask your instructor for maker permissions in the environment, or switch to the class environment. |
+| There's no **Agent** option, or the home page looks different | Turn the **New experience** toggle on if you see one. If you can't find it, ask your instructor whether your environment has the GitHub Copilot harness turned on. |
+| You see a **Topics** page in the agent's navigation | You created a standard (topic-based) agent. Delete it, turn on **New experience**, and create the agent again from the **Agent** tile. |
+| You can't create an agent, or you see a message about credits | Your environment might have no Copilot Credits, or you don't have maker permissions. Ask your instructor. |
+| The **Save** button stays inactive | Enter a name first. The name is required. |
+| The agent's name or schema name is wrong | You can rename the agent. The schema name is fixed after the first save, so create a new agent if it matters. |
 
 ---
 
-[← Previous: Deploy the API](./01-deploy-backend.md) · [Lab home](../README.md) · [Next: Demo login →](./03-demo-login.md)
+[← Previous: Deploy the API](./01-deploy-backend.md) · [Lab home](../README.md) · [Next: Connect the bank tools →](./03-connect-bank-tools.md)
