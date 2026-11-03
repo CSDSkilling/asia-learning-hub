@@ -46,9 +46,9 @@ The **Operations Performance Manager** uses Microsoft 365 Copilot as one connect
 
 | File | Purpose |
 |---|---|
-| (DATA_DICTIONARY)[./DATA_DICTIONARY.md] | Trainer reference: column definitions and manufacturing glossary (not used in prompts) |
-| (Manufacturing_Operations_Performance_and_Risk)[./Manufacturing_Operations_Performance_and_Risk.xlsx] | One workbook, four sheets: `Operations_Data`, `Quality_and_Supplier_Risk`, `Action_Register`, `Email_Distribution` |
-| (Weekly_Operations_Report_Template)[./Weekly_Operations_Report_Template.docx] | Company template for the weekly leadership report |
+| [DATA_DICTIONARY](./DATA_DICTIONARY.md) | Trainer reference: column definitions and manufacturing glossary (not used in prompts) |
+| [Manufacturing_Operations_Performance_and_Risk](./Manufacturing_Operations_Performance_and_Risk.xlsx) | One workbook, four sheets: `Operations_Data`, `Quality_and_Supplier_Risk`, `Action_Register`, `Email_Distribution` |
+| [Weekly_Operations_Report_Template](./Weekly_Operations_Report_Template.docx) | Company template for the weekly leadership report |
 
 > **Note:** This workbook contains **synthetic sample data** created solely for training and demonstration purposes. It does not represent any real company, plant, supplier or person. All email addresses are fictional (`contoso.com`).
 
