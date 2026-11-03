@@ -381,6 +381,7 @@ Show trend charts, explain the results in plain business language, and clearly s
 ```
 
 <br>
+
 > Key Takeaway & Talking point
 > - The manager extends the weekly review from looking back to looking ahead, with leading indicators that flagged W42 a week early and thresholds leadership can monitor every week.
 > - *Copilot didn't just explain what happened. It showed what to watch so it doesn't happen again, and was honest about what four weeks of data can and can't tell us.*
