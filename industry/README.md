@@ -15,3 +15,4 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Telco** | Copilot | [From Customer Complaints to a Retention Decision](Telco/Copilot/Customer%20Retention%20Decision) |
 | **Telco** | Copilot | [Regional 5G Service Degradation: From Alarm to Executive Action](Telco/Copilot/5G%20Service%20Degradation) |
 | **Telco** | Agent Builder | [Fix First, Then Retain: Customer Care Knowledge Coaches](Telco/Agent%20Builder/Customer%20Care%20Knowledge%20Coaches) |
+| **Telco** | Agent Builder | [From Alarm Storm to Verified Fix: NOC Incident Coach](Telco/Agent%20Builder/NOC%20Incident%20Coach) |
