@@ -8,11 +8,11 @@ A read-only knowledge coach for frontline care agents. It helps them fix the cus
 
 ## Build the agent
 1. Save the demo files in your `AsterWave Demo Kit` folder in OneDrive or SharePoint (see [Set up the demo](README.md#set-up-the-demo)).
-2. In Microsoft 365 Copilot, select **New agent**, then **Skip to configure**.
+2. In Microsoft 365 Copilot, select **New agent** and use the **Configure** tab.
 3. Enter the **Name**, **Description** and **Instructions** below.
-4. In the **Knowledge** section, select **Attach cloud files** (or **Enter URL**) and add the files listed under [Knowledge](#knowledge) from your `AsterWave Demo Kit` folder.
-5. Apply the [settings](#settings) and add the [starter prompts](#starter-prompts).
-6. Wait until no file shows **Preparing**, run the [demo steps](#demo-steps) on the **Try it** tab, then select **Create**.
+4. In the **Knowledge** section, select **Add knowledge** and add the files listed under [Knowledge](#knowledge) from your `AsterWave Demo Kit` folder.
+5. Apply the [settings](#settings) and add the [suggested prompts](#suggested-prompts).
+6. Wait until no file shows **Preparing**, run the [demo steps](#demo-steps) on the **Preview** tab, then select **Create**.
 
 ## Agent configuration
 
@@ -94,14 +94,14 @@ Good response: says no such offer exists in the files, invents nothing, and refe
 ### Settings
 | **Setting** | **Value** |
 |-------------|-----------|
-| Search all websites | Off |
-| Only use specified sources | On |
-| Reference people in organization | Off |
-| Create documents, charts, and code | Off |
-| Create images | Off |
+| Cloud files | Only the three files listed under [Knowledge](#knowledge), not all your cloud files |
+| Outlook | Off |
+| Teams | Off |
+| Copilot connectors | Off |
+| Web search | Off |
 | Response mode (Model) | Quick response |
 
-### Starter prompts
+### Suggested prompts
 | Title | Prompt |
 |---|---|
 | Roaming options | A customer on AW-POST-45 is going to Seika Republic for 5 days and expects to use about 8 GB. Which roaming option costs least? |
@@ -112,7 +112,7 @@ Good response: says no such offer exists in the files, invents nothing, and refe
 | eSIM transfer | How do I move a customer's eSIM to a new phone, and which identity checks are required? |
 
 ## Demo steps
-Run each prompt on the **Try it** tab, or in the agent after you create it. Start a new chat for each prompt.
+Run each prompt on the **Preview** tab, or in the agent after you create it. Start a new chat for each prompt.
 
 | **#** | **Prompt** | **Pass if…** |
 |-------|------------|--------------|

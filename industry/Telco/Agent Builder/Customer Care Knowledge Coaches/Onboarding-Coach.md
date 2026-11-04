@@ -8,11 +8,11 @@ A learning coach for new care agents and trainers. It explains AsterWave policie
 
 ## Build the agent
 1. Save the demo files in your `AsterWave Demo Kit` folder in OneDrive or SharePoint (see [Set up the demo](README.md#set-up-the-demo)).
-2. In Microsoft 365 Copilot, select **New agent**, then **Skip to configure**.
+2. In Microsoft 365 Copilot, select **New agent** and use the **Configure** tab.
 3. Enter the **Name**, **Description** and **Instructions** below.
-4. In the **Knowledge** section, select **Attach cloud files** (or **Enter URL**) and add the files listed under [Knowledge](#knowledge) from your `AsterWave Demo Kit` folder. You can also add the whole folder, because this agent uses all five files.
-5. Apply the [settings](#settings) and add the [starter prompts](#starter-prompts).
-6. Wait until no file shows **Preparing**, run the [demo steps](#demo-steps) on the **Try it** tab, then select **Create**.
+4. In the **Knowledge** section, select **Add knowledge** and add the files listed under [Knowledge](#knowledge) from your `AsterWave Demo Kit` folder. You can also add the whole folder, because this agent uses all five files.
+5. Apply the [settings](#settings) and add the [suggested prompts](#suggested-prompts).
+6. Wait until no file shows **Preparing**, run the [demo steps](#demo-steps) on the **Preview** tab, then select **Create**.
 
 ## Agent configuration
 
@@ -80,14 +80,14 @@ Good response: plays the matching SCN customer in character; after "end role-pla
 ### Settings
 | **Setting** | **Value** |
 |-------------|-----------|
-| Search all websites | Off |
-| Only use specified sources | On |
-| Reference people in organization | Off |
-| Create documents, charts, and code | Off |
-| Create images | Off |
+| Cloud files | Only the five files listed under [Knowledge](#knowledge), not all your cloud files |
+| Outlook | Off |
+| Teams | Off |
+| Copilot connectors | Off |
+| Web search | Off |
 | Response mode (Model) | Auto |
 
-### Starter prompts
+### Suggested prompts
 | Title | Prompt |
 |---|---|
 | Learn roaming | Teach me AsterWave roaming basics in five minutes. |
@@ -98,7 +98,7 @@ Good response: plays the matching SCN customer in character; after "end role-pla
 | What to review | Which module should I review if I keep mixing up authority limits? |
 
 ## Demo steps
-Run each prompt on the **Try it** tab, or in the agent after you create it. Start a new chat for each prompt.
+Run each prompt on the **Preview** tab, or in the agent after you create it. Start a new chat for each prompt.
 
 | **#** | **Prompt** | **Pass if…** |
 |-------|------------|--------------|

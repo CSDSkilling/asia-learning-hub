@@ -32,7 +32,7 @@ This demo shows three agents built with **Agent Builder** in Microsoft 365 Copil
 | New customer care representatives take a long time to learn the rules | The Onboarding Coach teaches, quizzes and role-plays, with rubric-based feedback | Faster, safer ramp-up on fictional cases |
 
 ## Demo files
-[Telco_Customer_Care_Coaches_Demo_Files.zip](https://github.com/CSDSkilling/asia-learning-hub/blob/main/industry/Telco/Agent%20Builder/Customer%20Care%20Knowledge%20Coaches/data-files/Telco_Customer_Care_Coaches_Demo_Files.zip)
+[Telco_Customer_Care_Coaches_Demo_Files.zip](https://github.com/CSDSkilling/asia-learning-hub/raw/refs/heads/main/industry/Telco/Agent%20builder/Customer%20Care%20Knowledge%20Coaches/data-files/Telco_Customer_Care_Coaches_Demo_Files.zip)
 
 | **File** | **Contents** | **Used by** |
 |----------|--------------|-------------|
@@ -59,8 +59,8 @@ Demo times include a 1-minute wrap-up. Build the agents before the session; buil
 ## Set up the demo
 1. Download the ZIP file and extract it.
 2. Create a folder named `AsterWave Demo Kit` in your OneDrive and upload the AW files to it (all five, or only the ones listed for your option). For a demo that several presenters run, use a SharePoint document library instead. Keep the file names unchanged, because the agent instructions refer to the files by name.
-3. Build the agents for the option you chose, using their pages: [Care Coach](Care-Coach.md), [Retention Coach](Retention-Coach.md) and [Onboarding Coach](Onboarding-Coach.md). In the **Knowledge** section, add each agent's files from your folder with **Attach cloud files** or **Enter URL**.
-4. Wait until no file shows **Preparing**, then test each agent on the **Try it** tab.
+3. Build the agents for the option you chose, using their pages: [Care Coach](Care-Coach.md), [Retention Coach](Retention-Coach.md) and [Onboarding Coach](Onboarding-Coach.md). In the **Knowledge** section, add each agent's files from your folder with **Add knowledge**.
+4. Wait until no file shows **Preparing**, then test each agent on the **Preview** tab.
 
 > **Requirements:** agents that use SharePoint or OneDrive knowledge need a Microsoft 365 Copilot license or usage-based billing. People you share the agents with also need access to the `AsterWave Demo Kit` folder.
 
@@ -79,11 +79,11 @@ The full story takes about 15 minutes, including a 1-minute wrap-up. To show few
 Show the knowledge files in your `AsterWave Demo Kit` folder and introduce customer CUS-01042 and case CARE-2048. Explain that all data is fictional and that the network status snapshot (AW4) stands in for a live system: its "As of" time, Friday 30 October 2026, 10:00, is "now" in the story.
 
 ## Stage 2 - Fix the immediate problem with the Care Coach
-- **Current incident:** Select the **Current incidents** starter prompt.
+- **Current incident:** Select the **Current incidents** suggested prompt.
 
 > Is there a current incident affecting mobile data in Meranti Coast? What should I tell the customer?
 
-- **Service credit:** Select the **Outage credit** starter prompt.
+- **Service credit:** Select the **Outage credit** suggested prompt.
 
 > What can I offer a Meranti Coast customer affected by INC-077?
 
@@ -96,13 +96,13 @@ Point out the incident status and Last updated time, the SRV-2.1 credit, the app
 The agent doesn't invent an offer. It refers the request to the Retention Coach.
 
 ## Stage 3 - Decide on retention with the Retention Coach
-- **Check eligibility:** Select the **Check eligibility** starter prompt.
+- **Check eligibility:** Select the **Check eligibility** suggested prompt.
 
 > CARE-2048: AW-POST-45, 26 months, out of contract, two contacts about slow data in Meranti Coast in the last 10 days (INC-071 and INC-077). Main reason network quality; mentions a competitor; no retention offer in the last 12 months. Which options are eligible?
 
 Point out "fix first", the eligibility table, the offers that fail and why, OFFER-12 as the recommendation, and the hand-off note.
 
-- **Vulnerable customer:** Select the **Vulnerable customer** starter prompt.
+- **Vulnerable customer:** Select the **Vulnerable customer** suggested prompt.
 
 > The CARE-2048 customer has just mentioned financial hardship. How does that change the options?
 
@@ -114,7 +114,7 @@ If you skipped Stage 2, the Retention Coach still fixes the problem first: befor
 Explain that the agents in this demo are read-only: they explain rules and approvals but never change records. Logging OFFER-12 in a system of record after the specialist confirms it needs actions and workflows, which is a Copilot Studio scenario. An Agent Builder agent can be copied to Copilot Studio when it needs those capabilities.
 
 ## Stage 5 - Train new customer care representatives with the Onboarding Coach
-- **Role-play:** Select the **Outage role-play** starter prompt.
+- **Role-play:** Select the **Outage role-play** suggested prompt.
 
 > Role-play a customer whose data has been slow in Meranti Coast since this morning.
 

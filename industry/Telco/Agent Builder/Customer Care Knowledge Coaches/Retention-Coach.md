@@ -8,11 +8,11 @@ A read-only decision-support coach for retention specialists and team leads. It 
 
 ## Build the agent
 1. Save the demo files in your `AsterWave Demo Kit` folder in OneDrive or SharePoint (see [Set up the demo](README.md#set-up-the-demo)).
-2. In Microsoft 365 Copilot, select **New agent**, then **Skip to configure**.
+2. In Microsoft 365 Copilot, select **New agent** and use the **Configure** tab.
 3. Enter the **Name**, **Description** and **Instructions** below.
-4. In the **Knowledge** section, select **Attach cloud files** (or **Enter URL**) and add the files listed under [Knowledge](#knowledge) from your `AsterWave Demo Kit` folder.
-5. Apply the [settings](#settings) and add the [starter prompts](#starter-prompts).
-6. Wait until no file shows **Preparing**, run the [demo steps](#demo-steps) on the **Try it** tab, then select **Create**.
+4. In the **Knowledge** section, select **Add knowledge** and add the files listed under [Knowledge](#knowledge) from your `AsterWave Demo Kit` folder.
+5. Apply the [settings](#settings) and add the [suggested prompts](#suggested-prompts).
+6. Wait until no file shows **Preparing**, run the [demo steps](#demo-steps) on the **Preview** tab, then select **Create**.
 
 ## Agent configuration
 
@@ -99,14 +99,14 @@ Good response: confirms the incidents in the snapshot; applies the SRV credit an
 ### Settings
 | **Setting** | **Value** |
 |-------------|-----------|
-| Search all websites | Off |
-| Only use specified sources | On |
-| Reference people in organization | Off |
-| Create documents, charts, and code | On (for credit, discount and fee estimates) |
-| Create images | Off |
+| Cloud files | Only the four files listed under [Knowledge](#knowledge), not all your cloud files |
+| Outlook | Off |
+| Teams | Off |
+| Copilot connectors | Off |
+| Web search | Off |
 | Response mode (Model) | Auto (users can switch to Think deeper for complex comparisons) |
 
-### Starter prompts
+### Suggested prompts
 | Title | Prompt |
 |---|---|
 | Check eligibility | CARE-2048: AW-POST-45, 26 months, out of contract, two contacts about slow data in Meranti Coast in the last 10 days (INC-071 and INC-077). Main reason network quality; mentions a competitor; no retention offer in the last 12 months. Which options are eligible? |
@@ -117,7 +117,7 @@ Good response: confirms the incidents in the snapshot; applies the SRV credit an
 | Hand-off note | Draft the hand-off note for the Retention Case Agent for CARE-2048 with OFFER-12. |
 
 ## Demo steps
-Run each prompt on the **Try it** tab, or in the agent after you create it. Start a new chat for each prompt.
+Run each prompt on the **Preview** tab, or in the agent after you create it. Start a new chat for each prompt.
 
 | **#** | **Prompt** | **Pass if…** |
 |-------|------------|--------------|
