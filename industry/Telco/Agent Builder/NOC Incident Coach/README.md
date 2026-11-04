@@ -64,8 +64,8 @@ Demo times include a 1-minute wrap-up. Build the agent before the session; it ta
 ## Set up the demo
 1. Download the ZIP file and extract it.
 2. Create a folder named `AsterWave Demo Kit` in your OneDrive and upload `AW4_Network_Status_Snapshot.docx` and `AW6_NOC_Incident_Runbook.docx` to it. If you already use the front-office demo, add AW6 to that folder and keep the AW4 file that's already there, so both demos read one copy. For a demo that several presenters run, use a SharePoint document library instead. Keep the file names unchanged, because the agent instructions refer to the files by name.
-3. Build the agent using its page: [NOC Incident Coach](NOC-Incident-Coach.md). In the **Knowledge** section, add the two files from your folder with **Attach cloud files** or **Enter URL**. Don't add `AW7_NOC_Event_Log.xlsx` as knowledge.
-4. Wait until no file shows **Preparing**, then test the agent on the **Try it** tab. Keep `AW7_NOC_Event_Log.xlsx` on your device: you attach it in the chat, as the NOC would attach an export from its monitoring system.
+3. Build the agent using its page: [NOC Incident Coach](NOC-Incident-Coach.md). In the **Knowledge** section, add the two files from your folder with **Add knowledge**. Don't add `AW7_NOC_Event_Log.xlsx` as knowledge.
+4. Wait until no file shows **Preparing**, then test the agent on the **Preview** tab. Keep `AW7_NOC_Event_Log.xlsx` on your device: you attach it in the chat, as the NOC would attach an export from its monitoring system.
 
 > **Requirements:** agents that use SharePoint or OneDrive knowledge need a Microsoft 365 Copilot license or usage-based billing. People you share the agent with also need access to the `AsterWave Demo Kit` folder and a copy of the export to attach. A chat accepts Excel and CSV files of up to 50 MB each.
 
@@ -84,13 +84,13 @@ The full story takes about 15 minutes, including a 1-minute wrap-up. To show few
 Show the two knowledge files in your `AsterWave Demo Kit` folder and the export, `AW7_NOC_Event_Log.xlsx`, that you'll attach. Explain that all data is fictional and that the network status snapshot (AW4) stands in for the live status bulletin: its "As of" time, Friday 30 October 2026, 10:00, is "now" in the story, and the event log (AW7) was exported at the same time. If you've shown the front-office demo, point out that this is the same incident, INC-077, seen from the NOC. Explain where the agent fits: the monitoring system still correlates alarms in real time, and for a critical incident the NOC exports the events and asks the agent to review them against the runbook.
 
 ## Stage 2 - Attach the export and group the alarms
-- **Check the export:** Select **+** in the chat box and upload `AW7_NOC_Event_Log.xlsx`. Then select the **Check the export** starter prompt.
+- **Check the export:** Select **+** in the chat box and upload `AW7_NOC_Event_Log.xlsx`. Then select the **Check the export** suggested prompt.
 
 > Check the event export I attached. What does it cover, and is anything missing?
 
 Point out the 28 rows, EV-101 to EV-128, and the export time of 10:00, which matches the AW4 "As of" time. If the agent asks for the export instead, attach the file and type the prompt in the same message.
 
-- **Alarm storm:** Select the **Alarm storm** starter prompt.
+- **Alarm storm:** Select the **Alarm storm** suggested prompt.
 
 > Many alarms have come in since 07:38. Which ones belong to INC-077, and which should stay separate?
 
@@ -103,14 +103,14 @@ Point out the 12 grouped alarms (9 of them not yet linked to the incident), EV-1
 The agent adds up 41,600 estimated subscribers, sets Sev-2 and gives 10:40 as the deadline for the next bulletin update.
 
 ## Stage 3 - Diagnose with the runbook
-- **Runbook check:** Select the **Runbook check** starter prompt.
+- **Runbook check:** Select the **Runbook check** suggested prompt.
 
 > Walk me through RBK-1 for INC-077. What's confirmed and what's still a hypothesis?
 
 Point out that "LNK-207 is degraded" is confirmed by measurement, while "the temporary splice from INC-071 is failing" stays a hypothesis until the field team checks it. The permanent repair agreed after INC-071 is overdue.
 
 ## Stage 4 - Choose an action and get approval
-- **Eligible actions:** Select the **Eligible actions** starter prompt.
+- **Eligible actions:** Select the **Eligible actions** suggested prompt.
 
 > Which actions are eligible for INC-077 right now, and who must approve them?
 
@@ -129,7 +129,7 @@ The router is on the incident's path, so the change is frozen and goes back to t
 The agent stays read-only, refuses the suspended action and offers the approval request instead.
 
 ## Stage 5 - Verify and update the bulletin
-- **Restored?:** Select the **Restored?** starter prompt.
+- **Restored?:** Select the **Restored?** suggested prompt.
 
 > Is INC-077 restored? Check every restoration criterion.
 
@@ -142,7 +142,7 @@ The answer is "Not yet": KPIs are still above their thresholds, a new alarm came
 Point out the "Reported by user" label, the restore time of 10:15, the draft AW4 row and customer message with no cause or equipment names, and the follow-ups for a repeat incident: a problem record, the overdue repair and a notice to customer care.
 
 ## Optional - Close the loop with the front-office demo
-If you also built the Care Coach from the front-office demo, you can show both sides of one incident, because both agents read the same AW4 file. Start with the Care Coach's **Current incidents** starter prompt and run Stages 1–5 here. Then open `AW4_Network_Status_Snapshot.docx`, change the INC-077 row to the values that the agent drafted (status Restored, restored at 10:15, duration 2 h 30 min, and the Restored customer message), update the Meranti Coast line in the region summary, and save the file. Ask the Care Coach about Meranti Coast again: its answer now uses the new status. A change can take several minutes to appear, so test it before the session and restore the original file afterwards, because the front-office demo depends on it.
+If you also built the Care Coach from the front-office demo, you can show both sides of one incident, because both agents read the same AW4 file. Start with the Care Coach's **Current incidents** suggested prompt and run Stages 1–5 here. Then open `AW4_Network_Status_Snapshot.docx`, change the INC-077 row to the values that the agent drafted (status Restored, restored at 10:15, duration 2 h 30 min, and the Restored customer message), update the Meranti Coast line in the region summary, and save the file. Ask the Care Coach about Meranti Coast again: its answer now uses the new status. A change can take several minutes to appear, so test it before the session and restore the original file afterwards, because the front-office demo depends on it.
 
 ## Final demo outcome
 By the end of the full story, the audience has seen:

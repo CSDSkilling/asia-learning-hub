@@ -8,11 +8,11 @@ A read-only incident coach for NOC engineers and NOC shift managers. It analyses
 
 ## Build the agent
 1. Save the two knowledge files in your `AsterWave Demo Kit` folder in OneDrive or SharePoint (see [Set up the demo](README.md#set-up-the-demo)). Keep `AW7_NOC_Event_Log.xlsx` on your device to attach in the chat.
-2. In Microsoft 365 Copilot, select **New agent**, then **Skip to configure**.
+2. In Microsoft 365 Copilot, select **New agent** and use the **Configure** tab.
 3. Enter the **Name**, **Description** and **Instructions** below.
-4. In the **Knowledge** section, select **Attach cloud files** (or **Enter URL**) and add the files listed under [Knowledge](#knowledge) from your `AsterWave Demo Kit` folder.
-5. Apply the [settings](#settings) and add the [starter prompts](#starter-prompts).
-6. Wait until no file shows **Preparing**, run the [demo steps](#demo-steps) on the **Try it** tab with the export attached, then select **Create**.
+4. In the **Knowledge** section, select **Add knowledge** and add the files listed under [Knowledge](#knowledge) from your `AsterWave Demo Kit` folder.
+5. Apply the [settings](#settings) and add the [suggested prompts](#suggested-prompts).
+6. Wait until no file shows **Preparing**, run the [demo steps](#demo-steps) on the **Preview** tab with the export attached, then select **Create**.
 
 ## Agent configuration
 
@@ -100,14 +100,16 @@ Don't add the event log as knowledge. Users export the events of an incident fro
 ### Settings
 | **Setting** | **Value** |
 |-------------|-----------|
-| Search all websites | Off |
-| Only use specified sources | On |
-| Reference people in organization | Off |
-| Create documents, charts, and code | On (to read the whole export, and for load, severity and time calculations) |
-| Create images | Off |
+| Cloud files | Only the two files listed under [Knowledge](#knowledge), not all your cloud files |
+| Outlook | Off |
+| Teams | Off |
+| Copilot connectors | Off |
+| Web search | Off |
 | Response mode (Model) | Auto (users can switch to Think deeper for long checks) |
 
-### Starter prompts
+There's no code setting to turn on. Agent Builder includes code interpreter in every agent, and the agent uses it to read the whole export and do the load, severity and time calculations.
+
+### Suggested prompts
 | Title | Prompt |
 |---|---|
 | Check the export | Check the event export I attached. What does it cover, and is anything missing? |
@@ -118,7 +120,7 @@ Don't add the event log as knowledge. Users export the events of an incident fro
 | SMS incident | INC-080: should CreditEligible stay Pending, and what should we do next? |
 
 ## Demo steps
-Run each prompt on the **Try it** tab, or in the agent after you create it. Start a new chat for each prompt. A new chat has no export, so attach the file in the **Attach** column in the same message as the prompt. When an export is attached, each answer starts with a one-line export check; the pass criteria don't repeat it.
+Run each prompt on the **Preview** tab, or in the agent after you create it. Start a new chat for each prompt. A new chat has no export, so attach the file in the **Attach** column in the same message as the prompt. When an export is attached, each answer starts with a one-line export check; the pass criteria don't repeat it.
 
 | **#** | **Attach** | **Prompt** | **Pass if…** |
 |-------|------------|------------|--------------|
