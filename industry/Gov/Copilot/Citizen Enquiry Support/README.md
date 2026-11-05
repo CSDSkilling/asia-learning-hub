@@ -22,8 +22,9 @@ With Microsoft Copilot, the team leader works across Chat, Excel, Word, PowerPoi
 - `Riverbend_Service_Policy_and_Eligibility_Guide.docx`
 - `Riverbend_Frequently_Asked_Questions.docx`
 - `Riverbend_Escalation_and_Vulnerable_Citizen_Guideline.docx`
-- `Riverbend_Sample_Enquiry_Emails.docx`
+- `Riverbend_Sample_Enquiry_Emails.docx` - 25 sample enquiries from email, web form, phone notes, social media and service centre notes.
 - `Riverbend_Service_Pressure_Briefing_Template.docx`
+- `Riverbend_Leadership_Briefing_Template.pptx`
 
 # Demo journey
 | **Stage** | **Copilot Experience** | **Story** |
