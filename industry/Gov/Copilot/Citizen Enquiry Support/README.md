@@ -1,7 +1,5 @@
 # Citizen Enquiry Support: From High-Volume Inbox to Confident Responses
 
-> **Status:** First draft. Scenario, prompts and file names are proposals; demo files are still to be created.
-
 The Riverbend Services Agency frontline team is receiving a high volume of citizen enquiries across multiple channels: email, web forms, phone call notes, social media messages and in-person service centre logs. Many enquiries are repeats, some are urgent or involve vulnerable citizens, and answers depend on policy and eligibility guidance spread across several documents.
 
 The Frontline Service Team Leader needs to understand what is coming in, prioritise what needs attention first, give officers consistent and accurate responses, and brief leadership on demand and service pressure.
@@ -19,7 +17,7 @@ With Microsoft Copilot, the team leader works across Chat, Excel, Word, PowerPoi
 | Follow-up actions across teams lack owners and deadlines. | Copilot in Outlook drafts a structured coordination message from the final brief. | Clear accountability and faster resolution. |
 
 # Demo files
-*To be added.* Proposed contents (all synthetic data):
+(all synthetic data):
 - `Riverbend_Citizen_Enquiry_Log.xlsx` – 4 weeks of enquiries with channel, date, topic, status, response time, repeat-contact flag and priority fields (include deliberate data quality issues)
 - `Riverbend_Service_Policy_and_Eligibility_Guide.docx`
 - `Riverbend_Frequently_Asked_Questions.docx`
