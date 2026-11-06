@@ -1,4 +1,4 @@
-# Hospital Care Transitions & Readmission Risk Demo
+# Reducing Readmissions Through Better Care Transitions
 Lamna Hospital (a fictional hospital) is seeing 30-day readmissions rise on its Cardiology, Pulmonology and Geriatrics wards, particularly for Heart Failure and COPD patients.
 
 The Care Transitions Operations Manager has been asked to prepare a seven-day intervention decision package for the Executive Quality Committee.
