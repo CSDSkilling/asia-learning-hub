@@ -7,6 +7,7 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | :--- | :--- | :--- |
 | **Financial Services** | Copilot | [Banking Operations Performance & Risk Review](FSI/Copilot/Banking%20Operations%20Performance%20%26%20Risk%20Overview) |
 | **Financial Services** | Agent Builder | [Relationship Manager Assistant](FSI/Agent%20builder/Relationship%20Manager%20Assistant) |
+| **Healthcare** | Copilot | [Reducing Readmissions Through Better Care Transitions](Healthcare/Copilot/Lamna%20Healthcare) |
 | **IT/ITeS** | Copilot | [IT Service Desk Monthly Service Review](IT-ITeS/Copilot/IT%20Service%20Desk%20Monthly%20Service%20Review) |
 | **Manufacturing & Mobility** | Copilot | [Manufacturing Operations Performance & Risk](Manufacturing-Mobility/Copilot/Manufacturing%20Operations%20Performance%20%26%20Risk) |
 | **Manufacturing & Mobility** | Agent Builder | [Dealer Service & Recall Readiness Assistant](Manufacturing-Mobility/Automotive/Agent%20Builder/Dealer%20Service%20%26%20Recall%20Readiness%20Assistant) |
