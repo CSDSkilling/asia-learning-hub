@@ -125,8 +125,7 @@ copilot-uc1-service-desk-msr/
 │   ├── Email_from_Fabrikam_CIO.eml             ← CIO's pre-meeting email (open in / import to Outlook)
 │   ├── Email_from_Fabrikam_CIO.txt             ← same email as plain text (to paste/forward if needed)
 │   └── MSR_Meeting_Roleplay_Script.docx        ← script for the recorded Teams review meeting
-└── trainer/
-    └── Trainer_Guide_Expected_Results.md       ← answer key: expected numbers & insights, timings, tips
+
 ```
 
 ### Ticket data dictionary – `Fabrikam_Tickets_Oct2026.xlsx`
