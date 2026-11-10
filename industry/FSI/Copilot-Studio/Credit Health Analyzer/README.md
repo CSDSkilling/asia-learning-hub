@@ -87,14 +87,3 @@ Credit Health Analyzer/
 Checked against Microsoft Learn on **2 November 2026**: topic creation, Question nodes, Power Fx in topics, harness differences, and solution export and import. The expected ratio values in the test cases were **calculated with PowerShell**, rounding half away from zero (like Power Fx `Round`).
 
 **Not tenant-tested:** the builder prompt, the instruction behavior, the Power Fx nodes and the export. An instructor should run each module once in the teaching environment. The expected numbers are exact; the AI's wording isn't.
-
-## Microsoft Learn references
-
-- [Harnesses in Copilot Studio](https://learn.microsoft.com/microsoft-copilot-studio/harnesses-overview)
-- [Create a new agent (GitHub Copilot)](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/build-new-agent)
-- [Configure agent details and instructions (GitHub Copilot)](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-instructions)
-- [Create and edit topics](https://learn.microsoft.com/microsoft-copilot-studio/authoring-create-edit-topics)
-- [Ask a question](https://learn.microsoft.com/microsoft-copilot-studio/authoring-ask-a-question)
-- [Create expressions using Power Fx](https://learn.microsoft.com/microsoft-copilot-studio/advanced-power-fx)
-- [Export and import agents using solutions](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-bots)
-- [Access standard harness agents](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/switch-experiences)

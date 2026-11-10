@@ -83,14 +83,3 @@ The workshop follows the blueprint's policy, four details and output. These part
 Checked against Microsoft Learn on **2 November 2026**: topic creation, Question nodes, Power Fx in topics, harness differences, and solution export and import.
 
 **Not tenant-tested:** the builder prompt, the instruction behavior, the Power Fx nodes and the export. An instructor should run each module once in the teaching environment. The numeric test cases below are exact; the wording an AI produces is not.
-
-## Microsoft Learn references
-
-- [Harnesses in Copilot Studio](https://learn.microsoft.com/microsoft-copilot-studio/harnesses-overview)
-- [Create a new agent (GitHub Copilot)](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/build-new-agent)
-- [Configure agent details and instructions (GitHub Copilot)](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-instructions)
-- [Create and edit topics](https://learn.microsoft.com/microsoft-copilot-studio/authoring-create-edit-topics)
-- [Ask a question](https://learn.microsoft.com/microsoft-copilot-studio/authoring-ask-a-question)
-- [Create expressions using Power Fx](https://learn.microsoft.com/microsoft-copilot-studio/advanced-power-fx)
-- [Export and import agents using solutions](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-bots)
-- [Access standard harness agents](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/switch-experiences)
