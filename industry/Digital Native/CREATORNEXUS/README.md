@@ -151,9 +151,7 @@ All records are synthetic. Creator handles and brand names are fictional placeho
 
 The exact navigation and labels can change as Microsoft updates Copilot Studio. Use the agent creation experience available in your tenant.
 
-**Screenshot to capture:** `01-copilot-studio-home.png`
 
-Capture the Copilot Studio home/agent list and the new-agent entry point. Do not expose environment IDs or private tenant information.
 
 ## Step 1.2 — Create the agent identity
 
@@ -280,7 +278,7 @@ Be a practical campaign operations partner, not a generic chatbot.
 
 Save the agent.
 
-**Screenshot to capture:** `02-creator-setu-identity.png`
+
 
 ---
 
@@ -313,7 +311,7 @@ Recommended order:
 
 Wait for the knowledge sources to finish processing before testing.
 
-**Screenshot to capture:** `03-creator-setu-knowledge.png`
+
 
 ## Step 2.2 — Validate knowledge retrieval
 
@@ -425,7 +423,7 @@ Use the actual ID shown in your data file if different.
 
 **Expected behavior:** The agent should summarize the campaign and identify relevant deliverables, rights and brand-safety review records. It must not declare a campaign approved just because some records are marked approved.
 
-**Screenshot to capture:** `04-launch-readiness-topic.png`
+
 
 ---
 
@@ -503,7 +501,7 @@ Preferred niche: Regional Food.
 
 The agent should provide evidence-based matches from the creator profiles. If no suitable records are found, it should say so rather than fabricate creators.
 
-**Screenshot to capture:** `05-creator-discovery-topic.png`
+
 
 ---
 
@@ -567,7 +565,7 @@ What additional data would be needed?
 
 Expected: the agent should explain that creator fees, product costs, fulfilment costs, discounts and other relevant costs are missing or incomplete.
 
-**Screenshot to capture:** `06-affiliate-performance-topic.png`
+
 
 ---
 
@@ -673,7 +671,7 @@ Test:
 Review content rights and brand safety for CAM0001.
 ```
 
-**Screenshot to capture:** `07-payout-review-topic.png` and `08-rights-brand-safety-topic.png`
+
 
 ---
 
@@ -761,7 +759,7 @@ Assign participants roles:
 
 Ask each participant to challenge one part of the agent's briefing. The agent should explain the evidence and identify where human review is necessary.
 
-**Screenshot to capture:** `09-campaign-war-room.png`
+
 
 ---
 
@@ -826,7 +824,7 @@ Create a one-page founder briefing for Project Udaan with:
 - Source files used
 ```
 
-**Screenshot to capture:** `10-project-udaan-founder-briefing.png`
+
 
 ---
 
@@ -847,35 +845,7 @@ A good workshop should test the agent's boundaries, not just its best answers.
 
 ---
 
-# 13. Screenshot guide
-
-The screenshots should be captured from the actual Copilot Studio environment. Do not use fabricated screenshots of the Microsoft UI.
-
-| No. | Screenshot | Capture |
-|---:|---|---|
-| 1 | Copilot Studio home | Agent creation entry point |
-| 2 | Agent identity | Name and description |
-| 3 | Instructions | Agent role and guardrails |
-| 4 | Knowledge | Uploaded source files |
-| 5 | Launch readiness topic | Trigger phrases, question and answer node |
-| 6 | Creator discovery topic | Guided criteria collection |
-| 7 | Affiliate performance topic | Campaign analysis |
-| 8 | Payout and rights topics | Finance and rights checks |
-| 9 | Campaign war room | Consolidated campaign review |
-| 10 | Project Udaan briefing | Final founder-ready output |
-| 11 | Test experience | Successful and boundary test prompts |
-
-Windows screenshot shortcut: `Win + Shift + S`.
-
-Suggested Markdown reference for your facilitator copy:
-
-```markdown
-![Copilot Studio launch readiness topic](screenshots/05-launch-readiness-topic.png)
-```
-
----
-
-# 14. Evaluation scorecard
+# 13. Evaluation scorecard
 
 Score the agent out of 20.
 
@@ -903,7 +873,7 @@ These are workshop scoring bands, not a Microsoft product benchmark.
 
 ---
 
-# 15. Sharing, governance and enterprise considerations
+# 14. Sharing, governance and enterprise considerations
 
 Before sharing the agent:
 
@@ -930,7 +900,7 @@ These are future architecture options, not implemented capabilities in this work
 
 ---
 
-# 16. Facilitator run-of-show (90 minutes)
+# 15. Facilitator run-of-show (90 minutes)
 
 | Time | Activity | Outcome |
 |---:|---|---|
@@ -947,7 +917,7 @@ These are future architecture options, not implemented capabilities in this work
 
 ---
 
-# 17. Workshop completion checklist
+# 16. Workshop completion checklist
 
 - [ ] Copilot Studio agent created.
 - [ ] Agent identity and instructions configured.
