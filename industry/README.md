@@ -1,1 +1,20 @@
+# Industry Use Case Repository
 
+This repository contains a collection of class-ready, use-case-led teaching frameworks and reusable asset packages designed to bridge the gap between abstract technical capabilities and real-world enterprise value. Each industry folder includes contextualized scenarios, demo stories, and supporting resources that map Microsoft Cloud and AI technologies directly to business outcomes.
+
+## 🗂️ Industry Index & Quick Navigation
+| **Vertical** | **Technology Focus** | **Business Scenario** |
+| :--- | :--- | :--- |
+| **Financial Services** | Copilot | [Banking Operations Performance & Risk Review](FSI/Copilot/Banking%20Operations%20Performance%20%26%20Risk%20Overview) |
+| **Financial Services** | Agent Builder | [Relationship Manager Assistant](FSI/Agent%20builder/Relationship%20Manager%20Assistant) |
+| **Healthcare** | Copilot | [Reducing Readmissions Through Better Care Transitions](Healthcare/Copilot/Lamna%20Healthcare) |
+| **IT/ITeS** | Copilot | [IT Service Desk Monthly Service Review](IT-ITeS/Copilot/IT%20Service%20Desk%20Monthly%20Service%20Review) |
+| **Manufacturing & Mobility** | Copilot | [Manufacturing Operations Performance & Risk](Manufacturing-Mobility/Copilot/Manufacturing%20Operations%20Performance%20%26%20Risk) |
+| **Manufacturing & Mobility** | Agent Builder | [Dealer Service & Recall Readiness Assistant](Manufacturing-Mobility/Automotive/Agent%20Builder/Dealer%20Service%20%26%20Recall%20Readiness%20Assistant) |
+| **Manufacturing & Mobility** | Agent Builder | [Production Downtime Resolution Assistant](Manufacturing-Mobility/Manufacturing/Agent%20Builder/Production%20Downtime%20Resolution%20Assistant) |
+| **Manufacturing & Mobility** | Agent Builder | [Supplier Risk & Inventory Copilot](Manufacturing-Mobility/Manufacturing/Agent%20Builder/Supplier%20Risk%20%26%20Inventory%20Copilot) |
+| **Public Sector**| Agent Builder | [Procurement Compliance Coach](PS/Agent%20Builder/Procurement%20Compliance%20Coach) |
+| **Telco** | Copilot | [From Customer Complaints to a Retention Decision](Telco/Copilot/Customer%20Retention%20Decision) |
+| **Telco** | Copilot | [Regional 5G Service Degradation: From Alarm to Executive Action](Telco/Copilot/5G%20Service%20Degradation) |
+| **Telco** | Agent Builder | [Fix First, Then Retain: Customer Care Knowledge Coaches](Telco/Agent%20Builder/Customer%20Care%20Knowledge%20Coaches) |
+| **Telco** | Agent Builder | [From Alarm Storm to Verified Fix: NOC Incident Coach](Telco/Agent%20Builder/NOC%20Incident%20Coach) |
