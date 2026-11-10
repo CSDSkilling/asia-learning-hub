@@ -157,7 +157,7 @@ Choose one role for each participant or small group:
 4. Choose the option to create a new agent.
 5. If the product offers a description-based creation flow, use the agent brief below.
 
-**Screenshot to capture:** `01-m365-copilot-home.png`
+
 
 Capture the M365 Copilot home screen showing the agent creation entry point. Do not include private tenant details.
 
@@ -255,7 +255,7 @@ Before saving:
 4. Confirm the instructions distinguish facts from hypotheses.
 5. Save or create the agent using the available UI.
 
-**Screenshot to capture:** `02-saarthi-agent-identity.png`
+
 
 Capture the agent name, description and instruction configuration. Avoid exposing confidential tenant information.
 
@@ -319,7 +319,7 @@ Cite the source file.
 
 Compare the response with `digital_native_orgs.csv`.
 
-**Screenshot to capture:** `03-agent-knowledge-sources.png` and `04-knowledge-grounding-test.png`
+
 
 ---
 
@@ -389,7 +389,7 @@ for [ORG_ID]?
 
 **Facilitator challenge:** Ask each role to share one finding and one unanswered question. The group should notice that the same data can support different leadership perspectives.
 
-**Screenshot to capture:** `05-organization-selection.png`
+
 
 ---
 
@@ -444,7 +444,7 @@ better customers or better market potential.
 
 **Learning point:** Copilot can summarize and compare records, but the business owner must validate attribution, margin, campaign objectives, sample size and commercial context before changing budgets.
 
-**Screenshot to capture:** `06-growth-radar.png`
+
 
 ---
 
@@ -507,7 +507,7 @@ customer's preferred language or demographic identity.
 
 **Facilitator discussion:** Ask participants whether a product team should prioritize a high-volume problem, a high-severity problem or a problem affecting a strategically important journey. There is no automatic answer; ask them to justify the trade-off.
 
-**Screenshot to capture:** `07-voice-of-bharat.png`
+
 
 ---
 
@@ -568,7 +568,7 @@ assumption rather than a fact. Rewrite the briefing so facts, hypotheses
 and questions are clearly separated.
 ```
 
-**Screenshot to capture:** `08-ops-control-tower.png`
+
 
 ---
 
@@ -646,7 +646,7 @@ Create a prioritized action tracker with:
 Do not invent due dates. Use "To be agreed" where no due date exists.
 ```
 
-**Screenshot to capture:** `09-experiment-coach.png` and `10-ecosystem-navigator.png`
+
 
 ---
 
@@ -761,7 +761,7 @@ Reduce the complete business briefing to:
 Keep the evidence and source references.
 ```
 
-**Screenshot to capture:** `11-founder-mode-briefing.png`
+
 
 ---
 
@@ -781,38 +781,7 @@ If the agent builder does not expose a conversation-starter configuration, simpl
 
 ---
 
-# 13. Screenshot and facilitator capture guide
-
-This README deliberately does not embed fabricated Microsoft product screenshots. Microsoft 365 Copilot UI varies by tenant, license and release. Capture actual screens during your own workshop.
-
-Create a folder locally called `screenshots` if you want to keep evidence with your facilitator materials.
-
-| No. | Screenshot | What it should show |
-|---:|---|---|
-| 1 | M365 Copilot home | Agent creation entry point |
-| 2 | Agent identity | Name and description |
-| 3 | Agent instructions | SAARTHI PULSE behavior and guardrails |
-| 4 | Knowledge sources | Uploaded files and readiness state |
-| 5 | Knowledge test | Agent listing organizations from the source |
-| 6 | Organization selection | Selected organization and profile |
-| 7 | Growth Radar | Campaign performance analysis |
-| 8 | Voice of Bharat | Customer feedback analysis |
-| 9 | Ops Control Tower | Incident briefing |
-| 10 | Experiment Coach | Control and variant comparison |
-| 11 | Ecosystem Navigator | Partner onboarding summary |
-| 12 | Founder Mode | Consolidated leadership briefing |
-
-On Windows, press `Win + Shift + S`, select the relevant area and save the screenshot. Do not capture access tokens, private tenant details, employee information or other confidential content.
-
-Suggested Markdown image reference if you later add screenshots to a facilitator copy:
-
-```markdown
-![SAARTHI PULSE agent configuration](screenshots/02-agent-identity.png)
-```
-
----
-
-# 14. How to evaluate the agent
+# 13. How to evaluate the agent
 
 Do not judge the agent only on whether its answer sounds impressive. Test whether it uses evidence correctly.
 
@@ -872,7 +841,7 @@ Expected behavior: the agent must clarify that the uploaded data is synthetic an
 
 ---
 
-# 15. Sharing and governance
+# 14. Sharing and governance
 
 For a real organization, the agent should be treated as a governed business knowledge experience.
 
@@ -892,7 +861,7 @@ Do not upload real customer feedback, transaction data, partner records or incid
 
 ---
 
-# 16. Facilitator run-of-show (75 minutes)
+# 15. Facilitator run-of-show (75 minutes)
 
 | Time | Activity | Participant output |
 |---:|---|---|
@@ -909,7 +878,7 @@ For a 90-minute session, spend the additional 15 minutes on agent evaluation and
 
 ---
 
-# 17. What participants should take away
+# 16. What participants should take away
 
 By the end of this workshop, participants should understand how to:
 
