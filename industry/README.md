@@ -13,6 +13,7 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Manufacturing & Mobility** | Agent Builder | [Dealer Service & Recall Readiness Assistant](Manufacturing-Mobility/Automotive/Agent%20Builder/Dealer%20Service%20%26%20Recall%20Readiness%20Assistant) |
 | **Manufacturing & Mobility** | Agent Builder | [Production Downtime Resolution Assistant](Manufacturing-Mobility/Manufacturing/Agent%20Builder/Production%20Downtime%20Resolution%20Assistant) |
 | **Manufacturing & Mobility** | Agent Builder | [Supplier Risk & Inventory Copilot](Manufacturing-Mobility/Manufacturing/Agent%20Builder/Supplier%20Risk%20%26%20Inventory%20Copilot) |
+| **Public Sector**| Copilot | [Citizen Enquiry Support: From High-Volume Inbox to Confident Responses](PS/Copilot/Citizen%20Enquiry%20Support) |
 | **Public Sector**| Agent Builder | [Procurement Compliance Coach](PS/Agent%20Builder/Procurement%20Compliance%20Coach) |
 | **Telco** | Copilot | [From Customer Complaints to a Retention Decision](Telco/Copilot/Customer%20Retention%20Decision) |
 | **Telco** | Copilot | [Regional 5G Service Degradation: From Alarm to Executive Action](Telco/Copilot/5G%20Service%20Degradation) |
