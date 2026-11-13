@@ -1,4 +1,4 @@
-# Contoso Marketplace: Retail Performance & Microsoft 365 Copilot Demo Guide
+# Retail Performance Analysis
 
 ## Setting the Scene
 
