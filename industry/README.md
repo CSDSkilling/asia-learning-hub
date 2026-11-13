@@ -9,10 +9,11 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Financial Services** | Agent Builder | [Relationship Manager Assistant](FSI/Agent%20builder/Relationship%20Manager%20Assistant) |
 | **Healthcare** | Copilot | [Reducing Readmissions Through Better Care Transitions](Healthcare/Copilot/Lamna%20Healthcare) |
 | **IT/ITeS** | Copilot | [IT Service Desk Monthly Service Review](IT-ITeS/Copilot/IT%20Service%20Desk%20Monthly%20Service%20Review) |
+| **Manufacturing & Mobility** | Copilot | [Automotive Production Quality & Supplier Risk](Manufacturing-Mobility/Copilot/Automotive%20Production%20Quality%20%26%20Supplier%20Risk) |
 | **Manufacturing & Mobility** | Copilot | [Manufacturing Operations Performance & Risk](Manufacturing-Mobility/Copilot/Manufacturing%20Operations%20Performance%20%26%20Risk) |
-| **Manufacturing & Mobility** | Agent Builder | [Dealer Service & Recall Readiness Assistant](Manufacturing-Mobility/Automotive/Agent%20Builder/Dealer%20Service%20%26%20Recall%20Readiness%20Assistant) |
-| **Manufacturing & Mobility** | Agent Builder | [Production Downtime Resolution Assistant](Manufacturing-Mobility/Manufacturing/Agent%20Builder/Production%20Downtime%20Resolution%20Assistant) |
-| **Manufacturing & Mobility** | Agent Builder | [Supplier Risk & Inventory Copilot](Manufacturing-Mobility/Manufacturing/Agent%20Builder/Supplier%20Risk%20%26%20Inventory%20Copilot) |
+| **Manufacturing & Mobility** | Agent Builder | [Automotive Dealer Service & Recall Readiness Assistant](Manufacturing-Mobility/Agent%20Builder/Automotive%20Dealer%20Service%20%26%20Recall%20Readiness%20Assistant) |
+| **Manufacturing & Mobility** | Agent Builder | [Production Downtime Resolution Assistant](Manufacturing-Mobility/Agent%20Builder/Production%20Downtime%20Resolution%20Assistant) |
+| **Manufacturing & Mobility** | Agent Builder | [Supplier Risk & Inventory Copilot](Manufacturing-Mobility/Agent%20Builder/Supplier%20Risk%20%26%20Inventory%20Copilot) |
 | **Public Sector**| Copilot | [Citizen Enquiry Support: From High-Volume Inbox to Confident Responses](PS/Copilot/Citizen%20Enquiry%20Support) |
 | **Public Sector**| Agent Builder | [Procurement Compliance Coach](PS/Agent%20Builder/Procurement%20Compliance%20Coach) |
 | **Telco** | Copilot | [From Customer Complaints to a Retention Decision](Telco/Copilot/Customer%20Retention%20Decision) |
