@@ -1,9 +1,9 @@
-# Line Downtime Response Agent (Copilot Studio)
+# Manufacturing Line Downtime Response Agent (Copilot Studio)
 
 > **Industry:** Manufacturing & Mobility › Manufacturing
 > **Product:** Microsoft Copilot Studio
 > **Builds on:** Agent Builder use case *Production Downtime Resolution Assistant* (and reuses parts of *Supplier Risk & Inventory Copilot*)
-> **Demo data:** `Agent Builder/data files/Production Downtime Demo Pack` + `Supplier Risk Demo Pack` (all data is fictional)
+> **Demo data:** `data files/Production Downtime Demo Pack` + `data files/Supplier Risk Demo Pack` (all data is fictional)
 > **Next step:** Designed so the same scenario, data and tools can be re-hosted in Microsoft Foundry Agent Service (see the last section)
 
 ---

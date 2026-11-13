@@ -96,7 +96,7 @@ When responding:
 ### Knowledge Sources
 
 > **Download the demo knowledge source package from:**  
-> `industry/Manufacturing/Agent Builder/data files/Supplier Risk Demo Pack`
+> `data files`
 >
 > Upload all files from this package as **Knowledge Sources** in Agent Builder before testing the agent. The package contains fictional purchase orders, supplier scorecards, incoming quality rejections, and material criticality guidance designed for the Supplier Risk & Inventory Copilot demo.
 

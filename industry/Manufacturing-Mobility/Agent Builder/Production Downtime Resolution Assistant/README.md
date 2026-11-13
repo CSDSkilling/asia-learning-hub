@@ -97,7 +97,7 @@ When responding:
 ### Knowledge Sources
 
 > **Download the demo knowledge source package from:**  
-> `industry/Manufacturing/Agent Builder/data files/Production Downtime Demo Pack`
+> `data files`
 >
 > Upload all files from this package as **Knowledge Sources** in Agent Builder before testing the agent. The package contains fictional alarm history, maintenance tickets, shift insights, parts inventory, and quality trends designed for the Production Downtime Resolution Assistant demo.
 
