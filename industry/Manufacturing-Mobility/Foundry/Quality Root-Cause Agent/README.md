@@ -1,74 +1,74 @@
 # Quality Root-Cause Agent
 
-**From a quality drop to an investigation plan:** Run a small AI demo that helps a Quality Engineer decide what to check next, not declare a cause or change factory settings.
+**From a quality drop to an investigation plan:** A short Python demo in which three AI roles, running on a Microsoft Foundry model, help a Contoso Quality Engineer decide what to check next after a drop in first-inspection pass rate.
+
+**Audience:** MTTs presenting Microsoft Foundry to manufacturing customers. **Format:** one command, one report, no front end.
 
 ## Business Scenario
 
-| | The Contoso story |
-|---|---|
-| **Current situation** | You are a Quality Engineer at Contoso, a fictitious electronics manufacturer, reviewing Plant A Line 1 (Power Module). |
-| **Problem** | Fewer products passed their first inspection in W42. Results recovered in W43, but nobody yet knows why they fell. |
-| **Goal** | Compare shift records and past investigations to narrow the possible causes and choose the next checks. |
-| **What you do** | Run the supplied Python demo. Three AI roles investigate the supplied records automatically. |
-| **What you receive** | One terminal report: ranked hypotheses (possible explanations), evidence, missing information, and recommended checks. It is an investigation plan, not a confirmed root cause. |
+Contoso is a fictitious electronics manufacturer. On Plant A Line 1, which builds Power Modules, about 97% of products normally pass their first inspection without rework or retesting. In W42, this **first-inspection pass rate** fell to 93.6%. In W43 it recovered.
 
-**First-inspection pass rate**, also called first-pass yield (FPY), means the share passing without rework or retesting.
-
-| Reporting week | W40 | W41 | W42 | W43 |
+| Reporting week (W40-W43 are weeks 40-43) | W40 | W41 | W42 | W43 |
 |---|---|---|---|---|
 | First-inspection pass rate | 97.5% | 96.9% | **93.6%** | 97.7% |
 
-You investigate **after W43**. Recovery is another clue, not proof that a particular fix worked.
+It is now after W43. The Quality Engineer knows **what** happened but not **why**. The recovery is one more clue, not proof that a fix worked. The question for the demo:
 
-## How the investigation works
+> Why did fewer products pass their first inspection in W42 on Contoso Plant A Line 1 (Power Module), and what should we verify before choosing corrective action?
 
-The weekly totals show **what happened**. Shift records and past reports help investigate **why it might have happened**.
-
-| Automatic role | What it contributes |
+| | |
 |---|---|
-| **Data analyst** | Uses tools to calculate comparisons across soldering oven temperatures, material batches, and operator assignments. |
-| **Past-case reviewer** | Compares two past investigations: one about oven heating, the other about a different mechanical problem. A past finding is not proof of today's cause. |
-| **Report writer** | Combines the evidence, ranks possible explanations, and proposes checks for the Quality Engineer. |
+| **Goal** | Narrow down the possible causes and choose the next checks. |
+| **You run** | One Python command. |
+| **You get** | One report with ranked hypotheses, the evidence for each, what is still missing, and recommended checks. |
 
-**You run one command; the roles work in sequence; you review one report.** You do not manually prompt each agent or deploy three separate services.
+## Pain points and benefits
 
-Microsoft Foundry supplies the shared model deployment. Microsoft Agent Framework coordinates the roles; local tools calculate and read records. This demonstrates an approach, not a capability exclusive to Foundry.
-
-## Start the walkthrough
-
-You now know the problem and the intended result. Next, prepare the environment, run the investigation, and interpret the report.
-
-> **Continue to [setup.md - Step-by-step setup](setup.md#step-by-step-setup).**
-> Follow **steps 1-6 in order**. Each step explains why, what to do, and what to check. Finish there with a short report example, its meaning, and the next human decision; you do not need to return here.
-
-**Before starting:** Have Python 3.11+, Azure CLI, and access to an existing Foundry project/model supporting tool calls. The walkthrough does not create cloud resources. **Model requests incur charges.**
-
-## Supporting references
-
-### Data and continuity
-
-**All records are fictitious.** Reuse the existing Copilot scenario's weekly data to continue the same Contoso story, then add synthetic shift records and past reports for the deeper investigation.
-
-| Supplied file | Role and provenance |
+| Pain point | What the demo shows |
 |---|---|
-| [operations_data.csv](data/operations_data.csv) | Reused `Operations_Data`: weekly operating context |
-| [quality_supplier_risk.csv](data/quality_supplier_risk.csv) | Reused `Quality_and_Supplier_Risk`: weekly quality and supplier context |
-| [process_parameters.csv](data/process_parameters.csv) | Added synthetic shift records: temperature, material, operator, and inspections |
-| [Oven heating investigation](knowledge/rca_2025_reflow_profile_drift.md) | Added synthetic precedent to compare |
-| [Connector alignment investigation](knowledge/rca_2024_connector_misalignment.md) | Added synthetic case with a different mechanism |
+| Weekly totals show the drop but not the reason. | Shift records compared by oven temperature, soldering-paste batch, and operator. |
+| Several things changed at once, so every cause looks possible. | Evidence for and against each explanation, side by side. |
+| A similar past incident can bias the team. | Past cases used as a guide, not as proof. |
 
-No workbook export or data generation is needed. See [DATA_DICTIONARY.md](DATA_DICTIONARY.md) for provenance, field definitions, the [glossary](DATA_DICTIONARY.md#plain-language-glossary), and [validation results](DATA_DICTIONARY.md#validation-results).
+## How the demo works
 
-- **Measure:** Use `First Pass Yield Actual`, not operations `Quality`. Shift inspection counts are synthetic samples, not production totals. W40-W43 mean weeks 40-43; the weekly source does not specify a year.
-- **Supplier:** Nova supplies PCB in the original data, not the added soldering material, which has no named supplier.
-- **Processing:** Local tool results are sent to the Foundry model; the demo is not local-only processing.
-- **Boundaries:** Observations and historical similarity do not prove causation. Confidence labels are qualitative, not calibrated probabilities. The Quality Engineer makes the final judgment; production changes require approved engineering procedures.
+You run one command. Three roles then work one after another, each passing its findings to the next:
 
-### Related use cases and extensions
+| Role (name shown in the output) | What it does |
+|---|---|
+| **Data analyst** (`DataAnalysisAgent`) | Calculates pass rates by week and compares oven temperature, soldering-paste batch, and operator assignments. |
+| **Past-case reviewer** (`KnowledgeAgent`) | Reads two past investigations, one about oven heating and one about a connector alignment problem, and compares them with today's problem. |
+| **Report writer** (`ReportAgent`) | Combines the evidence, ranks the possible causes, and proposes checks. |
 
-[Manufacturing Operations Performance & Risk](<../../Copilot/Manufacturing Operations Performance & Risk/README.md>) shares the Contoso setting and weekly data. This demo runs independently; it does not require that scenario's output or deployment.
+Python tools do the calculations, so the numbers are computed rather than guessed. Microsoft Agent Framework passes work from one role to the next, and one Microsoft Foundry model deployment powers all three roles. The demo creates no agents or deployments in Foundry; it only calls an existing model.
 
-[Optional extensions](source/advanced/README.md) lists Magentic, VisionAgent, and Foundry Evals ideas; these are not implemented in this demo.
+## Key Takeaway & Talking point
+
+- **From detection to investigation:** The Copilot scenario shows what happened. This demo asks the next question: why did it happen?
+- **Tools calculate, agents explain:** Pass rates and comparisons come from Python code. The model turns them into a readable report.
+- **Hypotheses, not verdicts:** The report ranks possible causes and lists missing evidence. The Quality Engineer makes the final call.
+
+## Start the demo
+
+> **Next: open [setup.md](setup.md#before-you-start) and follow it from top to bottom.** Check the prerequisites, then do steps 1 to 6, from Azure sign-in to reading the report. You finish there; you do not need to come back here.
+
+You need Python, Azure CLI, and a Foundry project with a model deployment. **Model requests incur charges.**
+
+## Data and related material
+
+All records are fictitious. The demo reuses the weekly data from the Copilot scenario [Manufacturing Operations Performance & Risk](<../../Copilot/Manufacturing Operations Performance & Risk/README.md>), so the story continues at the same Contoso plant. It adds the shift records and past investigation reports that the deeper question needs. It runs on its own and does not need that scenario's output.
+
+| File | What it holds |
+|---|---|
+| [operations_data.csv](data/operations_data.csv) | Reused weekly operating data (`Operations_Data`) |
+| [quality_supplier_risk.csv](data/quality_supplier_risk.csv) | Reused weekly quality and supplier data (`Quality_and_Supplier_Risk`) |
+| [process_parameters.csv](data/process_parameters.csv) | New shift records: oven temperature, paste batch, operator, and inspection counts |
+| [Oven heating investigation](knowledge/rca_2025_reflow_profile_drift.md) | New past case about oven heating |
+| [Connector alignment investigation](knowledge/rca_2024_connector_misalignment.md) | New past case with a different cause |
+
+[DATA_DICTIONARY.md](DATA_DICTIONARY.md) has the field definitions, a [glossary](DATA_DICTIONARY.md#plain-language-glossary), and the [checks run on the data](DATA_DICTIONARY.md#validation-results). Tool results are sent to the Foundry model, so the data does not stay on your computer.
+
+[Optional extensions](source/advanced/README.md) lists ideas that are not part of this demo: Magentic, VisionAgent, and Foundry Evals.
 
 ## Appendix: Microsoft Learn alignment
 
@@ -79,4 +79,4 @@ No workbook export or data generation is needed. See [DATA_DICTIONARY.md](DATA_D
 | [Develop an AI agent with Microsoft Agent Framework](https://learn.microsoft.com/en-us/training/modules/develop-ai-agent-with-semantic-kernel/) | Connect to Foundry and expose local analysis and document-reading functions as agent tools |
 | [Orchestrate a multi-agent solution using the Microsoft Agent Framework](https://learn.microsoft.com/en-us/training/modules/orchestrate-semantic-kernel-multi-agent-solution/) | Apply [sequential orchestration](https://learn.microsoft.com/en-us/training/modules/orchestrate-semantic-kernel-multi-agent-solution/5-use-sequential-orchestration): analysis, precedent comparison, then reporting with shared evidence |
 
-This is an industry extension of those objectives, not a replacement for the official labs. The agents run locally against an existing model deployment; no hosted agent definitions are created.
+This is an industry extension of those objectives, not a replacement for the official labs. The agents run locally against an existing model deployment.

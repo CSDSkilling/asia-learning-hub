@@ -1,12 +1,12 @@
 # Quality Root-Cause Agent Data Dictionary
 
-Three CSV files and two past investigation reports are available. All records are fictitious training data, not evidence from a real manufacturer.
+This demo uses three CSV files and two past investigation reports. All records are fictitious training data.
 
-The weekly CSVs reuse the [Copilot use case's documented schema](<../../Copilot/Manufacturing Operations Performance & Risk/DATA_DICTIONARY.md>). The shift CSV and both investigation reports are new synthetic extensions. The workbook is an authoring reference, not a runtime input.
+The two weekly CSVs come from the Copilot scenario's workbook and keep its columns; see that scenario's [data dictionary](<../../Copilot/Manufacturing Operations Performance & Risk/DATA_DICTIONARY.md>) for every column. The shift CSV and both reports are new. A copy of the original workbook sits in `data/` for reference; the demo does not read it.
 
 ## Plain-language glossary
 
-Use the plain-language labels in explanations and investigation reports. Technical terms and CSV field names remain unchanged so the data and code can be matched directly.
+The reports use the plain-language labels below. Technical terms and CSV field names are unchanged, so you can match them to the data and code.
 
 | Plain-language label | Technical term / field | Meaning in this demo |
 |---|---|---|
@@ -21,62 +21,34 @@ Use the plain-language labels in explanations and investigation reports. Technic
 
 ## operations_data.csv
 
-Source: the existing Copilot workbook's `Operations_Data` sheet. Its 18-column schema, column order, units, and original numeric values are preserved. One row represents one reporting week, plant, line, and product family.
+Weekly operating data from the Copilot workbook's `Operations_Data` sheet: one row per week, plant, line, and product family. The 18 columns and their values are unchanged. The file has 16 rows; the workbook had 17, and one duplicate W43 Sensor Pack row was removed. The names `Plant-A` and `Drivetrain` are written as `Plant A` and `Drive Train`.
 
-Exported rows: **16**, from 17 source rows after removing one verified duplicate W43 Sensor Pack record.
+The demo reads these columns for Plant A Line 1 (Power Module):
 
-The CSV exports normalize `Plant-A` to `Plant A` and `Drivetrain` to `Drive Train` wherever they occur. Numeric values and their stored decimal text are unchanged; no columns generated during the Copilot demo are included.
+| Column | Unit | Meaning |
+|---|---|---|
+| Completed Units | Units | Good units finished during the week; throughput, not the shift inspection sample |
+| Scrap Units | Units | Units discarded rather than reworked; not the same as first-inspection failures |
+| Downtime Minutes | Minutes | Time the line was stopped |
+| OEE | Ratio, 0-1 | Overall equipment effectiveness, a composite score copied as supplied |
 
-| Column | Type | Unit / format | Meaning | Key / relationship |
-|---|---|---|---|---|
-| Week | Text | W40-W43 | Reporting week label; the original sample does not specify a year | Weekly join key |
-| Plant | Text | Plant A / Plant B | Manufacturing site | Weekly join key |
-| Line | Text | Line 1 / Line 2 | Production line within the plant | Weekly join key |
-| Product Family | Text | Product name | Product built by the line | Weekly join key |
-| Opening WIP Units | Integer | Units | Work-in-progress units at the start of the week | Operating context |
-| Completed Units | Integer | Units | Good units finished during the week | Throughput, not the shift inspection sample size |
-| Scrap Units | Integer | Units | Units discarded rather than recovered through rework | Not the same measure as first-inspection failures |
-| Downtime Minutes | Number | Minutes | Reported time the line was stopped | Weekly operating context |
-| On-Time Delivery % | Number | Ratio, 0-1 | Share of orders shipped on the promised date | 0.97 means 97% |
-| Runtime Minutes | Number | Minutes | Reported time the line actually ran | Source operating-time measure |
-| Planned Minutes | Number | Minutes | Reported time the line was scheduled to run | Not expanded into the synthetic Day/Night schedule |
-| Availability | Number | Ratio, 0-1 | Reported share of planned time actually running | Source value retained without recalculation |
-| Performance | Number | Ratio, 0-1 | Reported operating speed relative to ideal speed | Source value retained without recalculation |
-| Quality | Number | Ratio, 0-1 | Reported share of produced units that were good | Not the first-inspection pass-rate reference |
-| OEE | Number | Ratio, 0-1 | Overall equipment effectiveness, combining availability, performance, and quality | Composite source score, not recomputed here |
-| Cycle Time Sec | Number | Seconds per unit | Average time to produce one unit | Weekly operating context |
-| Changeover Minutes | Number | Minutes | Time spent switching products or setups | Weekly operating context |
-| Estimated Gross Margin USD | Number | USD | Estimated gross-margin contribution, not a loss amount | Financial context |
-
-Weekly measures are copied as supplied, not reconciled or recomputed from one another. Long decimals and scientific notation reflect the spreadsheet's stored numeric text. Format ratios as percentages for display without rewriting the source CSV values.
+`Week`, `Plant`, `Line`, and `Product Family` identify each row. Values are copied as supplied, not recalculated. The `Quality` column in this file is not the first-inspection pass rate; use `First Pass Yield Actual` from the next file.
 
 ## quality_supplier_risk.csv
 
-Source: the existing Copilot workbook's `Quality_and_Supplier_Risk` sheet. Its 17-column schema and numeric values are preserved, with the same label normalization described above. One row represents one reporting week, plant, line, and product family.
+Weekly quality and supplier data from the Copilot workbook's `Quality_and_Supplier_Risk` sheet: one row per week, plant, line, and product family. It has 16 rows and 17 columns, unchanged apart from the same name changes as above.
 
-Exported rows: **16**, matching the 16 source rows. No records were removed from this sheet.
+`First Pass Yield Actual` is the weekly first-inspection pass rate that the shift records must match. For Plant A Line 1 (Power Module) it is W40: 0.975, W41: 0.969, W42: 0.936, and W43: 0.977.
 
-`First Pass Yield Actual` is the weekly first-inspection pass-rate reference. For Plant A Line 1 (Power Module), the original values are W40: 0.975, W41: 0.969, W42: 0.936, and W43: 0.977. The line's supplier entry is Supplier Nova / PCB (printed circuit board); it does not identify a soldering material supplier or a current incoming material quality-check result.
+The demo reads these columns:
 
-| Column | Type | Unit / format | Meaning | Key / relationship |
-|---|---|---|---|---|
-| Week | Text | W40-W43 | Reporting week label | Weekly join key |
-| Plant | Text | Plant A / Plant B | Manufacturing site | Weekly join key |
-| Line | Text | Line 1 / Line 2 | Production line within the plant | Weekly join key |
-| Product Family | Text | Product name | Product built by the line | Weekly join key |
-| Supplier | Text | Fictitious supplier identifier | Key supplier associated with the line in the original sample | Does not identify the added soldering material supplier |
-| Material Group | Text | Material category | Material provided by that supplier | Nova is associated with PCB, not solder paste |
-| First Pass Yield Target | Number | Ratio, 0-1 | Target share passing the first inspection; 0.98 in this sample | Reference target |
-| First Pass Yield Actual | Number | Ratio, 0-1 | Actual share passing the first inspection without rework | Weekly reference for the synthetic shift aggregate |
-| Scrap Rate | Number | Ratio, 0-1 | Reported discarded units as a share of production | Not `1 - FPY`; failed units may be reworked |
-| Defect PPM | Integer | Parts per million | Reported defective parts per million units produced | Separate source measure, not derived from the shift sample |
-| Customer Complaints | Integer | Count | Complaints received during the week | Quality-impact context |
-| Late PO Lines | Integer | Count | Supplier purchase-order line items delivered late | Delivery-risk context |
-| Expedite Cost USD | Number | USD | Additional cost to rush material deliveries | Supplier-risk cost |
-| Production Impact Hours | Number | Hours | Reported production time lost to supplier issues | Supplier-risk impact |
-| Containment Status | Text | Open / Closed | Status of isolating suspect or defective material | Source status, not inferred from inspection labels |
-| CAPA Status | Text | Open / In Progress / Closed | Corrective and Preventive Action tracking status | Source action status |
-| Risk Rating | Text | Low / Medium / High / Critical | Reported overall quality and supplier-risk rating | Retained, not recalculated by this dataset |
+| Column | Unit | Meaning |
+|---|---|---|
+| First Pass Yield Actual | Ratio, 0-1 | Share of products passing the first inspection without rework; the reference for the shift records |
+| Supplier | Text | Key supplier of the line in the original sample: Supplier Nova |
+| Material Group | Text | What that supplier provides: PCB (printed circuit board), not soldering paste |
+
+Nova is the line's PCB supplier. The data names no supplier for the soldering paste and holds no incoming-inspection result for it. The other columns are described in the Copilot data dictionary. Two to note: `First Pass Yield Target` is 0.98 in this sample, and `Scrap Rate` is not `1 - FPY`, because failed units may be reworked.
 
 ## process_parameters.csv
 
@@ -115,7 +87,7 @@ Join the weekly data on week, plant, line, and product family. Calculate the wee
 
 ### Validation results
 
-The local data checks produced the following results. This validates the dataset, not an agent or an Azure run. Displayed rates and differences are rounded; the original weekly CSV values remain unchanged.
+These are the results of the checks run on the data. Displayed rates are rounded; the weekly CSV values are unchanged.
 
 | Week | Tested | Failed | Calculated FPY | Original weekly FPY | Difference, percentage points |
 |---|---|---|---|---|---|
@@ -125,7 +97,7 @@ The local data checks produced the following results. This validates the dataset
 | W43 | 1000 | 23 | 97.7000% | 97.7000% | 0.0000 |
 
 - All 56 rows have valid count-derived rates, unique shift keys, matching week/date labels, and weekly joins. Every date has one Day and one Night row.
-- Temperature and FPY have Pearson correlations of **-0.9076 overall** and **-0.9385 within W42**. These associations were intentionally designed; they are not evidence of real-world causality or calibrated confidence.
+- Temperature and FPY have Pearson correlations of **-0.9076 overall** and **-0.9385 within W42**. The association was built into the teaching data on purpose, so it is not evidence of a real-world cause.
 - W42 shifts above the fictional temperature limit have **92.7907% FPY**, versus **98.5714%** for the two within-range shifts.
 - For the operator check only, a high-defect shift means FPY below 95%; this is not a risk rule from the original workbook. W42 has ten such shifts, none assigned to OP-04. OP-04's two W42 shifts have 140 inspections, two failures, and **98.5714% FPY**.
 - SP-002 remains in use during W43 recovery. A before/after batch comparison alone cannot isolate a material effect because the process conditions also changed.
@@ -145,4 +117,4 @@ Two synthetic past investigation reports are available for local reading. Cite t
 | [rca_2025_reflow_profile_drift.md](knowledge/rca_2025_reflow_profile_drift.md) | Past investigation report | Fictional 2025 incident, Plant A Line 1 / Power Module | Similar oven/material mechanism to assess, not proof of the current cause | Newly created Contoso training material |
 | [rca_2024_connector_misalignment.md](knowledge/rca_2024_connector_misalignment.md) | Past investigation report | Fictional 2024 incident, Plant B Line 2 / Sensor Pack | Different line and mechanical mechanism; not support for a current oven cause | Newly created Contoso training material |
 
-Both reports use the same sections: Summary, Symptom, Investigation, Root cause, Corrective action, and Lessons. Each is a short, one-page-style record using the glossary labels. The six required sections and lengths of 265 and 235 words were checked locally.
+Both reports use the same six sections: Summary, Symptom, Investigation, Root cause, Corrective action, and Lessons. Each is a short, one-page record that uses the glossary labels.

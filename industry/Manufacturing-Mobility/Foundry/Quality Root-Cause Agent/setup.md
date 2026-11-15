@@ -1,88 +1,84 @@
-# Quality Root-Cause Agent Walkthrough
+# Quality Root-Cause Agent: Setup
+
+Follow this guide from top to bottom in one Windows PowerShell terminal. By the end you will have run the investigation and read its report. You copy one command block at a time; signing in, entering your project details, and reading the report need your input.
+
+## Before you start
+
+### What you need
+
+- **Tools:** Python 3.11 or later (tested with 3.14), Azure CLI, and VS Code with this repository cloned or downloaded. Open a PowerShell terminal in the repository root, the `asia-learning-hub` folder, and use it for every step.
+- **A Foundry project and a model deployment** that support tool calling through the Responses API. The demo uses an existing project and does not create one. If you have none, create them once with [Set up Microsoft Foundry resources](https://learn.microsoft.com/en-us/azure/foundry/tutorials/quickstart-create-foundry-resources); see also [Create a project](https://learn.microsoft.com/en-us/azure/foundry/how-to/create-projects) and [Deploy models](https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/create-model-deployments).
+- **Access**, assigned by the project owner:
+  - To run the demo: **Foundry User** on the Foundry project (some pages still call it Azure AI User).
+  - To browse the parent Foundry resource in the portal: **Reader**. Reader alone does not allow running the demo.
+  - To review billed costs: **Cost Management Reader** at the right scope, or ask the owner to do the review.
+- **Approval to incur model charges.**
+
+Creating projects, deployments, and role assignments are administrator tasks. If you get an access error, do not ask for broader access; see [Troubleshooting](#troubleshooting). Role details: [Foundry RBAC](https://learn.microsoft.com/en-us/azure/foundry/concepts/rbac-foundry) and [SDK prerequisites](https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/sdk-overview#prerequisites).
+
+### Time and cost
+
+- **Runtime:** One test run took about 90 seconds after setup. Setup time and runtime vary with your environment and model.
+- **Charges:** Each run sends several requests to the model, and they incur charges. Get the project owner's approval before you run it.
+- **Cost:** It depends on the model you use. The actual cost of this demo was not measured.
+- **Pricing:** See [Foundry Models pricing](https://azure.microsoft.com/en-us/pricing/details/ai-foundry-models/aoai/) or the model provider's pricing page, and [Foundry cost management](https://learn.microsoft.com/en-us/azure/foundry/concepts/manage-costs).
 
 ## Step-by-step setup
 
-**Your task:** Investigate Contoso's W42 drop in first-inspection pass rate, even though W43 recovered. Run the prepared demo, then use its report to decide what a Quality Engineer should check next.
-
-> **Follow steps 1-6 in the same Windows PowerShell terminal.**
-> Copy one command block at a time. Stop if a command fails; check [Troubleshooting](#troubleshooting) before continuing. Sign-in, project lookup, and editing settings need your input; the agent sequence runs automatically.
-
-### Before you start
-
-- Clone or download the **whole repository**, open its root folder (`asia-learning-hub`) in VS Code, and open a PowerShell terminal there.
-- Have **Python 3.11+** and **Azure CLI** installed. If either is missing, install it before continuing.
-- Have **one existing Foundry project and a deployed model** supporting Responses API and function/tool calling. Ask the owner to confirm [permissions](#permissions), available quota, and approval for model charges. If you have no project/deployment, obtain access before starting; this guide does not create one.
-- Keep the supplied three CSVs and two past reports in place. No workbook export, data generation, or separate search service is needed.
-
-**Model requests incur charges.** The records are fictitious, but local tool results are sent to Foundry, not processed entirely on your computer.
-
 ### 1. Sign in to Azure
 
-**Why:** The program uses your Azure identity to access the model; it does not use an API key.
-
-**Do:** Run this command and complete the sign-in prompt with the account authorized for the project:
+**Why:** The demo uses your Azure sign-in to call the model, so no API key is needed.
 
 ```powershell
 az login
 ```
 
-After sign-in succeeds, check the selected account's subscription and tenant:
+When sign-in finishes, confirm the account:
 
 ```powershell
 az account show --query "{Subscription:name,Tenant:tenantId}" --output table
 ```
 
-**Check:** You signed in with the intended account and the displayed tenant is the project's tenant. Ask the project owner if unsure, then continue to step 2. Never copy tokens or credentials into the repository.
+**Check:** The subscription and tenant are the ones that own the Foundry project. If you are unsure, ask the project owner. Never copy tokens or credentials into the repository.
 
-### 2. Confirm the Foundry project and model deployment
+### 2. Collect your project details
 
-**Why:** All three AI roles share one model. You need its connection details, not three separately deployed agents.
+**Why:** The demo needs to know which model to call. You enter these two values in step 4.
 
-**Do (manual):** Ask the project owner or look in the Foundry portal for:
+In the [Foundry portal](https://ai.azure.com), open your project and note:
 
-- **Project endpoint:** The complete project HTTPS endpoint, not a portal page URL.
-- **Model deployment name:** The available deployment's name, not necessarily its catalog model name.
+- **Project endpoint:** The full HTTPS address of the project, not the portal page URL. It looks like `https://<resource-name>.services.ai.azure.com/api/projects/<project-name>`.
+- **Model deployment name:** The name of the deployment, which may differ from the model's catalog name.
 
-**Check:** Both values are ready for step 4, and the owner has confirmed access, Responses API/tool support, quota, and charges. For [cost planning](#estimated-time--cost), also identify the model/version, deployment type, and processing region. Do not create resources as part of this step.
+If you cannot find them, see [Get your project connection details](https://learn.microsoft.com/en-us/azure/foundry/tutorials/quickstart-create-foundry-resources#get-your-project-connection-details).
 
-### 3. Prepare the local analysis tools
+**Check:** You have both values, and the owner has confirmed that the deployment supports tool calling and has quota for the demo.
 
-**Why:** Python tools read the factory records and calculate comparisons. A local virtual environment keeps this demo's packages separate from other projects.
+### 3. Install the Python packages
 
-**Do:** From the **repository root**, enter the demo's `source` folder and check Python:
+**Why:** The demo's Python tools read the factory records and run the three roles. A virtual environment keeps its packages separate from your other projects.
+
+From the repository root, go to the demo's `source` folder and create the virtual environment:
 
 ```powershell
 Set-Location -LiteralPath '.\industry\Manufacturing-Mobility\Foundry\Quality Root-Cause Agent\source' -ErrorAction Stop
-python --version
+if (Test-Path -LiteralPath .\main.py) { python --version; python -m venv .venv }
 ```
 
-Confirm Python is **3.11 or later**, then create the virtual environment:
-
-```powershell
-python -m venv .venv
-```
-
-After that succeeds, install the pinned packages:
+The version printed should be 3.11 or later. Then install the packages. The dependency check runs only if the installation succeeds:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+if ($LASTEXITCODE -eq 0) { .\.venv\Scripts\python.exe -m pip check }
 ```
 
-Only after installation succeeds, check the dependencies:
+**Check:** The last line says **No broken requirements found.** Stay in this `source` folder for steps 4 and 5. You do not need to activate the environment or change any execution policy. If installation fails, see [Troubleshooting](#troubleshooting).
 
-```powershell
-.\.venv\Scripts\python.exe -m pip check
-```
+### 4. Enter your project details
 
-**Check:** Installation succeeded and the last command reports **No broken requirements found.** Stay in `source` for steps 4-5. Commands use the virtual environment directly; no activation or execution-policy change is needed.
+**Why:** The demo reads the project endpoint and model name from a local settings file named `.env`. Git ignores this file, so your values stay on your machine.
 
-The pinned integration includes the **`azure-ai-inference==1.0.0b9` preview dependency**. If a package is unavailable, see [dependency guidance](#authentication-and-dependencies); do not substitute versions.
-
-### 4. Connect the demo to the model
-
-**Why:** The local settings file tells the program which project and model deployment to call.
-
-**Do:** Create `.env` only if it is missing, then open it in Notepad. Existing settings are not overwritten.
+Create `.env` if it does not exist yet, then open it:
 
 ```powershell
 if (-not (Test-Path -LiteralPath .env)) {
@@ -91,142 +87,118 @@ if (-not (Test-Path -LiteralPath .env)) {
 notepad.exe .env
 ```
 
-In Notepad, use these two lines and replace **every `<...>` placeholder** with the values from step 2. Use the complete endpoint from the owner, not a guessed address.
+In Notepad, replace every `<...>` placeholder with your values from step 2, then save and close the file. The two settings look like this:
 
 ```dotenv
 FOUNDRY_PROJECT_ENDPOINT=https://<resource-name>.services.ai.azure.com/api/projects/<project-name>
 FOUNDRY_MODEL=<model-deployment-name>
 ```
 
-**Check:** Save and close Notepad. Both values are real, without `<...>` placeholders. Existing terminal environment variables override `.env`; ensure they do not conflict. Never add an API key or commit real settings; [source/.gitignore](source/.gitignore) excludes `.env`.
+**Check:** No `<...>` is left in the file, and it contains no API key. Variables already set in your terminal take priority over `.env`, so remove any that conflict.
 
 ### 5. Run the investigation
 
-**Why:** This is the actual quality investigation. The program calculates comparisons, reads the two past reports, and asks the model to assemble an evidence-backed report.
+**Why:** This is the investigation itself. The program calculates the comparisons, reads the two past reports, and asks the model to write the report.
 
-The following question is **already in the program**. Read it; do not paste it into PowerShell or a portal:
+The program asks the model one fixed question, so you do not type or paste anything:
 
 ```text
 Why did fewer products pass their first inspection in W42 on Contoso Plant A Line 1 (Power Module), and what should we verify before choosing corrective action?
 ```
 
-**Do:** This command makes **billable model requests**. From the same terminal in `source`, run:
+This command **sends billable requests to the model** and takes about 90 seconds:
 
 ```powershell
 .\.venv\Scripts\python.exe main.py
 ```
 
-**Check:** After validating settings and local inputs, the program prints:
+**Check:** The program prints this line and, after a short wait, one report:
 
 ```text
 Local inputs checked. Running DataAnalysisAgent -> KnowledgeAgent -> ReportAgent...
 ```
 
-Wait for **one final report**. The three roles run in sequence automatically; there are no separate prompts to answer or agent screens to open. Once the report appears, continue to step 6 rather than rerunning the command.
+The three roles run one after another without any input from you. When the report appears, go on to step 6 instead of running the command again.
 
-### 6. Understand the report and finish
+### 6. Read the report
 
-**Why:** A report is useful only if you can explain what it supports, what remains unknown, and which check should come next.
+**Why:** The report is only useful if you can explain what the evidence supports, what is still unknown, and what to check next.
 
-**Do (manual):** Read your report alongside the example below. This is a **short illustrative summary based on the verified run**, not a verbatim transcript or a guaranteed response. Wording, ranking, and qualitative confidence may vary.
+Two names appear in the evidence. **SP-002** is a new batch of soldering paste used from W42. **OP-04** is a new operator who first worked in W42. A **high-defect shift** is a shift with a first-inspection pass rate below 95%.
 
-First, check the weekly pass rates: **W40 97.5%, W41 96.9%, W42 93.6%, W43 97.7%**. The problem is the W42 decline; W43 recovery is evidence to interpret, not proof of a successful fix.
+First, confirm the weekly pass rates in the report: W40 97.5%, W41 96.9%, W42 93.6%, and W43 97.7%. Then look for findings like these. The wording and ranking change from run to run; this table is an illustration based on one test run, not a transcript.
 
-| Example finding | What it means | What to check next |
+| What the report finds | What it means | What to check next |
 |---|---|---|
-| Hotter shifts had lower pass rates; W43 recovered alongside lower recorded temperatures. | Oven heating conditions are a leading investigation direction, not a proven cause. | Verify sensors and the product's full temperature-time curve against approved requirements. |
-| SP-002, the soldering material batch, remained in use during W43 recovery. | The batch alone does not explain the pattern; an interaction with heating conditions remains possible. | Review material test results and engineering-approved comparisons under matched conditions. |
-| OP-04 did not work the high-defect W42 shifts. | Evidence for blaming the new operator is weak. This does not prove skill or rule out every operator effect. | Review training and assignments neutrally, comparing similar operating conditions. |
-| The past oven case is relevant; the connector-fixture case concerns a different mechanism. | Past experience can guide checks, but cannot prove the current cause or justify copying an old remedy. | Obtain current defect and process evidence. |
+| Hotter shifts had lower pass rates, and W43 recovered when temperatures came back down. | Oven heating is the leading lead to investigate, not a proven cause. | Verify the sensors and the product's full temperature-over-time curve. |
+| SP-002 stayed in use during the W43 recovery. | The paste batch alone does not explain the drop, but it may interact with the heating conditions. | Review the batch's test results and compare batches under matched conditions. |
+| OP-04 did not work any high-defect W42 shift. | Little supports blaming the new operator. This does not rule out every operator effect. | Review training and assignments, comparing similar operating conditions. |
+| The 2025 oven case fits; the 2024 connector case has a different cause. | A past case can guide the checks but cannot prove today's cause. | Collect current defect and process evidence. |
 
-Compare your report's citations with the supplied sources:
+A complete report has five sections: **Summary**, **Ranked hypotheses**, **Evidence gaps**, **Next checks**, and **Decision boundary**. Its claims cite files, fields, or past-report sections. Spot-check a few against the [weekly quality data](data/quality_supplier_risk.csv) (`First Pass Yield Actual`), the [shift records](data/process_parameters.csv), and the past cases from [2025](knowledge/rca_2025_reflow_profile_drift.md) and [2024](knowledge/rca_2024_connector_misalignment.md).
 
-- [Weekly quality data](data/quality_supplier_risk.csv): `Week` and `First Pass Yield Actual`, not operations `Quality`.
-- [Shift records](data/process_parameters.csv): `week`, `reflow_zone3_temp_c`, `solder_paste_lot`, `operator_id`, `units_tested`, and `units_failed`. These are synthetic inspection samples, not production totals.
-- [Oven precedent](knowledge/rca_2025_reflow_profile_drift.md) and [fixture comparison](knowledge/rca_2024_connector_misalignment.md): cited sections must describe past evidence, not current findings.
+#### What the demo shows
 
-**Check:** Look for **Summary**, **Ranked hypotheses**, **Evidence gaps**, **Next checks**, and **Decision boundary**, supported by file/field and report/section references. A nonempty response alone is not enough. Missing evidence or unsupported claims mean the report needs review, not that the investigation succeeded.
+- **Shows:** Calculations and past cases combine into an evidence-backed starting point for a quality investigation, with three roles passing the work along. A Quality Engineer gets possible causes and next checks in one place.
+- **Does not show:** A confirmed root cause. The comparisons are observations, not controlled experiments, and defect types, sensor calibration, full heating curves, and controlled batch trials are missing. Confidence labels in the report are qualitative, not probabilities. The demo does not measure time saved or predict better pass rates.
 
-#### What you have achieved
+#### You are done when
 
-- **Demonstrated:** Calculations and past records feed three distinct AI roles, producing an evidence-backed starting point for a quality investigation.
-- **Expected benefit:** A Quality Engineer can review possible explanations and prioritize checks in one place. This demo does not measure productivity savings or guarantee better pass rates.
-- **Not established:** A confirmed root cause. Comparisons are unbalanced observations, not controlled experiments; current defect types, sensor calibration, full heating curves, and controlled material trials are missing. Confidence labels are qualitative, not calibrated probabilities.
+You can explain the leading hypothesis, the evidence that limits it, and the next check. In a real plant, the Quality Engineer then chooses the validation plan. The demo never changes equipment, rejects a batch, or blames an operator. **These are hypotheses; the Quality Engineer makes the final judgment.**
 
-#### Finish here
+#### Tester checklist
 
-The demo is complete when you can explain **the leading hypothesis, the evidence that limits it, and the next check**. No further run, prompt editing, or production action is required.
+If you are the peer verifying this demo, follow the guide without help and fill in the table. Record preparation time (steps 1-4) and run time (step 5) separately in the notes; there is no pass/fail time target.
 
-In a real plant, present those findings to the **Quality Engineer**, who decides the engineering-approved validation plan. The program has not adjusted an oven, rejected a batch, or assigned blame. **These are hypotheses; the Quality Engineer makes the final judgment.**
+| # | Check | Pass/Fail | Notes |
+|---|---|---|---|
+| 1 | **Before you start** was clear, and you had a Foundry project, a model deployment, and the access you need. | | |
+| 2 | Steps 1-4 worked without help: signed in, packages installed (`No broken requirements found.`), and `.env` saved. | | |
+| 3 | Step 5 printed the `Local inputs checked` line and then one report. | | |
+| 4 | The report has all five sections. | | |
+| 5 | The weekly pass rates match: 97.5%, 96.9%, 93.6%, 97.7%. | | |
+| 6 | The report links the temperature rise to the W42 drop and notes that SP-002 stayed in use during the W43 recovery. | | |
+| 7 | The report does not blame OP-04 and does not call any cause confirmed. | | |
+| 8 | A few citations (files, fields, report sections) match the supplied data. | | |
+| 9 | You can explain the leading hypothesis, its limit, and the next check in your own words. | | |
+| 10 | Preparation time and run time are written in the notes, in minutes. | | |
 
 ---
 
-The sections below are supporting references, not additional walkthrough steps.
-
-## Permissions
-
-For Microsoft Entra project-SDK access, follow [SDK prerequisites](https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/sdk-overview#prerequisites) and [Foundry RBAC](https://learn.microsoft.com/en-us/azure/foundry/concepts/rbac-foundry):
-
-| Task | Role and scope |
-|---|---|
-| Run against an existing project/deployment | **Foundry User** on the **Foundry project**; some interfaces still show **Azure AI User** |
-| Browse the parent resource, if needed | **Reader** on the **Foundry resource**; Reader alone does not grant model inference access |
-| Review billed costs, if needed | **Cost Management Reader** at the required resource-group or subscription scope; the owner can review instead |
-
-These are documented built-in roles, not proof of the smallest custom role or a live test with only those roles. This uses `FoundryChatClient`, not a remote agent endpoint; an agent-consumer role is not interchangeable with project SDK access.
-
-Provisioning, deployment changes, and role assignments are administrator tasks outside the demo. Presenters do not need Owner or Contributor just to run it. Do not widen access to work around an error; check the account, tenant, project scope, and deployment.
-
-## Verification status
-
-Dependencies, 12 offline tests, and a Windows Unicode-output regression check passed on Python 3.14.4. One live run completed, and its report was checked against the calculated evidence. A subsequent source-column metadata improvement was verified locally only. Timed peer reproduction remains pending.
-
-## Estimated time & cost
-
-- **Runtime:** One successful run took about 90 seconds after setup. This excludes setup time; runtime varies by environment and model.
-- **Charges:** Model requests incur charges. Confirm approval with the project owner before running.
-- **Cost:** Depends on the deployed model and usage; actual demo charges were not measured.
-- **Pricing:** Check current [Foundry Models pricing](https://azure.microsoft.com/en-us/pricing/details/ai-foundry-models/aoai/) or the model provider's pricing page.
+The sections below are reference material, not additional steps.
 
 ## Troubleshooting
 
-### Region
+### Sign-in or permission errors
 
-Use the existing project/deployment region. The script does not select or change it.
+Check that the tenant shown in step 1 owns the project, and that the project owner has assigned you **Foundry User** on it. Variables set in your terminal override `.env`, so remove any that conflict. A role for using a published agent endpoint is not the same as project access for this demo.
 
-### Quota
+### Package installation errors
 
-For throttling or quota errors, confirm capacity and wait or ask the owner. Do not repeatedly rerun a billable workflow without checking the error.
-
-### Model availability
-
-Check `FOUNDRY_MODEL` against an available Responses API/tool-calling deployment. One configured deployment passed a live run; other model/region combinations still need verification.
-
-### Authentication and dependencies
-
-For access errors, check the account/tenant from step 1 and the owner's role assignment. Conflicting terminal environment variables take precedence over `.env`; update them if necessary.
-
-For import errors, reinstall the pinned requirements **from `source`**, using the virtual environment:
+Run this from the `source` folder:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+if ($LASTEXITCODE -eq 0) { .\.venv\Scripts\python.exe -m pip check }
 ```
 
-After installation succeeds:
+The packages are pinned to tested versions, and `azure-ai-inference`, a dependency of the Foundry integration, is a preview release. If your package mirror cannot find a pinned version, check that it exists on public PyPI and use an organization-approved index instead of changing versions.
 
-```powershell
-.\.venv\Scripts\python.exe -m pip check
-```
+### Quota, region, or model errors
 
-If a mirror lacks a pinned release, verify it exists on public PyPI and use an organization-approved index; do not silently change versions. For local validation errors, use the supplied files unchanged and consult [DATA_DICTIONARY.md](DATA_DICTIONARY.md).
+Use your project's own region; the demo does not choose one. For throttling or quota errors, wait or ask the owner to raise the deployment's capacity. Make sure `FOUNDRY_MODEL` matches a deployment that supports tool calling through the Responses API. Each run is billable, so find the cause before you rerun.
 
-### Windows console output
+### Garbled punctuation
 
-The CLI uses UTF-8 output. Open redirected output as UTF-8 if punctuation looks garbled. Output failure after model generation can still incur charges; check the cause before rerunning.
+The program writes UTF-8. If redirected output looks garbled, open it as UTF-8. A failure after the model has answered can still be billed, so find the cause before you rerun.
+
+### Data errors
+
+Use the supplied files unchanged. See [DATA_DICTIONARY.md](DATA_DICTIONARY.md).
 
 ## Cleanup
 
-SDK clients close automatically. No resources, remote agents, or knowledge uploads are created. Cloud-side response retention follows service configuration. Keep shared projects/deployments; remove only disposable resources you explicitly created.
+The demo creates no resources in Foundry, so there is nothing to delete. Keep shared projects and deployments, and remove only resources you created just for testing. Your service settings control how long responses are retained.
 
 ## SDK references
 
