@@ -6,6 +6,7 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Vertical** | **Technology Focus** | **Business Scenario** |
 | :--- | :--- | :--- |
 | **Financial Services** | Copilot | [Banking Operations Performance & Risk Review](FSI/Copilot/Banking%20Operations%20Performance%20%26%20Risk%20Overview) |
+| **Financial Services** | Copilot | [Financial Audit and Risk Investigation](FSI/Copilot/Copilot%20For%20Finance%20And%20Audit%20Teams) |
 | **Financial Services** | Agent Builder | [Relationship Manager Assistant](FSI/Agent%20builder/Relationship%20Manager%20Assistant) |
 | **Financial Services** | Agent Builder | [Insurance Claims Assistant](FSI/Agent-Builder/Insurance%20Claims%20Assistant) |
 | **Healthcare** | Copilot | [Reducing Readmissions Through Better Care Transitions](Healthcare/Copilot/Lamna%20Healthcare) |
