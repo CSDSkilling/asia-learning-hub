@@ -10,7 +10,7 @@ All data is synthetic. It is for demonstration only and contains no real custome
 
 | # | Use case | Type | Who it helps | Start here |
 |---|----------|------|--------------|------------|
-| 1 | Weekly Store Performance & Promotion Review | Microsoft 365 Copilot (Excel, Word, PowerPoint, Outlook) | Retail operations managers, category leads | [README](./Copilot-Ajay/Weekly%20Store%20Performance%20%26%20Promotion%20Review/README.md) |
+| 1 | Weekly Store Performance & Promotion Review | Microsoft 365 Copilot (Excel, Word, PowerPoint, Outlook) | Retail operations managers, category leads | [README](./Copilot/Weekly%20Store%20Performance%20%26%20Promotion%20Review/README.md) |
 | 2 | Store Replenishment & Markdown Advisor | Agent Builder agent with knowledge sources | Store operations leads, merchandising teams | [README](./Agent%20Builder/Store%20Replenishment%20%26%20Markdown%20Advisor/README.md) |
 
 ### 1. Weekly Store Performance & Promotion Review
@@ -29,13 +29,15 @@ Reads the inventory snapshot, supplier lead times, promotions and markdown polic
 industry/Retail/
 ├── README.md                                    (retail index)
 ├── README-Ajay.md                               (this file)
-├── Copilot-Ajay/
-│   └── Weekly Store Performance & Promotion Review/
-│       ├── README.md
-│       └── sample-files/
-│           ├── store_weekly_sales.csv
-│           ├── promo_calendar.csv
-│           └── store_feedback.csv
+├── Copilot/
+│   ├── Weekly Store Performance & Promotion Review/
+│   │   ├── README.md
+│   │   └── sample-files/
+│   │       ├── store_weekly_sales.csv
+│   │       ├── promo_calendar.csv
+│   │       └── store_feedback.csv
+│   └── Australia/
+│       └── Retail Performance Analysis/
 └── Agent Builder/
     ├── Store Replenishment & Markdown Advisor/
     │   ├── README.md
