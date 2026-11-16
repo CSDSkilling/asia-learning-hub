@@ -18,8 +18,14 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Manufacturing & Mobility** | Agent Builder | [Automotive Dealer Service & Recall Readiness Assistant](Manufacturing-Mobility/Agent%20Builder/Automotive%20Dealer%20Service%20%26%20Recall%20Readiness%20Assistant) |
 | **Manufacturing & Mobility** | Agent Builder | [Production Downtime Resolution Assistant](Manufacturing-Mobility/Agent%20Builder/Production%20Downtime%20Resolution%20Assistant) |
 | **Manufacturing & Mobility** | Agent Builder | [Supplier Risk & Inventory Copilot](Manufacturing-Mobility/Agent%20Builder/Supplier%20Risk%20%26%20Inventory%20Copilot) |
-| **Public Sector**| Copilot | [Citizen Enquiry Support: From High-Volume Inbox to Confident Responses](PS/Copilot/Citizen%20Enquiry%20Support) |
-| **Public Sector**| Agent Builder | [Procurement Compliance Coach](PS/Agent%20Builder/Procurement%20Compliance%20Coach) |
+| **Public Sector** | Copilot | [Citizen Enquiry Support: From High-Volume Inbox to Confident Responses](PS/Copilot/Citizen%20Enquiry%20Support) |
+| **Public Sector** | Agent Builder | [Procurement Compliance Coach](PS/Agent%20Builder/Procurement%20Compliance%20Coach) |
+| **Retail** | Copilot | [Campaign Launch Readiness](Retail/Copilot/Campaign%20Launch%20Readiness) |
+| **Retail** | Copilot | [Retail Performance Analysis](Retail/Copilot/Retail%20Performance%20Analysis) |
+| **Retail** | Copilot | [Returns & Product Quality Review](Retail/Copilot/Returns%20%26%20Product%20Quality%20Review) |
+| **Retail** | Copilot | [Weekly Store Performance & Promotion Review](Retail/Copilot/Weekly%20Store%20Performance%20%26%20Promotion%20Review) |
+| **Retail** | Agent Builder | [Returns & Exchange Policy Coach](Retail/Agent%20Builder/Returns%20%26%20Exchange%20Policy%20Coach) |
+| **Retail** | Agent Builder | [Store Replenishment & Markdown Advisor](Retail/Agent%20Builder/Store%20Replenishment%20%26%20Markdown%20Advisor) |
 | **Telco** | Copilot | [From Customer Complaints to a Retention Decision](Telco/Copilot/Customer%20Retention%20Decision) |
 | **Telco** | Copilot | [Regional 5G Service Degradation: From Alarm to Executive Action](Telco/Copilot/5G%20Service%20Degradation) |
 | **Telco** | Agent Builder | [Fix First, Then Retain: Customer Care Knowledge Coaches](Telco/Agent%20Builder/Customer%20Care%20Knowledge%20Coaches) |
