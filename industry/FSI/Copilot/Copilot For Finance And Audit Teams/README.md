@@ -1,9 +1,11 @@
-# Meridian Retail Engagement — Microsoft 365 Copilot for finance and audit teams
+# Microsoft 365 Copilot for Financial Services — Credit, Finance and Audit Teams
 
-Join the audit team of a fictional retailer and let Microsoft 365 Copilot help. This is a set of six short, standalone workshops, one for each app: **Word, Excel, PowerPoint, Outlook, Teams and Copilot Chat**. All six use one client, **Meridian Retail Group Pte. Ltd.**. In each one, Copilot proposes and you verify every answer against the source files.
+Explore a financial services industry (FSI) use case for banking finance, credit and audit teams, as well as professional services providers such as accounting, audit and financial advisory firms supporting banks and their corporate clients. Using **Meridian Retail Group Pte. Ltd.**, a fictional retailer viewed as a prospective corporate borrower, practise reviewing financial information, investigating exceptions and communicating evidence that can inform lending discussions.
+
+This is a set of six short, standalone workshops, one for each app: **Word, Excel, PowerPoint, Outlook, Teams and Copilot Chat**. All six use the same client and existing audit materials. The skills are relevant to assessing borrower financial health and considering bank products such as business loans and working-capital facilities, proposed credit terms such as limits, repayment periods and covenants, and collateral requirements. The labs practise evidence review, not loan underwriting or collateral valuation; those assessments require additional verified information and the bank's policies. In each workshop, Copilot proposes and you verify every answer against the source files.
 
 > [!WARNING]
-> **Training use only.** All Meridian names, entities, amounts, transactions, emails, chats and findings are fictional training data. Copilot proposes; the team verifies. This is a training exercise, not audit or tax advice. Never paste real client data into the prompts.
+> **Training use only.** All Meridian names, entities, amounts, transactions, emails, chats and findings are fictional training data. Copilot proposes; the team verifies. This is a training exercise, not audit, tax or credit advice. Loan approvals, credit terms and collateral acceptance remain subject to authorised professional review and bank policy. Never paste real client data into the prompts.
 
 ## What you’ll learn
 
@@ -16,7 +18,7 @@ flowchart LR
   R --> D[The team decides]
 ```
 
-Every workshop follows the same rhythm: **Scenario → Concept → Demo → Try Out → Review → Refine → Takeaways**. You learn one prompt formula and one review habit, then practise them in a different app each time.
+Every workshop follows the same rhythm: **Scenario → Concept → Demo → Try Out → Review → Refine → Takeaways**. You learn one prompt formula and one review habit, then practise them in a different app each time. For FSI teams and their professional services partners, the focus is on separating supported facts from assumptions, identifying gaps in borrower evidence and preparing clear findings for finance, risk and lending stakeholders.
 
 ## Workshops
 
@@ -24,12 +26,12 @@ Each workshop stands alone and takes about 60 minutes, so start with the app you
 
 | # | Workshop | Hands-on | What you do | Files |
 | --- | --- | --- | --- | --- |
-| 1 | [Word: Understand the client and write professional findings](./lab/01-word.md) | 35 min | Summarise a client file, turn interview notes into evidence and write a finding. | `01_Client_Background.docx`<br>`02_Audit_Interview_Notes.docx`<br>`03_Audit_Findings_Draft.docx` |
-| 2 | [Excel: Investigate 1,800 transactions and find exceptions](./lab/02-excel.md) | 35 min | Flag risky entries and find the exceptions hiding in 1,800 transactions. | `04_Audit_Analytics.xlsx`<br>`05_Corporate_Tax_Computation.xlsx` |
-| 3 | [PowerPoint: Build an executive briefing for leadership](./lab/03-powerpoint.md) | 35 min | Turn findings into a clear briefing for senior leaders. | `01_Client_Background.docx`<br>`03_Audit_Findings_Draft.docx`<br>`06_Supporting_Documents.pdf` |
-| 4 | [Outlook: Handle a complex email with attachments](./lab/04-outlook.md) | 35 min | Work out what an urgent email needs, then reply with the right tone. | `Meridian_Retail_Email.eml`<br>`01_Client_Background.docx`<br>`03_Audit_Findings_Draft.docx`<br>`06_Supporting_Documents.pdf` |
-| 5 | [Teams: Catch up on the engagement and prepare a meeting](./lab/05-teams.md) | 35 min | Catch up on three days of chat and prepare tomorrow’s status meeting. | `Meridian-Teams-channel-transcript.txt` |
-| 6 | [Copilot Chat: Investigate evidence across multiple files](./lab/06-copilot-chat.md) | 37 min | Follow six suspicious matters across the client file, the data and the documents. | `01_Client_Background.docx`<br>`04_Audit_Analytics.xlsx`<br>`06_Supporting_Documents.pdf` |
+| 1 | [Word: Understand the client and write professional findings](./lab/01-word.md) | 35 min | Summarise a client file, turn interview notes into evidence and write a finding relevant to borrower due diligence. | `01_Client_Background.docx`<br>`02_Audit_Interview_Notes.docx`<br>`03_Audit_Findings_Draft.docx` |
+| 2 | [Excel: Investigate 1,800 transactions and find exceptions](./lab/02-excel.md) | 35 min | Flag risky entries and investigate exceptions in 1,800 transactions that may affect confidence in a borrower's financial information. | `04_Audit_Analytics.xlsx`<br>`05_Corporate_Tax_Computation.xlsx` |
+| 3 | [PowerPoint: Build an executive briefing for leadership](./lab/03-powerpoint.md) | 35 min | Turn findings into a clear briefing for senior leaders, highlighting financial risks and evidence gaps relevant to lending discussions. | `01_Client_Background.docx`<br>`03_Audit_Findings_Draft.docx`<br>`06_Supporting_Documents.pdf` |
+| 4 | [Outlook: Handle a complex email with attachments](./lab/04-outlook.md) | 35 min | Identify urgent evidence requests and draft a professional client reply, using communication skills relevant to finance and borrower-review engagements. | `Meridian_Retail_Email.eml`<br>`01_Client_Background.docx`<br>`03_Audit_Findings_Draft.docx`<br>`06_Supporting_Documents.pdf` |
+| 5 | [Teams: Catch up on the engagement and prepare a meeting](./lab/05-teams.md) | 35 min | Catch up on three days of chat and prepare tomorrow’s status meeting, keeping outstanding evidence and review actions visible. | `Meridian-Teams-channel-transcript.txt` |
+| 6 | [Copilot Chat: Investigate evidence across multiple files](./lab/06-copilot-chat.md) | 37 min | Follow six suspicious matters across the client file, data and documents to assess the reliability of information used in financial due diligence. | `01_Client_Background.docx`<br>`04_Audit_Analytics.xlsx`<br>`06_Supporting_Documents.pdf` |
 
 ## Prerequisites
 
@@ -41,7 +43,7 @@ Each workshop stands alone and takes about 60 minutes, so start with the app you
 
 ## Meet Meridian
 
-Meridian Retail Group Pte. Ltd. is a fictional regional retailer of consumer electronics and home accessories, with 18 physical stores, 1 e-commerce platform and 3 distribution centres. Its financial year ended 31 December 2026, and it reports in SGD, MYR, THB.
+Meridian Retail Group Pte. Ltd. is a fictional regional retailer of consumer electronics and home accessories, with 18 physical stores, 1 e-commerce platform and 3 distribution centres. Its financial year ended 31 December 2026, and it reports in SGD, MYR, THB. For this FSI use case, review Meridian from the perspective of a bank or professional services adviser examining a corporate borrower's financial reliability, working-capital position and risks relevant to financing.
 
 | Company | Country | Ownership | What it does |
 | --- | --- | --- | --- |
@@ -60,7 +62,7 @@ Meridian Retail Group Pte. Ltd. is a fictional regional retailer of consumer ele
 | Inventory | stock | 29.7 | +42.8% |
 | Trade receivables | owed by customers | 13.9 | +67.5% |
 
-_Sales are up, but profit is down. Stock and the money customers owe have grown much faster than sales._
+_Sales are up, but profit is down. Stock and the money customers owe have grown much faster than sales. In a borrower review, these trends prompt questions about cash conversion, repayment capacity and working-capital needs; inventory and receivables also require further checks before they can be considered eligible collateral._
 
 **What changed in FY2026**
 
@@ -81,14 +83,14 @@ _Sales are up, but profit is down. Stock and the money customers owe have grown 
 
 **What the engagement team must do**
 
-- Understand key processes and changes
-- Identify significant reporting and control risks
-- Use data analysis to investigate unusual transactions
-- Check whether tax adjustments are supported
-- Communicate findings clearly to management
+- Understand key processes and changes relevant to the client's financial position
+- Identify significant reporting and control risks that may affect reliance on borrower financial information
+- Use data analysis to investigate unusual transactions and gaps in supporting evidence
+- Check whether tax adjustments are supported when reviewing reported earnings and tax obligations
+- Communicate findings clearly to management, with evidence and limitations that finance advisers and bank reviewers can use in further assessment
 
 > [!NOTE]
-> Your role: You have just joined the engagement team reviewing Meridian’s FY2026 results. Copilot is your assistant.
+> Your role: You have just joined a finance, audit or professional services engagement team reviewing Meridian’s FY2026 results. Apply a borrower-review lens: establish what the evidence supports and what further information a bank would need before deciding on loan products, credit terms or collateral requirements. Copilot is your assistant, not the credit decision-maker.
 
 ## Sample data
 
@@ -124,7 +126,7 @@ All sample files are fictional and are in [sample-files](./sample-files). Upload
 - Do not add personal or client data to prompts
 - Copilot can be wrong: verify numbers before you reuse them
 - No personal information about members of the public in prompts
-- Follow your agency’s AI-use and classification guidance
+- Follow your bank's or professional services firm's AI-use, confidentiality and classification guidance
 
 ## Resources
 
