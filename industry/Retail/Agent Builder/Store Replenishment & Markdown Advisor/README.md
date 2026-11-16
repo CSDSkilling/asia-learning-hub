@@ -90,7 +90,7 @@ When responding:
 ### Knowledge Sources
 
 > **Download the demo knowledge source package from:**
-> `industry/Retail/Agent Builder/data files/Store Replenishment Demo Pack`
+> `data files`
 >
 > Upload all files from this package as **Knowledge Sources** in Agent Builder before testing the agent. The package contains fictional store, product, inventory, supplier lead time, promotion, and markdown policy data. See [setup.md](./setup.md) for configuration steps.
 
