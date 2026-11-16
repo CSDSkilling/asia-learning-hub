@@ -1,4 +1,4 @@
-# Woodgrove Hospital Pre-Authorization Assistant
+# Hospital Pre-Authorization Assistant
 
 ## Scenario
 
