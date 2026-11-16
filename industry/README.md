@@ -12,6 +12,7 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Healthcare** | Copilot | [Reducing Readmissions Through Better Care Transitions](Healthcare/Copilot/Lamna%20Healthcare) |
 | **Healthcare** | Agent Builder | [Hospital Pre-Authorization Assistant](Healthcare/Agent%20Builder/Hospital%20Pre-Authorization%20Assistant) |
 | **IT/ITeS** | Copilot | [IT Service Desk Monthly Service Review](IT-ITeS/Copilot/IT%20Service%20Desk%20Monthly%20Service%20Review) |
+| **IT/ITeS** | Agent Builder | [Program Manager Status & Risk Coach](IT-ITeS/Agent%20Builder/Program%20Manager%20Status%20%26%20Risk%20Coach) |
 | **Manufacturing & Mobility** | Copilot | [Automotive Production Quality & Supplier Risk](Manufacturing-Mobility/Copilot/Automotive%20Production%20Quality%20%26%20Supplier%20Risk) |
 | **Manufacturing & Mobility** | Copilot | [Manufacturing Operations Performance & Risk](Manufacturing-Mobility/Copilot/Manufacturing%20Operations%20Performance%20%26%20Risk) |
 | **Manufacturing & Mobility** | Agent Builder | [Automotive Dealer Service & Recall Readiness Assistant](Manufacturing-Mobility/Agent%20Builder/Automotive%20Dealer%20Service%20%26%20Recall%20Readiness%20Assistant) |
