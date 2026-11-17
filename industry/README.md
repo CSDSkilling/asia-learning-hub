@@ -5,6 +5,7 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 ## 🗂️ Industry Index & Quick Navigation
 | **Vertical** | **Technology Focus** | **Business Scenario** |
 | :--- | :--- | :--- |
+| **Digital Native** | Copilot | [LaunchPad Digital Experience: From Signup to First Value](Digital%20Native/Copilot/Signup%20to%20First%20Value) |
 | **Financial Services** | Copilot | [Banking Operations Performance & Risk Review](FSI/Copilot/Banking%20Operations%20Performance%20%26%20Risk%20Overview) |
 | **Financial Services** | Copilot | [Financial Audit and Risk Investigation](FSI/Copilot/Copilot%20For%20Finance%20And%20Audit%20Teams) |
 | **Financial Services** | Agent Builder | [Relationship Manager Assistant](FSI/Agent%20builder/Relationship%20Manager%20Assistant) |
