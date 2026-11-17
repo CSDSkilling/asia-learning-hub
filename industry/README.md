@@ -32,3 +32,4 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Telco** | Copilot | [Regional 5G Service Degradation: From Alarm to Executive Action](Telco/Copilot/5G%20Service%20Degradation) |
 | **Telco** | Agent Builder | [Fix First, Then Retain: Customer Care Knowledge Coaches](Telco/Agent%20Builder/Customer%20Care%20Knowledge%20Coaches) |
 | **Telco** | Agent Builder | [From Alarm Storm to Verified Fix: NOC Incident Coach](Telco/Agent%20Builder/NOC%20Incident%20Coach) |
+| **Telco** | Copilot Studio | [From Alarm Storm to Verified Fix: NOC Incident Coach (Microsoft Copilot harness)](Telco/Copilot%20Studio/NOC%20Incident%20Coach) |
