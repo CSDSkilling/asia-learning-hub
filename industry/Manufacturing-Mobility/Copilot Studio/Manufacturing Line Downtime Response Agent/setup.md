@@ -32,6 +32,20 @@ The imported OneDrive knowledge items still point to the author's OneDrive. Remo
 
 > If a CSV file does not reach **Ready**, save it as `.xlsx` in the same folder and add that file instead.
 
+| File | Description |
+|---|---|
+| machine_alarms.csv | Fictional machine alarm history for packaging Line P-204: timestamps, machine IDs, alarm codes, shifts and stop durations. |
+| maintenance_tickets.csv | Fictional maintenance tickets: machine, fault description, actions taken, status and open corrective actions. |
+| quality_defects_weekly.csv | Fictional weekly quality defect trends by line and defect type, used to assess quality impact of downtime. |
+| spare_parts_inventory.csv | Fictional spare parts inventory: part numbers, machines served, stock on hand and minimum stock levels. |
+
+| File | Description |
+|---|---|
+| open_purchase_orders.csv | Fictional open purchase orders: materials/parts, suppliers, quantities, due dates and delay status. |
+| supplier_otd_scorecard.csv | Fictional supplier on-time delivery (OTD) scorecard and SLA performance. |
+| incoming_quality_rejections.csv | Fictional incoming quality rejections by supplier and material. |
+| material_criticality_matrix.csv | Fictional material criticality by production line and impact if out of stock. |
+
 ## 4. Update the tools
 
 | Tool | Update after import |
