@@ -36,13 +36,7 @@ The imported OneDrive knowledge items still point to the author's OneDrive. Remo
 
 | Tool | Update after import |
 |---|---|
-| Create corrective work order | Select your connection and point **File** to `/LineDowntimeDemo/Corrective_Work_Orders.xlsx`, table **WorkOrders**
-   - **Location** → `OneDrive for Business`
-   - **Document Library** → `OneDrive`
-   - **File** → `/LineDowntimeDemo/Corrective_Work_Orders.xlsx`
-   - **Table** → `WorkOrders`
-   - **Title, Line, Machine, Priority, IssueSummary, RecommendedAction, PartsRisk, RequestedBy, CreatedOn** → *Dynamically fill with AI*
-   - **Status** → Custom value `New`.|
+| Create corrective work order | Select your connection and point **File** to `/LineDowntimeDemo/Corrective_Work_Orders.xlsx`, table **WorkOrders**. **Location** → `OneDrive for Business`, **Document Library** → `OneDrive`, **File** → `/LineDowntimeDemo/Corrective_Work_Orders.xlsx`, **Table** → `WorkOrders`, **Title, Line, Machine, Priority, IssueSummary, RecommendedAction, PartsRisk, RequestedBy, CreatedOn** → *Dynamically fill with AI*, - **Status** → Custom value `New`.|
 | Send downtime alert | Select your connection and set **To** to your own email address for the demo |
 
 ## 5. Test and publish
