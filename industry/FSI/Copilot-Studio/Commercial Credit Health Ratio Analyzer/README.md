@@ -243,6 +243,41 @@ These are workshop rules, not any bank's policy. Thresholds are applied to the f
 
 ## Before you demo
 
+Two ways to get the agent. Pick one.
+
+### Option A: Quick setup, import the solution (about 5 minutes)
+
+Copilot Studio agents live in Power Platform **solutions**, so you can import the ready-made one instead of building by hand.
+
+**[Download FSICommercialCreditHealthRatioAnalyzer_1_0_0_1_managed.zip](./solution/FSICommercialCreditHealthRatioAnalyzer_1_0_0_1_managed.zip)** (about 44 KB, managed solution `FSICommercialCreditHealthRatioAnalyzer`, version 1.0.0.1)
+
+It brings in everything the agent needs:
+
+| Included | What it is |
+| --- | --- |
+| Agent | **Credit Health Ratio Analyzer**, with the instructions already written (the display name inside the package is shorter, and you can rename it on the **Build** tab) |
+| Workflow | `calculate-credit-ratios`, the deterministic calculator for Gross Margin, Current Ratio and Debt-to-EBITDA and their ratio-risk classifications |
+| Workflow | `get-country-npl-benchmark`, which calls the World Bank API (application programming interface) with an HTTP (web request) action |
+| Skill | `credit-covenant-auditor` |
+| Connection references | The workflows may ask you to connect a **Power Automate Management** connection during import |
+
+There's no knowledge file and no database. The World Bank call uses a public API with no key.
+
+**You need:** a Copilot Studio licence, and an environment where you can import solutions (a Power Platform environment with Dataverse, and a maker or admin role).
+
+1. Go to [make.powerapps.com](https://make.powerapps.com) and pick your environment at the top right. Use the same environment you use for [Copilot Studio](https://copilotstudio.microsoft.com/).
+2. Select **Solutions**, then **Import solution**, then **Browse**, choose the zip, and select **Next**.
+3. If it asks for connections (**Power Automate Management**), select an existing one or create one by signing in, then select **Import**.
+4. Wait for the message that the solution imported successfully.
+5. Open [Copilot Studio](https://copilotstudio.microsoft.com/) in the same environment, select **Agents**, and open **Credit Health Ratio Analyzer**.
+6. On the **Build** tab, check that **Instructions** are filled in, the **Tools** list shows the two workflows, and **Skills** shows `credit-covenant-auditor`. On the **Workflows** page, check both workflows show as **Enabled**.
+7. Run the **pre-demo check** in [SETUP.md](./SETUP.md#5-run-the-pre-demo-check), at least the required tests. **Don't demo if it fails.**
+
+> [!TIP]
+> This is a managed solution, so treat it as read-only. To change the agent or learn how it's built, use Option B.
+
+### Option B: Manual setup
+
 **Build and check the agent with [SETUP.md](./SETUP.md)** (about 70 minutes). It covers the agent, the workflow, the guardrail skill, the World Bank tool (a workflow with an HTTP (web request) action), and a 24-test pre-demo check. **Don't demo if the critical tests fail.**
 
 Presenter tips:
