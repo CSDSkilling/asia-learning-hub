@@ -1,7 +1,5 @@
 # User Feedback Analysis: From Hundreds of Comments to Clear Themes
 
-> **Status:** First draft. Scenario, prompts and file names are proposals; demo files are still to be created.
-
 The Riverbend Services Agency has launched an online service for renewing and updating personal details (the "MyRiverbend Renewals" service). Since launch, the Digital Service Product Owner has received hundreds of comments through satisfaction survey free text, feedback forms, app store reviews and contact centre notes.
 
 Rather than reading every comment, the Product Owner wants to understand the overall themes: what is frustrating users, what is working well, which issues matter most, and what to fix first.

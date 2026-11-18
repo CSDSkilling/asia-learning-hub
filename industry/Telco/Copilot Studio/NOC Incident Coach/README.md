@@ -2,7 +2,7 @@
 
 AsterWave Mobile, a fictional mobile operator, is dealing with slow mobile data in its Meranti Coast region. It's 10:00 on Friday 30 October 2026. Since 07:38, the Network Operations Centre (NOC) has received 15 alarms, incident INC-077 is open, and the field repair won't finish until about 12:00. The shift wants a faster fix, someone has to approve it, and customer care is waiting for the next status bulletin.
 
-This demo shows one agent built in **Microsoft Copilot Studio** on the GitHub Copilot harness and delivered as one solution. The NOC event log and the status bulletin are Dataverse tables. The agent reads the events through a workflow, checks the bulletin as Dataverse knowledge and follows the runbook as a skill. When the engineer confirms, it also acts: it emails the approval request and publishes the bulletin update.
+This demo shows one agent built in **Microsoft Copilot Studio** on the Microsoft Copilot harness and delivered as one solution. The NOC event log and the status bulletin are Dataverse tables. The agent reads the events through a workflow, checks the bulletin as Dataverse knowledge and follows the runbook as a skill. When the engineer confirms, it also acts: it emails the approval request and publishes the bulletin update.
 
 | **Agent** | **Who uses it** | **What it does** |
 |-----------|-----------------|------------------|
@@ -34,7 +34,7 @@ This demo shows one agent built in **Microsoft Copilot Studio** on the GitHub Co
 ## Files in this folder
 | **File** | **Contents** | **Used for** |
 |----------|--------------|--------------|
-| [solution/AsterWaveNOCSolution_1_0_0_3.zip](solution/AsterWaveNOCSolution_1_0_0_3.zip) | Unmanaged solution **AsterWave NOC Solution**, version 1.0.0.3: the agent with its skill, knowledge and tools, 3 tables, 3 workflows, 2 simulation flows, 1 AI Builder prompt, 2 environment variables and the evaluation test set | Importing the demo into your environment |
+| [solution/AsterWaveNOCSolution_1_0_0_3.zip](solution/AsterWaveNOCSolution_1_0_0_3.zip) | Unmanaged solution **AsterWave NOC Solution**, version 1.0.0.3: the agent with its skill, knowledge and tools, 3 tables, 3 workflows, 2 Power Automate flows for the simulation, 1 AI Builder prompt, 2 environment variables and the evaluation test set | Importing the demo into your environment |
 | [data-files/NOC_Event_Import.xlsx](data-files/NOC_Event_Import.xlsx) | 28 NOC events, EV-101 to EV-128: 15 alarms, KPI checks, diagnostics, a field update, changes, a review action and a log note | Importing into the NOC Event table |
 | [data-files/Network_Status_Import.xlsx](data-files/Network_Status_Import.xlsx) | 5 status bulletin rows: INC-077, INC-080, INC-081, INC-071 and the planned maintenance MNT-090 | Importing into the Network Status table |
 | [evaluation/NOC_Incident_Coach_evaluation.csv](evaluation/NOC_Incident_Coach_evaluation.csv) | 16 test conversations with expected answers | Evaluating the agent (optional) |
@@ -48,7 +48,7 @@ Everything in this section comes with the solution, so you don't need to build a
 | **Setting** | **Value** |
 |-------------|-----------|
 | Name | AsterWave NOC Incident Coach |
-| Harness and model | GitHub Copilot harness, model **Auto** |
+| Harness and model | Microsoft Copilot harness, model **Auto** |
 | Language | English |
 | Authentication | Authenticate with Microsoft, which Dataverse knowledge needs |
 | Instructions | The agent's role and data sources; a fixed scenario time (30 October 2026, 10:00, AsterWave local time); a citation for every fact; the four steps; rules for the write tools; restrictions (no network actions, no approvals and no customer personal data); and the response style. They also cover how to query events from the optional simulation. |
@@ -75,6 +75,8 @@ Everything in this section comes with the solution, so you don't need to build a
 | AsterWave Care Ops Email (environment variable) | The mailbox of the Care Operations Lead, who receives bulletin updates. For a demo, use the presenter's mailbox. |
 
 ### Optional event simulation
+The two simulation flows are Power Automate cloud flows, separate from Copilot Studio. You find and run them in Power Automate, not under **Workflows** in Copilot Studio.
+
 | **Component** | **Purpose** |
 |---------------|-------------|
 | InitializeNOCSimulation (cloud flow, run manually) | Issues the number of new IncidentIDs that you enter, saves them in NOC Simulation Config and turns event generation on |
@@ -86,26 +88,29 @@ The solution also includes the evaluation test set **NOC Incident Coach Regressi
 ## Set up the demo
 
 > [!IMPORTANT]
-> **Import the solution into a separate environment, not Contoso (default).**
-> - If you import the solution into the **Contoso (default)** environment, the import fails because of a permission issue. Importing a solution needs the System Administrator or System Customizer security role, and the lab accounts provided by Skillable can't get this role in that environment.
-> - Create a separate environment in the same tenant, and import the solution into it.
-> - In the new environment, Copilot Studio might not show the option to add Dataverse as a knowledge source. You don't need it: the agent's **Network Status** knowledge source comes with the solution, and after the import it appears under **Knowledge** as a Dataverse knowledge source.
+> **Using a Skillable lab account? Import the solution into a separate environment, not Contoso (default).**
+> - With a lab account provided by Skillable, importing the solution into the **Contoso (default)** environment fails because of a permission issue. Importing a solution needs the System Administrator or System Customizer security role, and Skillable lab accounts can't get this role in that environment.
+> - Create a separate environment in the same tenant (step 1), and import the solution into it.
+> - In a trainer demo tenant, the import into Contoso (default) works, so a separate environment is optional there.
+> - In a new environment, Copilot Studio might not show the option to add Dataverse as a knowledge source. You don't need it: the agent's **Network Status** knowledge source comes with the solution, and after the import it appears under **Knowledge** as a Dataverse knowledge source.
 
-> **Requirements:** A demo tenant where you can create a Power Platform environment and build agents in Copilot Studio. Agents powered by the GitHub Copilot harness use Copilot Credits, including when you build, test and evaluate them. The two write tools send real email from the account that you use for the Office 365 Outlook connection.
+> **Requirements:** A demo tenant where you can create a Power Platform environment and build agents in Copilot Studio. Agents powered by the Microsoft Copilot harness use Copilot Credits, including when you build, test and evaluate them. The two write tools send real email from the account that you use for the Office 365 Outlook connection.
 
-1. **Create an environment.** In the Power Platform admin center, create an environment with **Add a Dataverse data store?** set to **Yes**, for example a Developer environment named `TelcoEnv`. Wait until its state is **Ready**. New unmanaged Developer environments can't be created from 15 November 2026; if you can't create one, use a Sandbox or Trial environment. Learn more in [Create and manage environments](https://learn.microsoft.com/en-us/power-platform/admin/create-environment).
-2. **Turn on Dataverse search.** In the admin center, open the environment's **Settings > Product > Features**, select both **Dataverse search** options and save. In environments other than production, an admin must turn it on, and the Network Status knowledge source depends on it.
-3. **Import the solution.** In Copilot Studio or Power Apps, open **Solutions** in the new environment, select **Import solution** and choose `solution/AsterWaveNOCSolution_1_0_0_3.zip`.
+1. **Create an environment (required with a Skillable lab account).** In the Power Platform admin center, create an environment with **Add a Dataverse data store?** set to **Yes**, for example a Developer environment named `TelcoEnv`. Wait until its state is **Ready**. New unmanaged Developer environments can't be created from 15 November 2026; if you can't create one, use a Sandbox or Trial environment. Learn more in [Create and manage environments](https://learn.microsoft.com/en-us/power-platform/admin/create-environment). In a trainer demo tenant, you can skip this step and use Contoso (default).
+   - **Turn on Dataverse search.** In the admin center, open the environment's **Settings > Product > Features**, select both **Dataverse search** options and save. In environments other than production, an admin must turn it on, and the Network Status knowledge source depends on it.
+3. **Import the solution.** In Copilot Studio or Power Apps, open **Solutions** in the environment that you use for the demo, select **Import solution** and choose `solution/AsterWaveNOCSolution_1_0_0_3.zip`.
    - Keep **Enable Plugin steps and flows included in the solution** selected.
    - Create or select a connection for each connector that's listed: **Microsoft Dataverse**, **Office 365 Outlook** and **Work IQ MCP**.
-   - Enter the mailboxes for **AsterWave Approver Email** and **AsterWave Care Ops Email**. Your own mailbox works for both.
-   - When the import finishes, select **Publish all customizations**.
+   - Enter the mailboxes for **AsterWave Approver Email** and **AsterWave Care Ops Email**. Your own mailbox works for both. If the names show *[no English (United States) display name - showing Korean (Korea)]*, you can ignore this.
+   - When the import finishes, you might see a warning that starts with *Solution "AsterWave NOC Solution" imported, but one or more flows may not have turned on* and mentions translated labels for language 1042 (Korean). This warning is safe to ignore: it doesn't affect how the solution works, and step 5 checks that the workflows are enabled.
+   - Then select **Publish all customizations** in the top menu of the **Solutions** page (the same menu as **Import solution**).
 4. **Load the sample data.** In Power Apps, open each table and select **Import > Import data from Excel**. If a column isn't matched automatically, map it to the column with the same name.
-   - `data-files/NOC_Event_Import.xlsx` into **NOC Event** (28 rows)
+   - `data-files/NOC_Event_Import.xlsx` into **NOC Event** (28 rows). The **Description** and **Time** columns show **Possible match**: select **Accept match** for both.
    - `data-files/Network_Status_Import.xlsx` into **Network Status** (5 rows)
    - Then add one row to **NOC Simulation Config**: ConfigName `Default`, IncidentIdsJson `[]`, NextIncidentIndex `0`, IsEnabled `No`, LastIssuedIncidentNumber `80`.
-5. **Check the workflows.** In Copilot Studio, go to **Workflows** and check that Get Incidents Events, Request Action Approval and Update Status Bulletin are enabled. Leave GenerateNOCEvents off unless you run the simulation.
+5. **Check the workflows.** In Copilot Studio, go to **Workflows** and check that Get Incidents Events, Request Action Approval and Update Status Bulletin are enabled. The two simulation flows, InitializeNOCSimulation and GenerateNOCEvents, aren't listed there: they're Power Automate cloud flows, separate from Copilot Studio. In Power Automate, leave GenerateNOCEvents off unless you run the simulation.
 6. **Test the agent.** Open **AsterWave NOC Incident Coach**, select **Preview > New chat** and ask `What's the current bulletin status of INC-080?` The answer should show Status **Investigating** and CreditEligible **Pending**, citing Network Status.
+7. **Publish to Microsoft Copilot and Teams (optional).** The demo runs in the agent's **Preview** tab, so you don't need a channel. To also use the agent in Microsoft Copilot and Teams, select **Publish**, choose the **Microsoft Copilot** and **Microsoft Teams** channels in the **Publish agent** dialog and confirm with **Publish**. Learn more in [Publish an agent (Microsoft Copilot)](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/publication-publish-agent).
 
 For click-by-click steps, see Exercise 01 (environment), Exercise 03, Task 03 (Dataverse search) and Exercise 12 (import) in [StepByStepGuideForMTT.docx](lab-guide/StepByStepGuideForMTT.docx).
 
@@ -178,7 +183,7 @@ In Power Automate, run **InitializeNOCSimulation** with `varIncidentCount` set t
 
 > Show the latest events for INC-082 and summarise the most recent changes in network conditions.
 
-The simulation calls an AI Builder prompt every minute while it's on. When you finish, set **IsEnabled** to **No** in NOC Simulation Config or turn off GenerateNOCEvents.
+The simulation calls an AI Builder prompt every minute while it's on. When you finish, set **IsEnabled** to **No** in NOC Simulation Config or turn off GenerateNOCEvents. To remove the simulated events, see [If you ran the simulation](#if-you-ran-the-simulation).
 
 ## Final demo outcome
 By the end of the full story, the audience has seen:
@@ -202,11 +207,21 @@ The write tools change the demo data. Before the next session, and before you ru
 | CreditEligible | Yes |
 | CustomerMessage | We're sorry. Some customers in Meranti Coast have slow or intermittent mobile data. Our engineers are restoring service, and we estimate it will be back to normal by 12:00 today. We'll send you an SMS when it's fixed. |
 
+### If you ran the simulation
+The simulation adds new events to NOC Event. The simplest way to remove them is to delete the existing rows and import the sample data again:
+1. Stop the simulation: set **IsEnabled** to **No** in NOC Simulation Config, or turn off GenerateNOCEvents in Power Automate.
+2. In **NOC Event**, delete all rows.
+3. Import `data-files/NOC_Event_Import.xlsx` into **NOC Event** again (28 rows), as in step 4 of [Set up the demo](#set-up-the-demo).
+
+This also removes the approval request rows. To run the simulation again from its original settings, also set the NOC Simulation Config row back to its original values: ConfigName `Default`, IncidentIdsJson `[]`, NextIncidentIndex `0`, IsEnabled `No`, LastIssuedIncidentNumber `80`.
+
 ## Evaluate the agent (optional)
 On the agent's **Evaluate** tab, run the test set **NOC Incident Coach Regression Test v1**, which comes with the solution. If it isn't there, create an evaluation, choose **Import**, set the data type to **Conversations** (not Single responses) and upload `evaluation/NOC_Incident_Coach_evaluation.csv`. The set has 16 conversations with 17 questions. In the last one, the user asks for the approval request and then cancels it, so the agent must not send anything. Reset the demo data first, because the expected answers assume the original data.
+
+If some conversations fail the **General quality** check, open each failed conversation and review why it failed. Based on the reason, refine the agent's instructions, tools, skill or other settings, and run the evaluation again. In the demo, present this as an evaluation and improvement loop: **identify the failed conversation → review the reason → refine the agent → test again**.
 
 ## More resources
 - Step-by-step guide to rebuild the solution: [StepByStepGuideForMTT.docx](lab-guide/StepByStepGuideForMTT.docx)
 - The same scenario in Agent Builder: [NOC Incident Coach (Agent Builder)](../../Agent%20Builder/NOC%20Incident%20Coach)
 - Related back-office Copilot demo: [Regional 5G Service Degradation: From Alarm to Executive Action](../../Copilot/5G%20Service%20Degradation)
-- Microsoft Learn: [Agents powered by the GitHub Copilot harness](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/overview) · [Add Dataverse tables as a knowledge source (GitHub Copilot)](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/knowledge-add-dataverse-tables) · [Export and import agents using solutions](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-solutions-import-export) · [Configure Dataverse search for your environment](https://learn.microsoft.com/en-us/power-platform/admin/configure-relevance-search-organization) · [Create and manage environments](https://learn.microsoft.com/en-us/power-platform/admin/create-environment)
+- Microsoft Learn: [Agents powered by the Microsoft Copilot harness](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/overview) · [Add Dataverse tables as a knowledge source (Microsoft Copilot)](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/knowledge-add-dataverse-tables) · [Publish an agent (Microsoft Copilot)](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/publication-publish-agent) · [Export and import agents using solutions](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-solutions-import-export) · [Configure Dataverse search for your environment](https://learn.microsoft.com/en-us/power-platform/admin/configure-relevance-search-organization) · [Create and manage environments](https://learn.microsoft.com/en-us/power-platform/admin/create-environment)

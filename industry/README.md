@@ -5,6 +5,7 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 ## 🗂️ Industry Index & Quick Navigation
 | **Vertical** | **Technology Focus** | **Business Scenario** |
 | :--- | :--- | :--- |
+| **Digital Native** | Copilot | [LaunchPad Digital Experience: From Signup to First Value](Digital%20Native/Copilot/Signup%20to%20First%20Value) |
 | **Financial Services** | Copilot | [Banking Operations Performance & Risk Review](FSI/Copilot/Banking%20Operations%20Performance%20%26%20Risk%20Overview) |
 | **Financial Services** | Copilot | [Financial Audit and Risk Investigation](FSI/Copilot/Copilot%20For%20Finance%20And%20Audit%20Teams) |
 | **Financial Services** | Agent Builder | [Relationship Manager Assistant](FSI/Agent%20builder/Relationship%20Manager%20Assistant) |
@@ -19,6 +20,7 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Manufacturing & Mobility** | Agent Builder | [Production Downtime Resolution Assistant](Manufacturing-Mobility/Agent%20Builder/Production%20Downtime%20Resolution%20Assistant) |
 | **Manufacturing & Mobility** | Agent Builder | [Supplier Risk & Inventory Copilot](Manufacturing-Mobility/Agent%20Builder/Supplier%20Risk%20%26%20Inventory%20Copilot) |
 | **Public Sector** | Copilot | [Citizen Enquiry Support: From High-Volume Inbox to Confident Responses](PS/Copilot/Citizen%20Enquiry%20Support) |
+| **Public Sector** | Copilot | [User Feedback Analysis](PS/Copilot/User%20Feedback%20Analysis) |
 | **Public Sector** | Agent Builder | [Procurement Compliance Coach](PS/Agent%20Builder/Procurement%20Compliance%20Coach) |
 | **Retail** | Copilot | [Campaign Launch Readiness](Retail/Copilot/Campaign%20Launch%20Readiness) |
 | **Retail** | Copilot | [Retail Performance Analysis](Retail/Copilot/Retail%20Performance%20Analysis) |
@@ -30,3 +32,4 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Telco** | Copilot | [Regional 5G Service Degradation: From Alarm to Executive Action](Telco/Copilot/5G%20Service%20Degradation) |
 | **Telco** | Agent Builder | [Fix First, Then Retain: Customer Care Knowledge Coaches](Telco/Agent%20Builder/Customer%20Care%20Knowledge%20Coaches) |
 | **Telco** | Agent Builder | [From Alarm Storm to Verified Fix: NOC Incident Coach](Telco/Agent%20Builder/NOC%20Incident%20Coach) |
+| **Telco** | Copilot Studio | [From Alarm Storm to Verified Fix: NOC Incident Coach (Microsoft Copilot harness)](Telco/Copilot%20Studio/NOC%20Incident%20Coach) |
