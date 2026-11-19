@@ -10,6 +10,7 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Financial Services** | Copilot | [Financial Audit and Risk Investigation](FSI/Copilot/Copilot%20For%20Finance%20And%20Audit%20Teams) |
 | **Financial Services** | Agent Builder | [Relationship Manager Assistant](FSI/Agent%20builder/Relationship%20Manager%20Assistant) |
 | **Financial Services** | Agent Builder | [Insurance Claims Assistant](FSI/Agent-Builder/Insurance%20Claims%20Assistant) |
+| **Financial Services** | Copilot Studio | [Financial Inclusion Impact (Microsoft Copilot harness)](FSI/Copilot-Studio/Financial%20Inclusion%20Impact%20Agent) |
 | **Healthcare** | Copilot | [Reducing Readmissions Through Better Care Transitions](Healthcare/Copilot/Lamna%20Healthcare) |
 | **Healthcare** | Agent Builder | [Hospital Pre-Authorization Assistant](Healthcare/Agent%20Builder/Hospital%20Pre-Authorization%20Assistant) |
 | **IT/ITeS** | Copilot | [IT Service Desk Monthly Service Review](IT-ITeS/Copilot/IT%20Service%20Desk%20Monthly%20Service%20Review) |
