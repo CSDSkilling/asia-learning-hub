@@ -11,6 +11,8 @@ The agent is provided as a Power Platform solution export, so there is no need t
 | Supplier Risk Demo Pack (4 CSV files) | `data-files/Supplier Risk Demo Pack/` |
 | Downtime Response SOP | `data-files/downtime_response_sop.md` |
 | Work-order tracker | `data-files/Corrective_Work_Orders.xlsx` (table *WorkOrders*) |
+| (Optional) line_downtime_demo_data_pack.md | `data-files/line_downtime_demo_data_pack.md` (A merged .md file of 8 CSV files, incase 8 CSV files did not work) |
+
 
 ## Prerequisites
 
@@ -45,6 +47,10 @@ The imported OneDrive knowledge items still point to the author's OneDrive. Remo
 | supplier_otd_scorecard.csv | Fictional supplier on-time delivery (OTD) scorecard and SLA performance. |
 | incoming_quality_rejections.csv | Fictional incoming quality rejections by supplier and material. |
 | material_criticality_matrix.csv | Fictional material criticality by production line and impact if out of stock. |
+
+
+> (Alternative, Optional) If 8 CSV files do not seems to be working (Agent not reading the data) by any chance, you can upload "line_downtime_demo_data_pack.md" as an alternative. **+Add knoledge** → **Upload file** → select  → **Add to agent**
+
 
 ## 4. Update the tools
 
