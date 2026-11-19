@@ -4,7 +4,6 @@ FlashDrop, a fictional 10-minute grocery delivery platform, has a peculiar probl
 
 It's **19 November 2026, 19:05 IST** in the workshop story. Incident **GB-2048** is open. The Marketplace Operations shift wants a quick answer, but payment status, order status, stock allocation and refund approval are separate decisions.
 
-This workshop follows the structure of the supplied **AsterWave NOC Incident Coach** reference: pain points, demo files, demo choices, setup, stage-by-stage questions, expected evidence-based answers, guardrail test, new-evidence test and final outcome. **The business scenario remains Ghost Basket throughout.**
 
 > All organisations, customer references, transactions, policies and events are fictional. This is a **Copilot Studio** workshop, not a live payments or inventory integration. The agent provides recommendations and drafts only.
 
