@@ -51,7 +51,7 @@ The imported OneDrive knowledge items still point to the author's OneDrive. Remo
 
 
 b.
-(Alternative, Optional) If 8 CSV files do not seems to be working (Agent not reading the data) by any chance, you can upload "line_downtime_demo_data_pack.md" as an alternative. **+Add knoledge** → **Upload file** → select  → **Add to agent**
+(Alternative, Optional) If 8 CSV files do not seems to be working (Agent not reading the data) by any chance, you can upload "line_downtime_demo_data_pack.md" as an alternative. **+Add knoledge** → **Upload file** → select **line_downtime_demo_data_pack.md** file → **Add to agent**
 
 
 
