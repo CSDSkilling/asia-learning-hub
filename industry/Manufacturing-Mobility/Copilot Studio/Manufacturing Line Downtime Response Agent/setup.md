@@ -11,7 +11,7 @@ The agent is provided as a Power Platform solution export, so there is no need t
 | Supplier Risk Demo Pack (4 CSV files) | `data-files/Supplier Risk Demo Pack/` |
 | Downtime Response SOP | `data-files/downtime_response_sop.md` |
 | Work-order tracker | `data-files/Corrective_Work_Orders.xlsx` (table *WorkOrders*) |
-| (Optional) line_downtime_demo_data_pack.md | `data-files/line_downtime_demo_data_pack.md` (A merged .md file of 8 CSV files, incase 8 CSV files did not work) |
+| (Alternative, Optional) line_downtime_demo_data_pack.md | `data-files/line_downtime_demo_data_pack.md` (A merged .md file of 8 CSV files, incase 8 CSV files did not work) |
 
 
 ## Prerequisites
@@ -30,6 +30,7 @@ Create a folder named **LineDowntimeDemo** in your OneDrive and upload the 8 CSV
 
 ## 3. Re-point the knowledge sources
 
+a.
 The imported OneDrive knowledge items still point to the author's OneDrive. Remove them and add the 8 CSV files from your **LineDowntimeDemo** folder (the picker allows 5 items at a time, so add them in two rounds). Give each file a one-line description so the orchestrator picks the right source. Confirm the SOP document is present; if not, upload `downtime_response_sop.md` directly.
 
 > If a CSV file does not reach **Ready**, save it as `.xlsx` in the same folder and add that file instead.
@@ -49,7 +50,9 @@ The imported OneDrive knowledge items still point to the author's OneDrive. Remo
 | material_criticality_matrix.csv | Fictional material criticality by production line and impact if out of stock. |
 
 
-> (Alternative, Optional) If 8 CSV files do not seems to be working (Agent not reading the data) by any chance, you can upload "line_downtime_demo_data_pack.md" as an alternative. **+Add knoledge** → **Upload file** → select  → **Add to agent**
+b.
+(Alternative, Optional) If 8 CSV files do not seems to be working (Agent not reading the data) by any chance, you can upload "line_downtime_demo_data_pack.md" as an alternative. **+Add knoledge** → **Upload file** → select  → **Add to agent**
+
 
 
 ## 4. Update the tools
