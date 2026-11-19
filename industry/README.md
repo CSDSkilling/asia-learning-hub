@@ -20,6 +20,7 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Manufacturing & Mobility** | Agent Builder | [Automotive Dealer Service & Recall Readiness Assistant](Manufacturing-Mobility/Agent%20Builder/Automotive%20Dealer%20Service%20%26%20Recall%20Readiness%20Assistant) |
 | **Manufacturing & Mobility** | Agent Builder | [Production Downtime Resolution Assistant](Manufacturing-Mobility/Agent%20Builder/Production%20Downtime%20Resolution%20Assistant) |
 | **Manufacturing & Mobility** | Agent Builder | [Supplier Risk & Inventory Copilot](Manufacturing-Mobility/Agent%20Builder/Supplier%20Risk%20%26%20Inventory%20Copilot) |
+| **Manufacturing & Mobility** | Copilot Studio | [Manufacturing Line Downtime Response (Standard Harness)](Manufacturing-Mobility/Copilot%20Studio/Manufacturing%20Line%20Downtime%20Response%20Agent) |
 | **Public Sector** | Copilot | [Citizen Enquiry Support: From High-Volume Inbox to Confident Responses](PS/Copilot/Citizen%20Enquiry%20Support) |
 | **Public Sector** | Copilot | [User Feedback Analysis](PS/Copilot/User%20Feedback%20Analysis) |
 | **Public Sector** | Agent Builder | [Procurement Compliance Coach](PS/Agent%20Builder/Procurement%20Compliance%20Coach) |
