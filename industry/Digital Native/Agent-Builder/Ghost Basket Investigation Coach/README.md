@@ -1,4 +1,4 @@
-# From Paid to Proven: Ghost Basket Investigation Coach
+# From Paid to Proven: E-Commerce Transaction Investigation Coach
 
 FlashDrop, a fictional 10-minute grocery delivery platform, has a peculiar problem during an Alphonso mango flash sale: **two customers successfully pay for the last box, but only one order is confirmed**. The second customer's inventory reservation expires before a delayed payment webhook is processed. The customer sees a payment-success notification but no order. Should FlashDrop refund, reallocate stock, or wait for reconciliation?
 
