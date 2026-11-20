@@ -1,11 +1,12 @@
 # From Paid to Proven: E-Commerce Transaction Investigation Coach
 
+> **Workshop scope:** Build and test one read-only advisory agent using three fictional reference documents. The product portal is named once in the setup instructions; elsewhere, “the agent” or “the agent platform” is used to keep the guide concise and consistent.
+
 FlashDrop, a fictional 10-minute grocery delivery platform, has a peculiar problem during an Alphonso mango flash sale: **two customers successfully pay for the last box, but only one order is confirmed**. The second customer's inventory reservation expires before a delayed payment webhook is processed. The customer sees a payment-success notification but no order. Should FlashDrop refund, reallocate stock, or wait for reconciliation?
 
 It's **19 November 2026, 19:05 IST** in the workshop story. Incident **GB-2048** is open. The Marketplace Operations shift wants a quick answer, but payment status, order status, stock allocation and refund approval are separate decisions.
 
-
-> All organisations, customer references, transactions, policies and events are fictional. This is a **Copilot Studio** workshop, not a live payments or inventory integration. The agent provides recommendations and drafts only.
+> All organisations, customer references, transactions, policies and events are fictional. This is a **guided agent-building workshop**, not a live payments or inventory integration. The agent provides recommendations and drafts only.
 
 ## The agent at a glance
 
@@ -46,7 +47,6 @@ Download **Ghost_Basket_Data_Files.zip** (linked alongside this README). The ZIP
 | `FD2_Ghost_Basket_Investigation_Runbook.docx` | State definitions, investigation steps, decision rules, risks, approvers, escalation and communication controls | Agent knowledge |
 | `FD3_FlashDrop_Approval_and_Customer_Policy.docx` | Approval matrix, customer templates, data handling and workshop success criteria | Agent knowledge |
 
-
 ## Choose your demo
 
 | Option | Stages to show | What the audience sees | Approx. demo time |
@@ -64,7 +64,7 @@ These times are illustrative; knowledge indexing and tenant permissions can exte
 
 ## Prerequisites
 
-- A Copilot Studio environment where you have permission to create an agent and add knowledge.
+- An approved agent-authoring environment where you have permission to create an agent and add knowledge.
 - Permission under your organisation's data policies to upload fictional DOCX knowledge files.
 - The three DOCX files extracted from the ZIP.
 - No Power Automate, Dataverse tables, SharePoint, HTTP/custom connectors, API keys or live integrations are required for the **file-upload route**. File upload availability and agent capacity depend on tenant settings and licensing.
@@ -80,7 +80,7 @@ These times are illustrative; knowledge indexing and tenant permissions can exte
 
 **Trainer explanation:** FD1 is the incident evidence, FD2 is the operational procedure, and FD3 is the governance policy. Separating them lets learners see how an agent grounds its answers in multiple types of documents.
 
-## Step 2 — Create the Copilot Studio agent
+## Step 2 — Create the agent
 
 1. Open [Copilot Studio](https://copilotstudio.microsoft.com/).
 2. Sign in with your work account and select the approved environment.
@@ -88,7 +88,7 @@ These times are illustrative; knowledge indexing and tenant permissions can exte
 4. Set **Name** to `FlashDrop Ghost Basket Investigation Coach`.
 5. Set **Description** to:
 
-   > Investigates paid-but-unconfirmed FlashDrop orders using static incident evidence, an investigation runbook and an approval policy. Separates confirmed facts from hypotheses, recommends safe next steps and drafts customer-safe responses. It never executes payment or inventory actions.
+ > Investigates paid-but-unconfirmed FlashDrop orders using static incident evidence, an investigation runbook and an approval policy. Separates confirmed facts from hypotheses, recommends safe next steps and drafts customer-safe responses. It never executes payment or inventory actions.
 
 6. Choose **English** as the primary language, if prompted.
 7. Create/save the agent.
@@ -470,5 +470,4 @@ For a short live demonstration, pre-build the agent and run the five stages in a
 
 ## Production discussion
 
-The workshop is intentionally static and read-only. A real implementation would need governed integrations with order, inventory and payment reconciliation systems, access controls, auditing and transaction approvals. Those are outside the scope of this workshop. The purpose here is to teach Copilot Studio grounding, instructions, evidence-based reasoning and human oversight using a distinctive digital-native operational problem.
-
+The workshop is intentionally static and read-only. A real implementation would need governed integrations with order, inventory and payment reconciliation systems, access controls, auditing and transaction approvals. Those are outside the scope of this workshop. The purpose here is to teach knowledge grounding, agent instructions, evidence-based reasoning and human oversight using a distinctive digital-native operational problem.
