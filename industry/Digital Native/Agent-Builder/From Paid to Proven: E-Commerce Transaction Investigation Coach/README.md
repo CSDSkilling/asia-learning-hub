@@ -1,6 +1,5 @@
 # From Paid to Proven: E-Commerce Transaction Investigation Coach
 
-> **Workshop scope:** Build and test one read-only advisory agent using three fictional reference documents. The product portal is named once in the setup instructions; elsewhere, “the agent” or “the agent platform” is used to keep the guide concise and consistent.
 
 FlashDrop, a fictional 10-minute grocery delivery platform, has a peculiar problem during an Alphonso mango flash sale: **two customers successfully pay for the last box, but only one order is confirmed**. The second customer's inventory reservation expires before a delayed payment webhook is processed. The customer sees a payment-success notification but no order. Should FlashDrop refund, reallocate stock, or wait for reconciliation?
 
