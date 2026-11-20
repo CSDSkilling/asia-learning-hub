@@ -39,7 +39,7 @@ Real quick-commerce platforms rely on order services, inventory systems, payment
 
 ## Demo files
 
-Download **Ghost_Basket_Data_Files.zip** (linked alongside this README). The ZIP contains **only** the three DOCX data files below; it contains no README, instructions or prompts.
+Download **From Paid to Proven E-Commerce Transaction Investigation Coach.zip** (linked alongside this README). The ZIP contains **only** the three DOCX data files below; it contains no README, instructions or prompts.
 
 | File | Contents | Used by |
 |---|---|---|
