@@ -70,7 +70,7 @@ These times are illustrative; knowledge indexing and tenant permissions can exte
 
 ## Step 1 — Extract and inspect the files
 
-1. Download `Ghost_Basket_Data_Files.zip`.
+1. Download `From Paid to Proven E-Commerce Transaction Investigation Coach.zip`.
 2. Right-click the ZIP and choose **Extract All**.
 3. Open FD1 and locate `GB-2048`, `PAY-99183`, `RSV-7002` and the event timeline.
 4. Open FD2 and locate the `PAID_UNALLOCATED` definition and decision rules.
