@@ -46,7 +46,6 @@ Download **Ghost_Basket_Data_Files.zip** (linked alongside this README). The ZIP
 | `FD2_Ghost_Basket_Investigation_Runbook.docx` | State definitions, investigation steps, decision rules, risks, approvers, escalation and communication controls | Agent knowledge |
 | `FD3_FlashDrop_Approval_and_Customer_Policy.docx` | Approval matrix, customer templates, data handling and workshop success criteria | Agent knowledge |
 
-**Important difference from the NOC demo:** the original NOC scenario attaches a separate live-export-like Excel file during chat. **Ghost Basket uses only three static knowledge files** as requested. No event-export attachment is needed. The incident timeline is in FD1.
 
 ## Choose your demo
 
