@@ -1,5 +1,7 @@
 # From Request to Approved Purchase: Procurement Request Assistant (Copilot Studio)
 
+<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/ab33b2fe-291d-46a1-9f4e-017a590eec28" />
+
 The Department of Community Services (DCS), a fictional government agency, is preparing for Community Day. Sam, a Programme Officer, needs event services worth about **$85,000**. Sam buys only occasionally, isn't sure which procurement method applies or who must approve it, and has no way to see where a request stands once it's emailed. At the same time, four of the division's contracts end within 90 days, and nobody has started re-procurement.
 
 This demo shows one agent built in **Microsoft Copilot Studio** and delivered as one solution. The agent answers questions from the DCS Procurement Manual, collects a purchase request in an adaptive card, works out the procurement method and approving authority from the value, logs the request in Excel, sends it to a person for approval and reports its status on request. It also flags contracts that are about to lapse, in Teams and Outlook.
@@ -38,7 +40,6 @@ This demo shows one agent built in **Microsoft Copilot Studio** and delivered as
 | [data-files/Purchase Requests.xlsx](data-files/Purchase%20Requests.xlsx) | Request log, table `tblRequests`, with 3 sample requests: PR-0001 (Approved), PR-0002 (Pending approval) and PR-0003 (Rejected for contract splitting) | Logging and looking up requests (Lab 2) |
 | [data-files/Contracts Register.xlsx](data-files/Contracts%20Register.xlsx) | Contracts register, table `tblContracts`, with 8 contracts, CT-2401 to CT-2408. End dates are formulas based on today's date, so the reminder results stay the same whenever you run the demo | Contract expiry reminders (Lab 3) |
 | [lab-guide/Setup Guide - Procurement Request Assistant.docx](lab-guide/Setup%20Guide%20-%20Procurement%20Request%20Assistant.docx) | Step-by-step guide (Word) that builds the agent in Labs 0 to 3 and exports it as a solution, with every copy-and-paste value, test prompt and expected result | Reproducing exactly how the solution was built |
-| [procurement-request-assistant-pitch.png](procurement-request-assistant-pitch.png) | One-page infographic of the use case | Slides or sharing before the demo |
 
 ## Configuration
 Everything in this section comes with the solution, so you don't need to build anything.
