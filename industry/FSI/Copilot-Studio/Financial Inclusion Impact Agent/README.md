@@ -125,7 +125,7 @@ flowchart LR
 
 ## Before you demo
 
-Two ways to get the agent. Pick one.
+*Before the demo, you can either import the ready-made solution into Copilot Studio or build and validate the agent manually (approximately 95 minutes, including the skills and workflows). Please choose whichever option works best for you.*
 
 ### Option A: Quick setup, import the solution (about 10 minutes)
 
