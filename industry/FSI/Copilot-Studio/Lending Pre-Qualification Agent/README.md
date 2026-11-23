@@ -4,16 +4,16 @@
 
 ### What is this agent?
 
-The Lending Pre-Qualification Agent is a front-line retail banking and lending assistant built in Microsoft Copilot Studio. It evaluates prospective borrowers' eligibility for personal loans and mortgages by collecting core financial inputs, calculating Debt-to-Income (DTI, total monthly debt as a percentage of gross monthly income) and Loan-to-Value (LTV, the requested loan as a percentage of the property value) ratios deterministically, enforcing fair lending guardrails, and dynamically fetching live macroeconomic credit-risk benchmarks from the World Bank Open Data API (application programming interface, a public data service) for any country requested.
+The Lending Pre-Qualification Agent is a front-line retail banking and lending assistant built in Microsoft Copilot Studio. It evaluates prospective borrowers' eligibility for personal loans and mortgages by collecting core financial inputs, calculating Debt-to-Income (DTI, total monthly debt as a percentage of gross monthly income) and Loan-to-Value (LTV, the requested loan as a percentage of the property value) ratios deterministically, enforcing fair lending guardrails, and dynamically fetching the latest available macroeconomic credit-risk benchmarks from the World Bank Open Data API (application programming interface, a public data service) for any country requested.
 
 ### Why it matters in financial services (FSI)
 
 Unlike internal back-office or procurement bots, this agent directly addresses core commercial and retail banking revenue, speed-to-market, and regulatory risk:
 
 1. **Accelerates loan origination and reduces drop-off:** Borrowers abandon mortgage and personal loan funnels when pre-qualification takes days. Instant, accurate ratio screening captures borrower intent immediately.
-2. **Eliminates LLM (large language model) math hallucinations in underwriting:** Generative AI (artificial intelligence) models are notoriously unreliable at boundary arithmetic (e.g., 36.00% vs 36.01% DTI (Debt-to-Income)). By offloading math to a deterministic Copilot Studio workflow, the bank gets 100% repeatable credit-tier routing.
-3. **Enforces fair lending and regulatory compliance:** Financial regulators strictly penalize algorithmic bias. An embedded compliance skill blocks protected demographic attributes (age, gender, race, marital status) and refuses unauthorized rate guarantees or policy overrides.
-4. **Global market adaptability:** Rather than hardcoding rules for a single country (such as Singapore's Monetary Authority of Singapore (MAS) Total Debt Servicing Ratio (TDSR) rules or US Fannie Mae mortgage rules), the agent pulls real-time national Bank Nonperforming Loans (NPL %, the share of a country's bank loans not being repaid as agreed) from the World Bank API, providing macro-risk context across global markets without requiring custom databases or API keys.
+2. **Eliminates LLM (large language model) math hallucinations in underwriting:** Generative AI (artificial intelligence) models are notoriously unreliable at boundary arithmetic (e.g., 36.00% vs 36.01% DTI (Debt-to-Income)). By offloading math to a deterministic Copilot Studio workflow, the bank gets consistent and reproducible credit-tier classification.
+3. **Supports fair lending practices and compliance controls:** Financial regulators strictly penalize algorithmic bias. An embedded compliance skill blocks protected demographic attributes (age, gender, race, marital status) and refuses unauthorized rate guarantees or policy overrides.
+4. **Global market adaptability:** Rather than hardcoding rules for a single country (such as Singapore's Monetary Authority of Singapore (MAS) Total Debt Servicing Ratio (TDSR) rules or US Fannie Mae mortgage rules), the agent pulls the latest available country-level Bank Nonperforming Loans (NPL %, the share of a country's bank loans not being repaid as agreed) data from the World Bank API, shown with its reporting year, providing macro-risk context across global markets without requiring custom databases or API keys.
 
 > [!WARNING]
 > **Demo and workshop use only.** This agent provides simulated pre-qualification screening using illustrative underwriting thresholds. It does not pull live credit bureau reports, lock interest rates, or issue binding loan commitments. Do not enter real customer PII (personally identifiable information).
@@ -221,7 +221,7 @@ Built on the Microsoft Copilot harness (previously called the GitHub Copilot har
 
 ## Before you demo
 
-Two ways to get the agent. Pick one.
+*Before the demo, you can either import the ready-made solution into Copilot Studio or build and validate the agent manually (approximately 70 minutes). Please choose whichever option works best for you.*
 
 ### Option A: Quick setup, import the solution (about 5 minutes)
 
