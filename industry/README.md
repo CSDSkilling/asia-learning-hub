@@ -26,6 +26,8 @@ This repository contains a collection of class-ready, use-case-led teaching fram
 | **Public Sector** | Copilot | [Citizen Enquiry Support: From High-Volume Inbox to Confident Responses](PS/Copilot/Citizen%20Enquiry%20Support) |
 | **Public Sector** | Copilot | [User Feedback Analysis](PS/Copilot/User%20Feedback%20Analysis) |
 | **Public Sector** | Agent Builder | [Procurement Compliance Coach](PS/Agent%20Builder/Procurement%20Compliance%20Coach) |
+| **Public Sector** | Agent Builder | [Grant Application Coach](PS/Agent%20Builder/Grant%20Application%20Coach) |
+| **Public Sector** | Copilot Studio | [From Request to Approved Purchase: Procurement Request Assistant (Standard Harness)](PS/Copilot%20Studio/Procurement%20Request%20Assistant) |
 | **Retail** | Copilot | [Campaign Launch Readiness](Retail/Copilot/Campaign%20Launch%20Readiness) |
 | **Retail** | Copilot | [Retail Performance Analysis](Retail/Copilot/Retail%20Performance%20Analysis) |
 | **Retail** | Copilot | [Returns & Product Quality Review](Retail/Copilot/Returns%20%26%20Product%20Quality%20Review) |
