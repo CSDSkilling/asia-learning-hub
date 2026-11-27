@@ -147,6 +147,11 @@ Save the file as "**Meranti Coast Retention Intervention Brief.docx**".
 >- Which controls prevent inappropriate outreach
 >- What approval is required
 
+- **Demonstrate following features:**
+  - Improve the document with "Edit with Copilot"
+  - Under the document in "Chat only" mode
+  - Review the document and identify areas for improvement
+
 ## Stage 4 - Convert the brief into an executive presentation
 - **Create draft:** Open an existing presentation with the right template. Run the prompt with attached "**Meranti Coast Retention Intervention Brief.docx**".
 >Create a new seven-slide executive presentation from the attached Meranti Coast retention intervention brief.
@@ -171,6 +176,10 @@ Save the file as "**Meranti Coast Retention Intervention Brief.docx**".
 >- Missing decisions
 >- Governance controls that should be more visible
 
+- **Demonstrate following features:**
+  - Add a slide
+  - Summarize the deck
+
 ## Stage 5 - Coordinate approvals in Outlook
 - **Create draft:** Run the prompt with attached "**Meranti Coast Retention Intervention Brief.docx**".
 >Draft an email to Customer Care, Network Operations, Data Governance, Legal, and Finance.
@@ -188,6 +197,12 @@ Save the file as "**Meranti Coast Retention Intervention Brief.docx**".
 >Rewrite the email to fit within 180 words.
 >Keep the decision requested from each team explicit and easy to scan.
 >Use a professional, neutral tone.
+
+- **Demonstrate following features:**
+  - Auto rewrite
+  - Get coaching
+  - Prepare for future meeting
+  - Settings for Personalization, Draft Instructions
 
 ## Final demo outcome
 By the end of the story, the care manager has produced:
