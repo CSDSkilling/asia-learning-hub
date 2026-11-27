@@ -78,6 +78,11 @@ three proposed investigations, and decisions needed. Label all owners and
 dates as proposed. State the cohort and CU units. Do not promise savings.
 ```
 
+Demonstrate following features:
+- Improve the document with "Edit with Copilot"
+- Under the document in "Chat only" mode
+- Review the document and identify areas for improvement
+
 Save the reviewed brief as `Returns_Decision_Brief.docx`. In PowerPoint, reference that document (or paste its contents):
 
 ```text
@@ -85,6 +90,11 @@ Create a four-slide review: decision required, measured signals, competing
 explanations and missing evidence, and proposed investigations. Preserve the
 denominators and distinguish facts from hypotheses. Add brief speaker notes.
 ```
+
+Demonstrate following features:
+- Add a slide
+- Summarize the deck
+- Review the deck and identify areas for improvement
 
 ### 4. Capture decisions - Teams
 
@@ -107,6 +117,12 @@ Draft an internal follow-up under 150 words with the three agreed actions,
 owner roles and deadlines. Explicitly say no supplier chargeback or product
 withdrawal was approved. Do not add recipients or send the message.
 ```
+
+Demonstrate following features:
+- Auto rewrite
+- Get coaching
+- Prepare for future meeting
+- Settings for Personalization, Draft Instructions
 
 ## Expected results
 
