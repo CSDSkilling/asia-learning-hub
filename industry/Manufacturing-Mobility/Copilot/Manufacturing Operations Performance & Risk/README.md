@@ -305,6 +305,14 @@ Rewrite this to about 150 words. Cover three points: what improved in W43, wheth
 > Key Takeaway & Talking point
 > - The manager turns the Excel findings into a management-ready weekly report that leadership can read before the meeting.
 > - *Copilot didn't just report the recovery. It surfaced the risk that remains: two of the three fixes that prevent another W42 haven't started yet. That's the difference between summarizing results and making the decision leadership needs to make obvious.*
+
+<br>
+
+**Demonstrate following features:**
+- Improve the document with "Edit with Copilot"
+- Under the document in "Chat only" mode
+- Review the document and identify areas for improvement
+
 ---
 
 <br>
@@ -349,6 +357,15 @@ Requirements:
 > Key Takeaway & Talking point
 > - The manager sends leadership a clear, action-oriented message with the decision needed, the owners, and the deadline.
 > - *Copilot didn't just shorten the report. It separated what's urgent from what can wait and ended with a clear ask.*
+
+<br>
+
+**Demonstrate following features:**
+- Auto rewrite
+- Get coaching
+- Prepare for future meeting
+- Settings for Personalization, Draft Instructions
+
 ---
 
 <br>
