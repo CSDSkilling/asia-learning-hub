@@ -83,6 +83,11 @@ Save the file as "**Frontline Service Pressure Brief.docx**".
 - **Refine**
 >Rewrite the template replies at a reading level suitable for the general public. Keep them empathetic, avoid jargon, and do not promise outcomes or eligibility.
 
+- **Demonstrate following features:**
+  - Improve the document with "Edit with Copilot"
+  - Under the document in "Chat only" mode
+  - Review the document and identify areas for improvement
+
 ## Stage 4 - Communicate in PowerPoint
 - **Create draft:** Open an existing presentation with the right template. Run the prompt with attached "**Frontline Service Pressure Brief.docx**".
 >Create a five-slide leadership presentation from the attached brief: 1) situation and scope, 2) enquiry volume and trends, 3) citizen impact and risks, 4) recommended actions, and 5) decisions required. Use concise titles that state the takeaway. Use the format and styles in this presentation.
@@ -90,12 +95,23 @@ Save the file as "**Frontline Service Pressure Brief.docx**".
 - **Review and refine**
 >Review this deck as if you were the Director of Service Delivery. Identify what is unclear, too detailed or missing. Recommend changes that strengthen the evidence, risks, recommendation and decision required.
 
+- **Demonstrate following features:**
+  - Add a slide
+  - Summarize the deck
+  - Review the deck and identify areas for improvement
+
 ## Stage 5 - Coordinate in Outlook
 - **Create draft:** Run the prompt with attached "**Frontline Service Pressure Brief.docx**".
 >Draft an email to Policy, Digital Services, the Contact Centre and Communications. Summarise the service pressure and ask each team to confirm its action: Policy to clarify the ambiguous guidance, Digital Services to improve the web form and self-service content, Contact Centre to confirm staffing and escalation handling, and Communications to review public messaging.
 
 - **Review and refine**
 >Make the email concise and action-oriented. Add a table with team, requested action, deadline and evidence required. Request that blockers be escalated early.
+
+- **Demonstrate following features:**
+  - Auto rewrite
+  - Get coaching
+  - Prepare for future meeting
+  - Settings for Personalization, Draft Instructions
 
 ## Responsible use
 - Copilot drafts and summarises; officers make all eligibility, entitlement and escalation decisions.
