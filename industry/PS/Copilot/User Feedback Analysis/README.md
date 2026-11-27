@@ -76,6 +76,11 @@ Save the file as "**MyRiverbend Renewals Feedback Findings.docx**".
 - **Refine**
 >Rewrite the executive summary in no more than five bullets for a senior audience. Make clear where evidence is strong and where it is limited.
 
+- **Demonstrate following features:**
+  - Improve the document with "Edit with Copilot"
+  - Under the document in "Chat only" mode
+  - Review the document and identify areas for improvement
+
 ## Stage 4 - Communicate in PowerPoint
 - **Create draft:** Open an existing presentation with the right template. Run the prompt with attached "**MyRiverbend Renewals Feedback Findings.docx**".
 >Create a five-slide presentation from the attached findings: 1) what we looked at, 2) what is working well, 3) what is frustrating users, 4) recommended improvements and priority, and 5) decisions and next steps. Use concise titles that state the takeaway. Include user quotes where helpful. Use the format and styles in this presentation.
@@ -83,12 +88,23 @@ Save the file as "**MyRiverbend Renewals Feedback Findings.docx**".
 - **Review and refine**
 >Review this deck as if you were the Executive Sponsor. Identify what is unclear, unsupported by evidence or missing, and suggest changes to strengthen the recommendation.
 
+- **Demonstrate following features:**
+  - Add a slide
+  - Summarize the deck
+  - Review the deck and identify areas for improvement
+
 ## Stage 5 - Coordinate in Outlook
 - **Create draft:** Run the prompt with attached "**MyRiverbend Renewals Feedback Findings.docx**".
 >Draft an email to Design, Development, Content and Contact Centre teams. Summarise the findings and ask each team to confirm the proposed actions: Design to review the document upload step, Development to investigate reliability issues, Content to simplify instructions, and the Contact Centre to share common user questions.
 
 - **Review and refine**
 >Make the email concise. Add a table with team, requested action, priority and target date.
+
+- **Demonstrate following features:**
+  - Auto rewrite
+  - Get coaching
+  - Prepare for future meeting
+  - Settings for Personalization, Draft Instructions
 
 ## Responsible use
 - Copilot classification is a starting point; spot-check themes and sentiment against the original comments.
