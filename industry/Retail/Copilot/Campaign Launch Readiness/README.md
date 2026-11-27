@@ -67,6 +67,11 @@ next steps. No-go is a current recommendation, not a cancellation.
 Do not claim a waiver, test pass, budget saving, or owner agreement.
 ```
 
+Demonstrate following features:
+- Improve the document with "Edit with Copilot"
+- Under the document in "Chat only" mode
+- Review the document and identify areas for improvement
+
 Save the reviewed document as `Launch_Decision_Brief.docx`. In PowerPoint, reference it or paste its text:
 
 ```text
@@ -74,6 +79,11 @@ Create four slides: launch decision, channel readiness, mandatory blockers,
 and evidence required to revisit the decision. Include the 13 November
 12:00 review time. Clearly separate mandatory gates from optional work.
 ```
+
+Demonstrate following features:
+- Add a slide
+- Summarize the deck
+- Review the deck and identify areas for improvement
 
 ### 4. Confirm ownership - Teams
 
@@ -95,6 +105,12 @@ owners for the agreed evidence by 15:00 on 13 November 2026. Mention the
 16:00 re-review and the current no-go recommendation. Do not imply the
 tests passed, waive a gate, add recipients, or send.
 ```
+
+Demonstrate following features:
+- Auto rewrite
+- Get coaching
+- Prepare for future meeting
+- Settings for Personalization, Draft Instructions
 
 ## Expected results
 
