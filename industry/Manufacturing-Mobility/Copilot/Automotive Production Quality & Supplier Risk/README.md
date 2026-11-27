@@ -201,6 +201,11 @@ Rewrite this section in about 150 words. Describe the W43 recovery, the continui
 
 **Talking point:** The output should be a decision-ready narrative with cited source figures, not a claim that the suspected defect or financial effect has been proven.
 
+**Demonstrate following features:**
+- Improve the document with "Edit with Copilot"
+- Under the document in "Chat only" mode
+- Review the document and identify areas for improvement
+
 ---
 
 ## 6. Draft leadership communication (Outlook)
@@ -220,6 +225,12 @@ Use fewer than 200 words, a professional executive tone, and two labels: Urgent 
 ```
 
 **Talking point:** A short draft can show the difference between improved production and unresolved risk. A person must verify the data, recipients, attachment and decision request.
+
+**Demonstrate following features:**
+- Auto rewrite
+- Get coaching
+- Prepare for future meeting
+- Settings for Personalization, Draft Instructions
 
 ---
 
