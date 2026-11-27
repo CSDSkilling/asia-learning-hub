@@ -239,6 +239,11 @@ By the end of the activity, learners should be able to answer:
 | **Action plan** | Create a 90-day action plan from the retail report. Use a table with Action, Business Rationale, Suggested Owner, Success Measure, Priority and Timeframe. Do not invent named employees. |
 | **Executive polishing** | Review this report for repetition, unsupported claims and overly technical language. Rewrite it into a concise executive style while preserving the figures, conclusions and recommended actions. |
 
+**Demonstrate following features:**
+- Improve the document with "Edit with Copilot"
+- Under the document in "Chat only" mode
+- Review the document and identify areas for improvement
+
 ---
 
 ## Copilot Prompts for PowerPoint
@@ -268,6 +273,11 @@ By the end of the activity, learners should be able to answer:
 
 ### D. Speaker notes
 > Add speaker notes for each slide. Explain the key message, the evidence to mention and one likely executive question. Keep each set of notes suitable for approximately one minute of speaking.
+
+### E. Demonstrate following features
+- Add a slide
+- Summarize the deck
+- Review the deck and identify areas for improvement
 
 ---
 
