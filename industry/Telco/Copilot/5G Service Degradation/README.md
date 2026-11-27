@@ -66,6 +66,11 @@ Save the file as "**Harbor District 5G Service Incident Brief.docx**".
 - **Refine**
 >Rewrite the executive summary for a senior operations audience in no more than six bullets. Preserve uncertainty where root cause is not confirmed.
 
+- **Demonstrate following features:**
+  - Improve the document with "Edit with Copilot"
+  - Under the document in "Chat only" mode
+  - Review the document and identify areas for improvement
+
 ## Stage 4 - Communicate in PowerPoint
 - **Draft execution presentation:** Open an existing presentation with the right template. Run the prompt with attached "**Harbor District 5G Service Incident Brief.docx**".
 >Create a five-slide executive presentation from the attached incident brief: 1) situation and scope, 2) customer and service impact, 3) evidence and incident timeline, 4) recommended actions and safeguards, and 5) decisions required today. Use concise titles that state the takeaway. Do not present CHG-58217 as the confirmed root cause. Use the format and styles in this presentation.
@@ -73,12 +78,22 @@ Save the file as "**Harbor District 5G Service Incident Brief.docx**".
 - **Review and refine**
 >Review this deck as if you were the decision maker. Identify what is unclear, too detailed, or missing. Recommend changes that strengthen the business impact, evidence, risks, trade-offs, recommendation, and decision required. Provide slide-by-slide suggestions and propose a stronger executive storyline.
 
+- **Demonstrate following features:**
+  - Add a slide
+  - Summarize the deck
+
 ## Stage 5 - Coordinate in Outlook
 - **Draft action-request email:** Run the prompt with attached "**Harbor District 5G Service Incident Brief.docx**".
 >Draft an action-request email to Network Operations, Change Management, Customer Care, Enterprise Services, Finance, and Legal. Summarize the Harbor District degradation and ask each team to confirm its assigned action, dependency, and completion time. State clearly that root cause remains under validation.
 
 - **Review and refine**
 >Make the email concise and action-oriented. Add a table with team, requested action, deadline, and approval or evidence required. Include a request to escalate blockers before the rollback decision window.
+
+- **Demonstrate following features:**
+  - Auto rewrite
+  - Get coaching
+  - Prepare for future meeting
+  - Settings for Personalization, Draft Instructions
 
 ## Final demo outcome
 By the end of the story, the Service Assurance manager has produced:
