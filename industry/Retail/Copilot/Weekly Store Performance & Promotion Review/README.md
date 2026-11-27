@@ -89,6 +89,11 @@ Open `store_feedback.csv` and ask Copilot to connect it to the numbers:
 
 > Mark each point as "data supports", "store feedback only", or "needs more evidence". Do not state a cause as fact unless the data supports it.
 
+Demonstrate following features:
+- Improve the document with "Edit with Copilot"
+- Under the document in "Chat only" mode
+- Review the document and identify areas for improvement
+
 ### Stage 4: Build the Leadership Pack (PowerPoint)
 
 Create a short slide outline in PowerPoint with Copilot:
@@ -97,6 +102,11 @@ Create a short slide outline in PowerPoint with Copilot:
 
 **Tip:** Copy the sales gap table from Stage 1 into the deck as a native table, not as an image. Copilot can then reuse the numbers.
 
+Demonstrate following features:
+- Add a slide
+- Summarize the deck
+- Review the deck and identify areas for improvement
+
 ### Stage 5: Draft the Store Manager Email (Outlook)
 
 Ask Copilot to draft the follow-up:
@@ -104,6 +114,12 @@ Ask Copilot to draft the follow-up:
 > Draft a short email to the Riverside store manager about the footwear sales gap for W19 to W22. Ask two questions: what the stock and size availability looked like, and whether any customer requests were not met. Keep it under 150 words and do not blame the store.
 
 **Review before sending:** Check the numbers, the tone, and that the email does not promise any stock, dates or budget that is not in the data.
+
+Demonstrate following features:
+- Auto rewrite
+- Get coaching
+- Prepare for future meeting
+- Settings for Personalization, Draft Instructions
 
 ---
 
